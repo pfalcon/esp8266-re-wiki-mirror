@@ -1,29 +1,9 @@
-Welcome to the ESP8266 Reverse Engineering Wiki!
+<strong>MediaWiki has been successfully installed.</strong>
 
-This wiki is intended to collect information and collaboration for all manner of reverse-engineering efforts surrounding the ESP8266 series of WiFi-enabled microcontrollers, and the various modules built from them.
+Consult the [//meta.wikimedia.org/wiki/Help:Contents User's Guide] for information on using the wiki software.
 
-If you're only looking for information on how to start using the ESP8266 in your own projects, this is probably not what you're looking for.  For more general getting-started/programming/applications information, there are a number of [[Other Resources|other resources]] available to you out there on the net.  However, if you're interested in digging behind the curtains to see all the bits you weren't intended to, and really understand how everything works deep deep down under the covers (and maybe make it work even better), then this is the place for you!
-
-This is a public wiki, and anybody can contribute.  To cut down on automated abuse, you will need to [[Special:CreateAccount|create an account]] before you'll be able to edit any pages (but it's pretty quick and painless, we promise!)
-
-== Discussion List ==
-
-We also have a maillist for discussions related to reverse-engineering the ESP8266.  Anyone who wishes to contribute here is strongly encouraged to also join the mailing list (it should be fairly low-volume):
-
-* Email: [mailto:esp8266-re@googlegroups.com esp8266-re@googlegroups.com]
-* Web: [https://groups.google.com/forum/#!forum/esp8266-re Esp8266-re Forum and Archives]
-
-== General Information ==
-
-* [[Guidelines]] -- Things to know when using this wiki
-* [[Tools]] -- Useful software and other resources for those who want to start digging into things
-* [[Where to Start]] -- Want to contribute but not sure what to do?  Check here!
-* [[Reference Documentation]] -- Links to other documentation useful for reverse engineering
-* [[Other Resources]] -- Links to other sites and resources about the ESP8266 (all kinds!)
-
-== Areas of Endeavor ==
-
-* [[Hardware]] -- Reverse Engineering the physical chip/modules
-* [[Platform]] -- Information about the hardware, as seen by software running in it (memory address mappings, how to communicate with various parts of the hardware, etc)
-* [[Boot ROM]] -- The initial code burned into each chip, which handles bootup, flashing, etc.
-* [[IoT SDK]] -- Reverse Engineering the proprietary binaries/libraries included with Espressif's IoT SDK
+== Getting started ==
+* [//www.mediawiki.org/wiki/Special:MyLanguage/Manual:Configuration_settings Configuration settings list]
+* [//www.mediawiki.org/wiki/Special:MyLanguage/Manual:FAQ MediaWiki FAQ]
+* [https://lists.wikimedia.org/mailman/listinfo/mediawiki-announce MediaWiki release mailing list]
+* [//www.mediawiki.org/wiki/Special:MyLanguage/Localisation#Translation_resources Localise MediaWiki for your language]
