@@ -1,0 +1,18 @@
+The following is a collection of other ESP8266-related resources out there on the Internet.
+
+= Getting Started / General =
+* [http://www.esp8266.com/ The esp8266.com Community forum], [http://www.esp8266.com/wiki/doku.php wiki], and [https://github.com/esp8266 code repository]
+* [https://nurdspace.nl/ESP8266 NURDspace's ESP8266 site]
+* [http://bbs.espressif.com/ The Espressif official forums]
+* [http://benlo.com/esp8266/esp8266QuickStart.html ESP8266 Quick Start] by Peter Jennings
+
+= Reference =
+* [http://espressif.com/en/products/esp8266/ The Espressif product page]
+
+= Other Languages / Environments =
+* [http://nodemcu.com/index_en.html NodeMCU] -- A lua-based environment for the ESP8266
+* [https://github.com/micropython/micropython/tree/master/esp8266 Micropython for the ESP8266] (see also the [https://learn.adafruit.com/building-and-running-micropython-on-the-esp8266/overview Adafruit walkthrough])
+* [https://github.com/esp8266/arduino ESP8266 support for the Arduino IDE]
+
+= OS-Level Hacking =
+* [https://github.com/SuperHouse/esp-open-rtos esp-open-rtos] -- A community developed open source FreeRTOS-based framework for the ESP8266
