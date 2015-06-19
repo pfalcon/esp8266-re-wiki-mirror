@@ -1,0 +1,77 @@
+Reverse-engineering can be a tricky business, and there are a few things that everyone interested in such an undertaking should be aware of.  This page details some general information, best practices, and suggestions/requests for those interested in contributing to this site.
+
+= Best Practices =
+== Note your sources ==
+
+We don't need Wikipedia-level bibliographies or anything (and original research is actually encouraged), but if you do get information from somewhere else, please note where it came from.  This makes it easier for others to start from the same place you did, and can also help those who want to use the results down the line if there are questions later about origins, licensing, fair-use, etc.
+
+== Do not post NDA'd material ==
+
+Non-Disclosure Agreements can be particularly problematic, as they have a tendency to taint anything they come in contact with, and if NDA'd material "gets loose" it can ultimately cause all kinds of legal issues for people down the line who may not even know they had been using it.  To avoid this, please do not post anything here which was obtained (or might have been obtained) under an NDA.
+
+Note that just because you didn't agree to the NDA doesn't mean it's OK for you to distribute information that somebody else got through an NDA either.  Unless you can be sure that the information is available *from the source* via some means that does not involve an NDA, don't use or post it.
+
+In particular, the following documents are believed to be provided by Espressif only under the terms of an NDA.  While they can be easily found and downloaded from many places on the net without signing the NDA, they are still "tainted goods" and information from them should not be used or posted here:
+
+* '''Espressif Smart Connectivity Platform''' (most commonly found as "ESP8266_Specifications_English.pdf", or "ESP8266 Specifications(Chinese).pdf").  Note that these documents are easy to identify, as they are clearly identified with "CONFIDENTIAL" watermarks on each page.
+
+If you come across some information which is distributed under an NDA, but is also (verifiably) available via some other non-NDA source, please make a point of clearly stating the non-NDA source it comes from, so that there is no question of its status for those who come later.
+
+== Avoid posting source code on the wiki ==
+
+It's not exactly prohibited, but in general if you have produced source code which you have created by reverse-engineering something, this wiki is probably not the best place to put it.  There are two reasons for this:
+
+# There are better places to store code out there on the net (such as [https://bitbucket.org/ Bitbucket] or [https://github.com/ Github]), which make it easier to access and use, track changes, etc.  In general, a preferred method is to use one of those other services and then link to the code in question from here.
+# The use of clean-room methodologies (see below) requires that first-pass (human-language) results are kept in a completely separate place to the finished (code) results.  In the case of ESP8266, strict clean-room RE procedures are probably not critical, but the general process is still a good one overall and can have other benefits, so this site is intended primarily to collect human-readable explanations of things.
+
+== Clean-room methodology ==
+
+"Clean room" reverse-engineering of software is a process intended to completely avoid any legal issues over derivative works and resultant copyright and licensing concerns.  The general idea is that the reverse-engineering of the original product is done by one team, who only describe the results but do not produce any actual code.  A second team who has never seen the original product then works entirely from the descriptions provided by the first team to actually write new code which performs the required functions.
+
+As most of the ESP8266 code is licensed under fairly permissive licenses, this is not as great a concern as for some other projects, but there are some cases (such as some of the newer versions of the Espressif IoT SDK) where license-tainting may still be a concern, and avoiding derivative works can still be desirable.  Additionally, the clean-room process can have some other useful side-effects (such as not accidentally duplicating flawed code in the original).
+
+Clean-room processes are not strictly enforced here.  The same person can both reverse-engineer and write code, for example.  However, it is encouraged to note the results of your discoveries here on the wiki in human-understandable (non-code) form, in a way which could be used by somebody else who has never seen the original to write their own code to do the same thing.  Not only does this make it easier for other people to understand what's going on, but it also makes it possible for somebody to use the information on this site as the starting point for a real clean-room implementation should there ever become a need to do so.
+
+= Legality =
+
+The legal aspects of reverse-engineering are often not well defined, and can vary depending on the country, methods used, and even the intent or motivations.  This isn't intended to scare anyone off, but there are some basics which everyone should be aware of.  (Note that most of this information is currently written from the perspective of U.S. laws, and may be different in different countries (anybody who can provide relevant information about other countries' laws is encouraged to contribute!))
+
+''Please also note that the text on this page was not written by lawyers, and is not legal advice of any sort.  If you are seriously concerned, or believe you have a real legal problem related to any of this, you should contact an actual lawyer, instead of relying on anything you read here.''
+
+== Hardware ==
+
+Under U.S. law, reverse-engineering hardware is usually legal, provided that the hardware was obtained legally to begin with (i.e. you bought it).  In the context of ESP8266 devices, this means that if you want to buy one and rip it apart to figure out how it works, you probably won't encounter much in the way of legal hurdles.
+
+== Software ==
+
+Reverse-engineering software is a much trickier matter than hardware.  Software is protected by copyright law, and typically licensed to the user rather than sold.  What this means is that the laws which permit reverse-engineering hardware generally do not apply to software.
+
+Section 103(f) of the Digital Millenium Copyright Act (DMCA) states explicitly that a person who legally has the right to use a program is allowed to reverse-engineer it, provided that it is necessary to achieve "interoperability" with other software or devices.  The tricky bit here is the determination of whether some reverse-engineering was being done for "interoperability" or not.  In the case of the ESP8266, it would seem that there would be a fairly strong case for this if challeneged; however, there is no easy standard for this, so the only way to determine this conclusively would be in the courts on a case-by-case basis, should it ever come to that.
+
+Many software providers also explicitly attempt to forbid reverse-engineering in the terms of the license for their software.  Luckily, in the case of the ESP8266, most of the associated software has been licensed under either the GPL, the MIT license, or a slightly modified MIT license, none of which have this prohibition.
+
+One area where the licensing is a bit unclear is for the boot ROM firmware which is provided already burned into the ESP8266 chip.  As there is no explicit license for this firmware, it is somewhat legally ambiguous what is and isn't allowed to be done to it.  However, it seems likely that given the absence of any explicit prohibitions, a strong case could be made that the terms of the DMCA should predominate, and that reverse-engineering for interoperability is legal in this case as well.
+
+=== Derivative Works and Licensing ===
+
+The other big issue with software is the question of "derivative works" and licensing.  In general, if a piece of software is licensed under particular terms, then any "derivative work" based on that software must also be under the same terms (for example, it must be distributed using the same license).  This can be a problem, for example, if the original was licensed under a not-fully-open license (such as the Espressif modified MIT-style license), because if the reverse-engineered result is determined to be a "derivative work", then it still can't be distributed under any other (fully open-source) license.
+
+What constitutes a "derivative work"?  Again, the answer is historically somewhat legally ambiguous, and ultimately can only be decided on a case-by-case basis.  There are some general principles which are often used to minimize the risk of this classification, though:
+
+* Anything that can be produced from the original using purely mechanical means (for example, a disassembler, a reverse-compiler, a decompile-patch-recompile process, etc) is generally considered to be a derivative work.  (What this means is that in order to avoid this designation, there must at the very least be some human comprehension and rewriting somewhere in the process)
+* Human-written code can still be a derivative work if it copies substantial portions of the original, or implements substantial portions in a way which are not clearly distinguishable from the original.  (Basically, even if it's all done by hand, if all you do is copy the original (or even just a part of it) word-for-word, that's still probably going to be considered a derivative work)
+* Code which was written by somebody who can be shown to have never seen the original code is generally assumed to be free from any derivative-work concerns.  (This is the basis for the "clean room" approach described above).
+
+Ultimately, anything in between these areas will always be a bit fuzzy.  A good rule of thumb if you are writing code is just to avoid the potential for copying as much as possible.
+
+In the case of the ESP8266 IoT SDK, it is recommended to work from versions of this SDK which were licensed under the (pure) MIT license, as the MIT license terms are open enough that even if a claim of derivative works is made, it should not really interfere with the ability for people to use the results in whatever way they may want to.
+
+== Non-Disclosure Agreements ==
+
+In addition to the above, Non-Disclosure Agreements (NDAs) can also be something of a wildcard.  If you have committed to an NDA at any point, then even if it is entirely legal for you to reverse-engineer something to find out information about it, it may still be illegal for you to tell anybody else the information you have discovered afterward.  It is important to realize that the terms of an NDA may not just cover the material which it was presented with, but can actually cover all manner of additional types of information, including things you later discover yourself via other means.  No matter how you got it, if the information is covered, you can't tell it to anybody else (for information which is easily obtainable via other means, it may be possible to dispute such restrictions in court, but who really wants to go through a (potentially long and expensive) legal battle to have that decided?).
+
+In this way, NDAs can be very dangerous, and should always be reviewed very carefully before being agreed to, as they can essentially override everything else, even for areas which are not obvious or were not entirely intended.
+
+The law is also somewhat vague on what actually constitutes agreement to an NDA in various situations.  In most cases, you will actually be expected to sign a document indicating agreement to the terms of the NDA, but not always.  In some cases, it may be enough to simply to know that the information you are (for example) downloading is only available under the terms of an NDA, in order for you to implicitly agree to the NDA and be bound by it so, again, it is important to be careful.
+
+Note also that just because you didn't sign the NDA doesn't mean that the information you have obtained from someone else is OK to distribute.  If somebody else violates an NDA by providing you with the information, then that information is still legally classified as a trade secret and "tainted goods", and you (or anyone else) are not allowed to keep or redistribute it either.  This means that NDA'd material which "gets loose" can actually have a chain-reaction effect on anyone (or any project) it touches, sometimes with substantial legal consequences even for people who never acted in bad faith and never knew the information was protected in the first place.
