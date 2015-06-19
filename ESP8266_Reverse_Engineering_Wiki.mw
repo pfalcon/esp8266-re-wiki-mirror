@@ -2,7 +2,7 @@ Welcome to the ESP8266 Reverse Engineering Wiki!
 
 This wiki is intended to collect information and collaboration for all manner of reverse-engineering efforts surrounding the ESP8266 series of WiFi-enabled microcontrollers, and the various modules built from them.
 
-If you're only looking to use the ESP8266 in your own projects, this is probably not what you're looking for.  For more general getting-started/programming/applications information, there are a number of [[other resources]] available to you out there on the net.  However, if you're interested in digging behind the curtains to see all the bits you weren't intended to, and really understand how everything works deep deep down under the covers, then maybe this is the place for you!
+If you're only looking to use the ESP8266 in your own projects, this is probably not what you're looking for.  For more general getting-started/programming/applications information, there are a number of [[Other Resources|other resources]] available to you out there on the net.  However, if you're interested in digging behind the curtains to see all the bits you weren't intended to, and really understand how everything works deep deep down under the covers, then maybe this is the place for you!
 
 This is a public wiki, and anybody can contribute.  To cut down on automated abuse, you will need to <span class="plainlinks">[{{fullurl:Special:Userlogin|type=signup}} create an account]</span> before you'll be able to edit any pages (but it's pretty quick and painless, we promise!)
 
