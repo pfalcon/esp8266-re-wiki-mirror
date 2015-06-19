@@ -1,0 +1,55 @@
+= Xtensa CPU/Architecture =
+
+* [http://0x04.net/~mwk/doc/xtensa.pdf Xtensa Instruction Set Architecture (ISA) Reference Manual]
+
+= ESP8266-Specific =
+== Official Espressif Documentation ==
+
+(All official public documentation from Espressif is released via their [http://bbs.espressif.com/viewforum.php?f=21 Documentation Forum] at bbs.espressif.com)
+
+=== ESP8266 Datasheet and Hardware User Guide ===
+* [http://bbs.espressif.com/download/file.php?id=520 0A-ESP8266__Datasheet__EN_v4.3.pdf]
+* [http://bbs.espressif.com/download/file.php?id=486 0B-ESP8266__Hardware_User_Guide__EN_v1.0.pdf]
+* [http://bbs.espressif.com/download/file.php?id=518 0C-ESP8266__WROOM_WiFi_Module_Datasheet__EN_v0.3.pdf]
+* [http://bbs.espressif.com/download/file.php?id=442 0D-ESP8266__Pin_List__Release_15-11-2014.xlsx]
+
+=== IoT SDK Documentation ===
+
+(The following files are bundled with each version of the IoT SDK)
+
+* 2A-ESP8266__IOT_SDK_User_Manual
+* 2B-ESP8266__SDK__IOT_Demo 
+* 2C-ESP8266__SDK__Programming Guide
+* 4A-ESP8266__AT Instruction Set
+* 4B-ESP8266__AT Command Examples
+
+Current version: [http://bbs.espressif.com/download/file.php?id=521 esp_iot_sdk_v1.1.2_15_06_12.zip]
+
+=== ESP8266 Interface Guide ===
+
+* 8A-ESP8266__Interface_GPIO__EN_v0.4 (Not currently available in English: [http://bbs.espressif.com/download/file.php?id=516 Chinese Version])
+* [http://bbs.espressif.com/download/file.php?id=515 8B-ESP8266__Interface__GPIO_Registers__Release_15-11-2014.xls]
+* 8C-ESP8266__Interface_I2C__EN_v0.2 (Not currently available in English: [http://bbs.espressif.com/download/file.php?id=359 Chinese Version])
+* 8D-ESP8266__Interface_PWM__EN_v0.3 (From Espressif: "Please write to feedback@espressif.com for this document. Thanks")
+* [http://bbs.espressif.com/download/file.php?id=500 8E-ESP8266__Interface_UART__EN_v0.2.pdf]
+* [http://bbs.espressif.com/download/file.php?id=339 8F-ESP8266__Interface__UART_Registers_v0.1.xls]
+* [http://bbs.espressif.com/download/file.php?id=510 8G-ESP8266_Interface_Infrared_Remote_Control__EN_v0.3.pdf]
+* [http://bbs.espressif.com/download/file.php?id=498 8G-ESP8266_Interface_Infrared_Device__EN_v0.3.pdf]
+* 8H-ESP8266__Interface_SDIO_SPI_Mode__EN (Not currently available in English: [http://bbs.espressif.com/download/file.php?id=356 Chinese Version])
+* 8I-ESP8266__SPI-WiFi_Passthrough_1-Interrupt_Mode__EN_v0.1 (Not currently available in English: [http://bbs.espressif.com/download/file.php?id=346 Chinese Version])
+* 8J-ESP8266__SPI-WiFi_Passthrough_2-Interrupt_Mode__EN_v0.1 (Not currently available in English: [http://bbs.espressif.com/download/file.php?id=345 Chinese Version])
+* [http://bbs.espressif.com/download/file.php?id=514 8K-ESP8266__Sniffer_Introduction__EN_v0.3.pdf]
+* [http://bbs.espressif.com/download/file.php?id=511 8L-ESP8266__Interface__SPI_Registers__Release_18-11-2014.xls]
+* [http://bbs.espressif.com/download/file.php?id=512 8M-ESP8266__Interface__Timer_Registers__Release_18-11-2014.xls]
+* [http://bbs.espressif.com/download/file.php?id=502 8N-ESP8266__SPI Reference__EN_v1.0.pdf]
+* [http://bbs.espressif.com/download/file.php?id=529 8Q-ESP8266__HSPI_Host_Multi_Devices__EN_v1.0.pdf]
+
+=== RTOS SDK Guide ===
+
+* 20A-ESP8266__RTOS_SDK__Programming Guide__EN_v0.9.9.pdf (Not currently available in English: [http://bbs.espressif.com/download/file.php?id=343 Chinese Version])
+
+=== ESP8266 Flash Read&Write - Over the Air ===
+
+* [http://bbs.espressif.com/download/file.php?id=336 99A-ESP8266__Flash_RW_Operation__EN_v0.2.pdf]
+* 99B-ESP8266__Timer__EN_v0.1 (Not currently available)
+* [http://bbs.espressif.com/download/file.php?id=483 99C-ESP8266__OTA_Upgrade__EN_v1.6.pdf]
