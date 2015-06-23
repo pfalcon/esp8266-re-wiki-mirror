@@ -6,6 +6,13 @@ If you're only looking to use the ESP8266 in your own projects, this is probably
 
 This is a public wiki, and anybody can contribute.  To cut down on automated abuse, you will need to <span class="plainlinks">[{{fullurl:Special:Userlogin|type=signup}} create an account]</span> before you'll be able to edit any pages (but it's pretty quick and painless, we promise!)
 
+== Discussion List ==
+
+We also have a maillist for discussions related to reverse-engineering the ESP8266.  Anyone who wishes to contribute here is strongly encouraged to also join the mailing list (it should be fairly low-volume):
+
+* Email: [mailto:esp8266-re@googlegroups.com esp8266-re@googlegroups.com]
+* Web: [https://groups.google.com/forum/#!forum/esp8266-re Esp8266-re Forum]
+
 == General Information ==
 
 * [[Guidelines]] -- Things to know when using this wiki
