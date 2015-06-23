@@ -1,0 +1,12 @@
+= Obtaining =
+To obtain a copy of the 0.9.9 version of the IoT RTOS SDK:
+
+<pre>git clone https://github.com/espressif/esp_iot_rtos_sdk.git
+cd esp_iot_rtos_sdk
+git checkout ec75c85f9e</pre>
+
+Note that the last (git checkout) line is very important.  To double-check that you are working with the right version, you should run <code>git log</code> and check that the most recent log entry says "update version to 0.9.9, have a try.".  It would also be a good idea to check the LICENSE file and make sure it says "The MIT License (MIT)" at the top.
+
+= General Information =
+
+= Individual Routines =
