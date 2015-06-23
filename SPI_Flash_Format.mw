@@ -81,7 +81,7 @@ This page contains information used when booting the "slot1" image (boot_slot ==
 * ''slot0_info_len''/''slot1_info_len'' is the length of the data contained in the corresponding internal slotx info page
 * ''slot0_info_checksum''/''slot1_info_checksum'' is a checksum of the data contained in the corresponding internal slotx info page (the checksum is calculated the same way as for the segment data (XOR of all data with 0xef))
 
-Sources:
+= Sources =
 * esptool.py
 * http://richard.burtons.org/2015/05/17/esp8266-boot-process/
 * http://richard.burtons.org/2015/05/17/decompiling-the-esp8266-boot-loader-v1-3b3/
