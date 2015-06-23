@@ -1,338 +1,87 @@
-{{cleanup}}
+This page details the structure of the data contained and read from the SPI ROM chip.  The bulk of this format is the same as the image format which esptool produces and is uploaded to the chip.  The main exception is three pages at the end of the SPI flash which are reserved and used internally by the OTP boot ROM, and are not included in uploaded firmware images.
 
-This page details the structure of the data contained and read from the SPI ROM chip.
+== Overall Structure ==
 
-= Overall Structure =
+    0xea Header/Data (optional)
+    0xe9 Header
+    Code/Data Segments
+    Padding/Checksum
+    (unused space)
+    Internal Data
 
-The structure of the SPI flash is broken up into three sections:
+== Optional 0xea Header/Data ==
 
-{| class="wikitable"
-! Location !! Size !! Function
-|-
-| 0 || 4 KB || bootloader (boot.bin)
-|-
-| 4 KB || flash_size/2 || image 0
-|-
-| flash_size/2 || flash_size/2 - 16 KB || image 1
-|-
-| flash_size - 16 KB || 16 KB || Internal data
-|}
+This header is only present for images produced with newer versions of the SDK (1.1.2 and later).  Older images simply start with the 0xe9 header.
 
-'''image 0''' and '''image 1''' are two independently bootable firmware images.  The last four 4KB sectors are reserved for use internally by the bootloader.
+    uint8 ea_magic1
+    uint8 ea_magic2
+    uint8 config1
+    uint8 config2
+    uint32 entry
+    uint32 (unused)
+    uint32 length
 
-(Which of the images the loader boots is determined by a flag stored in the '''internal data''' area)
+''ea_magic1'' is 0xea.  ''ea_magic2'' is 0x04. ''length'' is the number of bytes in the .irom.text segment which follows
 
-= Firmware Image Format =
+=== .irom.text segment ===
 
-The format of the firmware image data contained in the two image sections can be in one of two forms:
+Immediately following the 0xea header is the contents of the .irom.text segment
 
-* Boot mode 1 (older format):
-:{| class="wikitable"
-| 0xe9 Header
-|-
-| Loadable segments
-|-
-| Checksum
-|-
-| Padding
-|-
-| .irom0.text data
-|}
-
-* Boot mode 2 (newer format):
-:{| class="wikitable"
-| 0xea Header
-|-
-| .irom0.text segment
-|-
-| 0xe9 Header
-|-
-| Loadable segments
-|-
-| Checksum
-|}
+'''TODO:''' Clarify: Is this prefixed by a segment header or not?
 
 == 0xe9 Header ==
 
-In "boot mode 1" images, this is the first header in the image.  For "boot mode 2", it comes immediately after the 0xea header and the irom0.text segment.
+    uint8 e9_magic
+    uint8 sect_count
+    uint8 flags1
+    uint8 flags2
+    uint32 entry_addr
 
-{| class="wikitable"
-! Offset !! Size !! Datatype !! Name !! Value / Notes
-|-
-| 0 || 1 || uint8 || magic || 0xe9
-|-
-| 1 || 1 || uint8 || unknown || 3
-|-
-| 2 || 1 || uint8 || flash_mode || 
-|-
-| 3 || 1 || uint8 || flash_size_speed ||
-|-
-| 4 || 4 || uint32 || entry_addr ||
-|}
-
-* ''flash_mode'' is one of the following values:
-::{| class="wikitable"
-!Value || Meaning
-|-
-| 0 || QIO
-|-
-| 1 || QOUT
-|-
-| 2 || DIO
-|-
-| 3 || DOUT
-|}
-* ''flash_size_speed'' is a combination of the following:
-** High nybble (0xf0) -- flash size:
-:::{| class="wikitable"
-!Value || Meaning
-|-
-| 0 || 512 KB (4 Mbit)
-|-
-| 1 || 256 KB (2 Mbit)
-|-
-| 2 || 1024 KB (8 Mbit)
-|-
-| 3 || 2048 KB (16 Mbit)
-|-
-| 4 || 4096 KB (32 Mbit)
-|}
-**For boot mode 2 images the size values have extended meaning. These values are supported by boot loaders version 1.4+.
-:::{| class="wikitable"
-!Value || Meaning
-|-
-| 0 || 512 KB (4 Mbit, 256+256 layout)
-|-
-| 1 || 256 KB (2 Mbit)
-|-
-| 2 || 1024 KB (8 Mbit, 512+512 layout)
-|-
-| 3 || 2048 KB (16 Mbit, 512+512 layout)
-|-
-| 4 || 4096 KB (32 Mbit, 512+512 layout)
-|-
-| 5 || 2048 KB (16 Mbit, 1024+1024 layout)
-|-
-| 6 || 4096 KB (32 Mbit, 1024+1024 layout)
-|}
-** Low nybble (0x0f) -- flash speed:
-:::{| class="wikitable"
-!Value || Meaning
-|-
-| 0 || 40 MHz
-|-
-| 1 || 26 MHz (80 MHz / 3)
-|-
-| 2 || 20 MHz
-|-
-| 0xf || 80 MHz
-|}
-* ''entry_addr'' is the memory location to start execution once all of the loadable segments are loaded.
-
-== Loadable Segments ==
+== Code/Data Segments ==
 
 Immediately following the 0xe9 header are one or more code/data segments.  Each segment starts with the following 8-byte header, followed immediately by the segment data:
 
-{| class="wikitable"
-! Offset !! Size !! Datatype !! Name
-|-
-| 0 || 4 || uint32 || address
-|-
-| 4 || 4 || uint32 || length
-|}
+    uint32 address
+    uint32 length
 
-For each of these segments, the bootloader will load the data into the memory at ''address'', before finally calling the ''entry_addr'' address to begin execution of the image.
+''address'' is the address in IRAM that the bootloader should load the data into.
 
-== Checksum ==
+== Padding and Checksum ==
 
-Following the last loadable segment, zero to 15 padding bytes will be added, followed by a checksum byte.
+Following the last segment, zero to 15 padding bytes will be added, followed by a checksum byte.
 
 The number of padding bytes is calculated such that the end of the data always falls on a 16-byte boundary (that is, the checksum byte will always be on a 16-byte boundary minus one).
 
 The checksum is a simple XOR of all of the data from each of the segments (the segment headers are ''not'' included), also XOR'd with the magic value 0xef.
 
-== Padding ==
+== Internal ==
 
-In boot mode 1, the .irom0.text data always starts at offset 0x10000.  The space between the checksum and offset 0x10000 is filled with 0xff bytes.
+The last three 4K pages are reserved for internal use by the bootloader:
 
-== .irom0.text data (boot mode 1) ==
+=== Internal slot0 Info ===
+This page contains information used when booting the "slot0" image (boot_slot == 0)
 
-In boot mode 1, starting at offset 0x10000 in the image, is the contents of the .irom0.text segment data.  (There is no initial header preceeding this data, and no checksum)
+'''TODO:''' Detail this
 
-== 0xea Header ==
+=== Internal slot1 Info ===
+This page contains information used when booting the "slot1" image (boot_slot == 1)
 
-This header is only present for "boot mode 2" images (produced with newer versions of the SDK).  If present, it occurs at the very beginning of the image. (boot mode 1 images simply start with the 0xe9 header instead)
+'''TODO:''' Detail this
 
-{| class="wikitable"
-! Offset !! Size !! Datatype !! Name !! Value / Notes
-|-
-| 0 || 1 || uint8 || magic || 0xea
-|-
-| 1 || 1 || uint8 || unknown || 4
-|-
-| 2 || 1 || uint8 || flash_mode || 
-|-
-| 3 || 1 || uint8 || flash_size_speed ||
-|-
-| 4 || 4 || uint32 || entry_addr ||
-|}
+=== Internal Master Info ===
 
-* Note: ''flash_mode'', ''flash_size_speed'', and ''entry_addr'' are all the same as in the boot mode 1 0xe9 header.
-* Note 2: ''flash_size_speed'' have different meaning at least in latest versions of firmware: it has value 1 for first ROM image and value 2 for second ROM image. Needs to be verified for older versions.
+    uint8  boot_slot
+    uint8  unknown[11]
+    uint32 slot0_info_len
+    uint32 slot1_info_len
+    uint32 slot0_info_checksum
+    uint32 slot1_info_checksum
 
-== .irom0.text segment (boot mode 2) ==
+* ''boot_slot'' determines which of the two ROM images to boot (0 or 1)
+* ''slot0_info_len''/''slot1_info_len'' is the length of the data contained in the corresponding internal slotx info page
+* ''slot0_info_checksum''/''slot1_info_checksum'' is a checksum of the data contained in the corresponding internal slotx info page (the checksum is calculated the same way as for the segment data (XOR of all data with 0xef))
 
-Immediately following the 0xea header is a segment header:
-
-{| class="wikitable"
-! Offset !! Size !! Datatype !! Name
-|-
-| 0 || 4 || uint32 || address
-|-
-| 4 || 4 || uint32 || length
-|}
-
-This header is immediately followed by ''length'' bytes of .irom0.text data
-
-(''address'' appears to be unused in this context, as the .irom0.text segment is not loaded into memory like the other segments)
-
-= Internal Data =
-
-The last four 4K sectors of the SPI flash are reserved for internal use by the bootloader:
-
-{| class="wikitable"
-! Offset !! Purpose
-|-
-| 0 || (unidentified data)
-|-
-| 4 KB || interface config data for image 0
-|-
-| 8 KB || interface config data for image 1
-|-
-| 12 KB || internal master config
-|}
-
-== Interface config data ==
-
-Size: 0x370 (880) bytes
-
-This data is copied into a portion of [[g_ic]] on boot.  Exact contents/layout still to be determined.
-
-== Internal master config data ==
-
-{| class="wikitable"
-! Offset !! Size !! Datatype !! Name !! Value / Notes
-|-
-| 0 || 1 || uint8 || boot_image_num || which of the two ROM images to boot (0 or 1)
-|-
-| 1 || 3 || || (unused?) ||
-|-
-| 4 || 4 || uint32 || checksum_magic || 0x55aa55aa = perform checksum, 0xffffffff = no checksum
-|-
-| 8 || 4 || || (unknown) ||
-|-
-| 12 || 4 || uint32 || image0_icdata_len || length of image0 config data to be checksummed
-|-
-| 16 || 4 || uint32 || image1_icdata_len || length of image1 config data to be checksummed
-|-
-| 20 || 4 || uint32 || image0_icdata_checksum || image0 config data checksum value
-|-
-| 24 || 4 || uint32 || image1_icdata_checksum || image1 config data checksum value
-|}
-
-* The checksum value in ''image0_icdata_checksum''/''image1_icdata_checksum'' is calculated the same way as for the segment data (XOR of all data with 0xef).
-
-= esp8266-wiki Info =
-
-'''Note:''' The following was copied from https://github.com/esp8266/esp8266-wiki/wiki/Memory-Map.  It still needs to be reconciled with the above into a consistent cohesive whole..
-
-== SPI Flash ROM Layout (without OTA upgrades) ==
-
-This is for ESP IoT SDK version 0.8 and above.
-
-{| class="wikitable"
-!Address
-!Size
-!Name
-!Description
-|-
-|00000h
-|248k
-|app.v6.flash.bin
-|User application
-|-
-|3E000h
-|8k
-|master_device_key.bin
-|OTA device key. ''Unconfirmed:'' Not used without OTA
-|-
-|40000h
-|240k
-|app.v6.irom0text.bin
-|SDK libraries
-|-
-|7C000h
-|8k
-|esp_init_data_default.bin
-|Default configuration
-|-
-|7E000h
-|8k
-|blank.bin
-|Filled with FFh. May be WiFi configuration
-|}
-
-== SPI Flash ROM Layout (with OTA upgrades) ==
-
-This is for ESP IoT SDK version 0.8 and above, supporting OTA upgrades.
-
-{| class="wikitable"
-!Address
-!Size
-!Name
-!Description
-|-
-|00000h
-|4k
-|boot.bin
-|Bootloader
-|-
-|01000h
-|64k
-|app.v6.flash1.bin
-|User application, slot 1
-|-
-|11000h
-|180k
-|app.v6.irom0text1.bin
-|SDK libraries, slot 1
-|-
-|3E000h
-|8k
-|master_device_key.bin
-|OTA device key
-|-
-|40000h
-|4k
-|
-|Unused
-|-
-|41000h
-|64k
-|app.v6.flash1.bin
-|User application, slot 2
-|-
-|51000h
-|180k
-|app.v6.irom0text1.bin
-|SDK libraries, slot 2
-|-
-|7E000h
-|8k
-|blank.bin
-|Filled with FFh. May be WiFi configuration.
-|}
-= Sources =
-* gen_appbin.py
+Sources:
+* esptool.py
 * http://richard.burtons.org/2015/05/17/esp8266-boot-process/
 * http://richard.burtons.org/2015/05/17/decompiling-the-esp8266-boot-loader-v1-3b3/
