@@ -9,19 +9,4 @@ Note that the last (git checkout) line is very important.  To double-check that 
 
 = General Information =
 
-* [[Memory Accesses (IoT RTOS SDK 0.9.9)|Memory Regions]] as accessed by the SDK
-
-= Data Structures =
-
-* [[flashchip (IoT RTOS SDK 0.9.9)|flashchip]]
-* [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]]
-* [[phy_info (IoT RTOS SDK 0.9.9)|phy_info]]
-* [[G_phyFuns_(IoT_RTOS_SDK_0.9.9)|g_phyFuns]]
-
 = Individual Routines =
-
-== libmain ==
-
-* [[call_user_start (IoT RTOS SDK 0.9.9)|call_user_start]]
-* [[user_start (IoT RTOS SDK 0.9.9)|user_start]]
-* [[user_init_task (IoT RTOS SDK 0.9.9)|user_init_task]]
