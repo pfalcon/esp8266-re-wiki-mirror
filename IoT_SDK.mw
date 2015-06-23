@@ -2,6 +2,12 @@ The ESP8266 IoT ("Internet of Things") SDK is Espressif's primary SDK for writin
 
 This section is intended to collect all information related to reverse engineering the binary-only portions of the Espressif SDK.
 
+== Sub-Areas for Specific Versions ==
+
+In general, please try to keep information obtained from a specific SDK version under the appropriate sub-area (see below for a more detailed explanation of the different versions of the SDK available).  The following versions currently have information available:
+
+* [[IoT RTOS SDK 0.9.9]] -- Information pertaining to the 0.9.9 version of the RTOS SDK (last MIT-licensed version)
+
 == IoT SDK vs IoT RTOS SDK ==
 
 Note that there are presently ''two different'' IoT SDKs provided by Espressif:
