@@ -1,0 +1,30 @@
+The ESP8266 IoT ("Internet of Things") SDK is Espressif's primary SDK for writing applications for the ESP8266.  It consists of a combination of some Open Source software, some components which were originally Open Source but have apparently been modified by Espressif (and only modified binaries provided), a small bit of Espressif-authored example code for which source code has also been provided, and a fair bit of entirely proprietary code written by Espressif and distributed only as binary ELF libraries and images.
+
+This section is intended to collect all information related to reverse engineering the binary-only portions of the Espressif SDK.
+
+== IoT SDK vs IoT RTOS SDK ==
+
+Note that there are presently ''two different'' IoT SDKs provided by Espressif:
+* The "ESP IoT SDK" (esp_iot_sdk_<version>.zip) -- This is the "main" SDK which most people use.  New versions are released periodically by Espressif in their [http://bbs.espressif.com/viewforum.php?f=5 Download Forum] as ZIP files.
+* The "ESP IoT RTOS SDK" (esp_iot_rtos_sdk) -- This is an "alternate" version of the IoT SDK, also maintained by Espressif, but built on top of a [http://www.freertos.org/ FreeRTOS] base.  It is made available by Espressif via [https://github.com/espressif/esp_iot_rtos_sdk the espressif/esp_iot_rtos_sdk GitHub Repository].
+
+Both of these SDKs reportedly provide the same APIs (and appear to share most of the same code), the only difference is the base they were built on.
+
+Note that there is ''also'' another project out there called "ESP Open RTOS" ([https://github.com/SuperHouse/esp-open-rtos SuperHouse/esp-open-rtos on GitHub]), which is an attempt to build an open ESP8266 framework on FreeRTOS.  This is '''not''' the same as Espressif's "ESP IoT RTOS SDK".
+
+== Licensing of the SDKs ==
+
+The IoT SDK (both the main one and the RTOS one) have changed licenses several times:
+* Originally, the SDK was licensed under the "Espressif General Public License", which was essentially just a rebranded form of the GNU General Public License (GPL).  However, it was pointed out that this was problematic as (depending on the reading) the GPL does not allow linking/redistributing without the source code, and no source code was made available, so it was (arguably) not legal for anybody who used the SDK to redistribute what they produced with it.
+* This was clearly not Espressif's intention, but they were also not willing to release all the source code to their SDK, so they instead decided to change the terms of the licensing to those of the MIT License, which is much less restrictive about how the code can be used or redistributed, and thus eliminated these concerns.
+* However, shortly afterward, Espressif apparently decided that the MIT license was a bit too permissive for them, and modified the SDK license to instead be the "Esprssif MIT License" (sic), essentially the same as the MIT license but with the added restriction that permission was only granted "for use on ESPRESSIF SYSTEMS ESP8266 only".
+
+It appears that the main IoT SDK was only ever released under either the "Espressif GPL" or the modified "Esprssif MIT License".  However, some versions of the IoT RTOS SDK were made available in GitHub using the terms of the unmodified MIT license for a period.
+
+== SDK Versions Used Here ==
+
+This site makes no requirements about which version of the SDK you reverse engineer, but given the potential confusions and some of the potential legal questions surrounding different licenses, etc, we do ask that everyone try to be very clear about what version of which SDK any information applies to and was derived from.
+
+In general, most of the current efforts are aimed at the 0.9.9 version of the IoT RTOS SDK ([https://github.com/espressif/esp_iot_rtos_sdk/tree/ec75c85f9ef53f03840c2c128e4348532e815c37 commit ec75c85f9e]), for two main reasons:
+# As it is built on a FreeRTOS base, some of the lower-level routines on which it provides are already well known, and do not need to be reverse-engineered, and the results are more directly applicable to anything anybody else wants to build from that base.
+# Version 0.9.9 is the last version of the RTOS SDK which was licensed under the unmodified MIT license.  While license tainting would hopefully be avoided by a reasonably clean reverse engineering effort anyway, it is nevertheless conceivable that claims of derivative works might be made, and in that case the additional restrictions in the modified-MIT-style license might cause legal complications for open-source projects.  To minimize this risk as much as possible, the core work is being done using code with the most permissive original license just in case.
