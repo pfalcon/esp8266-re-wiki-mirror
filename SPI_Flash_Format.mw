@@ -22,7 +22,6 @@ This header is only present for images produced with newer versions of the SDK (
 * ''ea_magic1'' = 0xea
 * ''ea_magic2'' = 0x04
 * ''flash_mode'', ''flash_size_speed'', and ''entry_addr'' are the same as in the 0xe9 header.
-* ''length'' is the number of bytes in the .irom.text segment which follows
 
 === .irom.text segment ===
 
@@ -31,6 +30,8 @@ Immediately following the 0xea header is a segment header (the same as for other
     uint32 address
     uint32 length
     <length bytes of .irom.text data>
+
+(''address'' appears to be unused in this context)
 
 == 0xe9 Header ==
 
