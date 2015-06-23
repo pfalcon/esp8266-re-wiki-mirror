@@ -1,0 +1,87 @@
+This page details the structure of the data contained and read from the SPI ROM chip.  The bulk of this format is the same as the image format which esptool produces and is uploaded to the chip.  The main exception is three pages at the end of the SPI flash which are reserved and used internally by the OTP boot ROM, and are not included in uploaded firmware images.
+
+== Overall Structure ==
+
+    0xea Header/Data (optional)
+    0xe9 Header
+    Code/Data Segments
+    Padding/Checksum
+    (unused space)
+    Internal Data
+
+== Optional 0xea Header/Data ==
+
+This header is only present for images produced with newer versions of the SDK (1.1.2 and later).  Older images simply start with the 0xe9 header.
+
+    uint8 ea_magic1
+    uint8 ea_magic2
+    uint8 config1
+    uint8 config2
+    uint32 entry
+    uint32 (unused)
+    uint32 length
+
+''ea_magic1'' is 0xea.  ''ea_magic2'' is 0x04. ''length'' is the number of bytes in the .irom.text segment which follows
+
+=== .irom.text segment ===
+
+Immediately following the 0xea header is the contents of the .irom.text segment
+
+'''TODO:''' Clarify: Is this prefixed by a segment header or not?
+
+== 0xe9 Header ==
+
+    uint8 e9_magic
+    uint8 sect_count
+    uint8 flags1
+    uint8 flags2
+    uint32 entry_addr
+
+== Code/Data Segments ==
+
+Immediately following the 0xe9 header are one or more code/data segments.  Each segment starts with the following 8-byte header, followed immediately by the segment data:
+
+    uint32 address
+    uint32 length
+
+''address'' is the address in IRAM that the bootloader should load the data into.
+
+== Padding and Checksum ==
+
+Following the last segment, zero to 15 padding bytes will be added, followed by a checksum byte.
+
+The number of padding bytes is calculated such that the end of the data always falls on a 16-byte boundary (that is, the checksum byte will always be on a 16-byte boundary minus one).
+
+The checksum is a simple XOR of all of the data from each of the segments (the segment headers are ''not'' included), also XOR'd with the magic value 0xef.
+
+== Internal ==
+
+The last three 4K pages are reserved for internal use by the bootloader:
+
+=== Internal slot0 Info ===
+This page contains information used when booting the "slot0" image (boot_slot == 0)
+
+'''TODO:''' Detail this
+
+=== Internal slot1 Info ===
+This page contains information used when booting the "slot1" image (boot_slot == 1)
+
+'''TODO:''' Detail this
+
+=== Internal Master Info ===
+
+    uint8  boot_slot
+    uint8  unknown[11]
+    uint32 slot0_info_len
+    uint32 slot1_info_len
+    uint32 slot0_info_checksum
+    uint32 slot1_info_checksum
+
+* ''boot_slot'' determines which of the two ROM images to boot (0 or 1)
+* ''slot0_info_len''/''slot1_info_len'' is the length of the data contained in the corresponding internal slotx info page
+* ''slot0_info_checksum''/''slot1_info_checksum'' is a checksum of the data contained in the corresponding internal slotx info page (the checksum is calculated the same way as for the segment data (XOR of all data with 0xef))
+
+Sources:
+* esptool.py
+* http://richard.burtons.org/2015/05/17/esp8266-boot-process/
+* http://richard.burtons.org/2015/05/17/decompiling-the-esp8266-boot-loader-v1-3b3/
