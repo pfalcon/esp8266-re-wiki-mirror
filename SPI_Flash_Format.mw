@@ -129,5 +129,6 @@ This page contains information used when booting the "slot1" image (boot_slot ==
 
 = Sources =
 * esptool.py
+* gen_appbin.py
 * http://richard.burtons.org/2015/05/17/esp8266-boot-process/
 * http://richard.burtons.org/2015/05/17/decompiling-the-esp8266-boot-loader-v1-3b3/
