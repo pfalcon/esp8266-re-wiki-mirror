@@ -11,23 +11,26 @@ This page details the structure of the data contained and read from the SPI ROM 
 
 == Optional 0xea Header/Data ==
 
-This header is only present for images produced with newer versions of the SDK (1.1.2 and later).  Older images simply start with the 0xe9 header.
+This header is only present for images produced with newer versions of the SDK ("boot mode 2").  Older images simply start with the 0xe9 header.
 
     uint8 ea_magic1
     uint8 ea_magic2
-    uint8 config1
-    uint8 config2
-    uint32 entry
-    uint32 (unused)
-    uint32 length
+    uint8 flash_mode
+    uint8 flash_size_speed
+    uint32 entry_addr
 
-''ea_magic1'' is 0xea.  ''ea_magic2'' is 0x04. ''length'' is the number of bytes in the .irom.text segment which follows
+* ''ea_magic1'' = 0xea
+* ''ea_magic2'' = 0x04
+* ''flash_mode'', ''flash_size_speed'', and ''entry_addr'' are the same as in the 0xe9 header.
+* ''length'' is the number of bytes in the .irom.text segment which follows
 
 === .irom.text segment ===
 
-Immediately following the 0xea header is the contents of the .irom.text segment
+Immediately following the 0xea header is a segment header (the same as for other segments below) followed by the contents of the .irom.text segment:
 
-'''TODO:''' Clarify: Is this prefixed by a segment header or not?
+    uint32 address
+    uint32 length
+    <length bytes of .irom.text data>
 
 == 0xe9 Header ==
 
