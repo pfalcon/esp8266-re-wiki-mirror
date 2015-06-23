@@ -32,10 +32,52 @@ Immediately following the 0xea header is the contents of the .irom.text segment
 == 0xe9 Header ==
 
     uint8 e9_magic
-    uint8 sect_count
-    uint8 flags1
-    uint8 flags2
+    uint8 sector_count
+    uint8 flash_mode
+    uint8 flash_size_speed
     uint32 entry_addr
+
+* ''e9_magic'' = 0xe9
+* '''TODO:''' need clarification on ''sector_count'' -- Espressif tools always seem to write 0x03
+* ''flash_mode'' is one of the following values:
+::{| class="wikitable"
+!Value || Meaning
+|-
+| 0 || QIO
+|-
+| 1 || QOUT
+|-
+| 2 || DIO
+|-
+| 3 || DOUT
+|}
+* ''flash_size_speed'' is a combination of the following:
+** High nybble (0xf0) -- flash size:
+:::{| class="wikitable"
+!Value || Meaning
+|-
+| 0 || 512 KB (4 Mbit)
+|-
+| 1 || 256 KB (2 Mbit)
+|-
+| 2 || 1024 KB (8 Mbit)
+|-
+| 3 || 2048 KB (16 Mbit)
+|-
+| 4 || 4096 KB (32 Mbit)
+|}
+** Low nybble (0x0f) -- flash speed:
+:::{| class="wikitable"
+!Value || Meaning
+|-
+| 0 || 40 MHz
+|-
+| 1 || 26 MHz (80 MHz / 3)
+|-
+| 2 || 20 MHz
+|-
+| 0xf || 80 MHz
+|}
 
 == Code/Data Segments ==
 
