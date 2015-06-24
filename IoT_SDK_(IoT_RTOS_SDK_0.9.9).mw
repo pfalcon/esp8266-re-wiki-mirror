@@ -10,3 +10,8 @@ Note that the last (git checkout) line is very important.  To double-check that 
 = General Information =
 
 = Individual Routines =
+
+== libmain ==
+
+* [[IoT_RTOS_SDK_0.9.9/call_user_start|call_user_start]]
+* [[IoT_RTOS_SDK_0.9.9/user_start|user_start]]
