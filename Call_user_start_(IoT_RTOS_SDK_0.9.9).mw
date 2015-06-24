@@ -1,0 +1,13 @@
+[[File:call_user_start.svg|frame|call_user_start()]]
+'''call_user_start''' is the main entrypoint called by the initial bootloader for any loadable firmware image.
+
+= Signature =
+
+<code>void call_user_start(void)</code>
+
+= Description =
+
+In the IoT RTOS SDK, call_user_start() just does the following:
+
+# Sets the Xtensa relocatable vector base (VECBASE) to be 0x40100000
+# Calls the [[IoT_RTOS_SDK_0.9.9/user_start|user_start]] routine in app_main.o
