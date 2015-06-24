@@ -4,47 +4,6 @@
 
 <code>void user_start(void)</code>
 
-= Called From =
-
-* [[call_user_start (IoT RTOS SDK 0.9.9)|call_user_start]]
-
 = Description =
 
-'''user_start''' performs the following actions:
-
-# It calls [[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]] to get the OTP MAC address, and then completely ignores the returned result.
-#* ([[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]] is apparently called at this point just to check to make sure it's running on an ESP8266 and that the OTP MAC is programmed.  It is called again later from [[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]] which actually uses the result.)
-# Enables SPI_CS_SETUP for SPI0
-# Calls [[SPIRead]] to read the first 4 bytes from the SPI flash
-# Uses the flash size/speed information in the 4th byte to set up SPI/flash parameters as follows:
-#* The lower nybble (0x0f) is the speed setting.  It converts this to a divisor (which it later passes to [[app_main.text+0xa0 (IoT RTOS SDK 0.9.9)|app_main.text+0xa0]]):
-#** 0xf (80 MHz) => 1
-#** 0x0 (40 MHz) => 2
-#** 0x1 (26 MHz) => 3
-#** 0x2 (20 MHz) => 4
-#** (anything else) => 2
-#* upper nybble (0xf0) is flash size.  Convert this to a number of 4Kbyte pages and also a total number of bytes (= pages << 12):
-#** 0x0 (4 Mbit) => 0x80 pages (0x80000 bytes)
-#** 0x1 (2 Mbit) => 0x40 pages (0x40000 bytes)
-#** 0x2 (8 Mbit) => 0x100 pages (0x100000 bytes)
-#** 0x3 (16 Mbit) => 0x200 pages (0x200000 bytes)
-#** 0x4 (32 Mbit) => 0x400 pages (0x400000 bytes)
-#** (anything else) => (same as 0x0 (4 Mbit))
-# Saves the calculated flash size (in bytes) in [[flashchip (IoT RTOS SDK 0.9.9)|flashchip]].chip_size
-# Calls [[app_main.text+0xa0 (IoT RTOS SDK 0.9.9)|app_main.text+0xa0]] to set the flash speed using the divisor derived above
-# Calls [[SPIRead]] to read 28 bytes from the last page of flash (flash_size - 0x1000 bytes)
-#* First byte is the ROM slot to boot (0 or 1)
-#* uint32 at position 4-7 (we'll call this ''cksum_magic'') apparently determines whether to perform checksum on the wifi interface config data (not sure why):
-#** 0x55aa55aa = perform checksum
-#** 0xffffffff = do not perform checksum
-#** (anything else) = error
-#* uint32 at position 12-15 (slot0) or 16-19 (slot1) is length of wifi interface config data to be checksummed (''cksum_len'')
-#* uint32 at position 20-23 (slot0) or 24-27 (slot1) is the checksum value (''cksum_val'')
-# Calls [[SPIRead]] to read 0x370 bytes (''ic_data'') from the appropriate wifi interface config data page (either the last-2 (slot0) or last-1 (slot1) 4K page of flash)
-# Calls [[Cache_Read_Enable]](0, 0, 1) to enable memory-mapping of SPI flash
-# Calls [[app_main.irom0.text+0x8 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x8]] to zero out BSS
-# Calls [[os_install_putc1 (IoT RTOS SDK 0.9.9)|os_install_putc1]] to install [[app_main.text+0x1f4 (IoT RTOS SDK 0.9.9)|app_main.text+0x1f4]] as the default putc routine
-# If ''cksum_magic'' is 0x55aa55aa, calls [[system_get_checksum (IoT RTOS SDK 0.9.9)|system_get_checksum]](''ic_data'', ''cksum_len'') to calculate checksum and then compares it with ''cksum_val''
-# If the checksum is wrong, or ''cksum_magic'' is a bad value, calls [[app_main.irom0.text+0x790 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x790]] (with an argument of ''num_flash_pages - 4'') to print an error message/dump (but apparently continues on anyway?)
-# Copies the 0x370 bytes of ''ic_data'' to [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]]+0x1d8
-# Calls [[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]] to continue system startup
+'''TODO:''' Fill this in.
