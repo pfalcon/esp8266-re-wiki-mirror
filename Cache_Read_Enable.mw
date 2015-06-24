@@ -1,30 +1,18 @@
-{{DISPLAYTITLE:Cache_Read_Enable()}}
-'''Cache_Read_Enable''' (contrary to its somewhat deceptive name) is the function responsible for enabling & configuring memory-mapped access to the SPI flash IROM region (it is unclear whether it also performs other functions as well).
+'''Cache_Read_Enable''' (contrary to its somewhat deceptive name) is the function responsible for enabling memory-mapped access to the SPI ROM (it is unclear whether it also performs other functions as well).
 
 = Prototype =
 
-<code>void Cache_Read_Enable(uint32 odd_even, uint32 mb_count, uint32 no_idea)</code>
+<code>void Cache_Read_Enable(uint32, uint32, uint32)</code>
 
 = Location =
-'''Cache_Read_Enable''' is defined in the [[Boot ROM]] at memory address 0x40004678
+'''Cache_Read_Enable''' is defined in the OTP ROM at memory address 0x40004678
 
 = Description =
 
-Maps 8 megabits (1MB) from SPI flash into address space at 0x40200000. Start of mapped region in SPI flash must be 1MB aligned.
-
-Assuming the megabyte boundary to map is 'mb' value 0-7.
-
-* odd_even = mb % 2
-* mb_count = mb / 2
-* no_idea = 1
-
-(More details on parameters in Richard Burton's blog post, linked below.)
-
-Implementation writes to two [[Memory_Map#dport0_.283FF00000h.E2.80.93.29|dport0 registers]] to configure page mapping.
+(This function has not yet been reverse-engineered)
 
 = See Also =
 * [[Cache_Read_Disable]]
 
 = Sources =
 * ld/eagle.rom.addr.v6.ld (from the IoT RTOS SDK 0.9.9)
-* [http://richard.burtons.org/2015/06/12/esp8266-cache_read_enable/ Reverse engineered by Richard Burton] (using his description & parameter names here, he gives more detail on parameters in the post).
