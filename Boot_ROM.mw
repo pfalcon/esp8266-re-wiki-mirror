@@ -1,7 +1,12 @@
-== Data Structures ==
+= Data Structures =
 
 * [[SPI Flash Format]]
 
-== Related Links ==
+= Functions Defined in the OTP ROM =
+
+* [[Cache_Read_Enable]]
+* [[Cache_Read_Disable]]
+
+= Related Links =
 
 * http://richard.burtons.org/tag/bootloader/
