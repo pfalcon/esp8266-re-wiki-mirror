@@ -1,0 +1,18 @@
+'''Cache_Read_Enable''' (contrary to its somewhat deceptive name) is the function responsible for enabling memory-mapped access to the SPI ROM (it is unclear whether it also performs other functions as well).
+
+= Prototype =
+
+<code>void Cache_Read_Enable(uint32, uint32, uint32)</code>
+
+= Location =
+'''Cache_Read_Enable''' is defined in the OTP ROM at memory address 0x40004678
+
+= Description =
+
+(This function has not yet been reverse-engineered)
+
+= See Also =
+* [[Cache_Read_Disable]]
+
+= Sources =
+* ld/eagle.rom.addr.v6.ld (from the IoT RTOS SDK 0.9.9)
