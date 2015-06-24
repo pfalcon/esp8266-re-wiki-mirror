@@ -9,6 +9,11 @@ Note that the last (git checkout) line is very important.  To double-check that 
 
 = General Information =
 
+= Data Structures =
+
+* [[IoT_RTOS_SDK_0.9.9/flashchip|flashchip]]
+* [[IoT_RTOS_SDK_0.9.9/g_ic|g_ic]]
+
 = Individual Routines =
 
 == libmain ==
