@@ -10,4 +10,4 @@
 
 This structure appears to be 1352 (0x548) bytes in size.
 
-The portion from offset 0x1d8 to 0x547 (0x370 bytes) is loaded from SPI flash on boot (at the end of [[IoT_RTOS_SDK_0.9.9/user_start|user_start]]).
+The portion from offset 0x1d8 to 0x547 (0x370 bytes) is loaded from SPI flash on boot (at the end of [[user_start (IoT RTOS SDK 0.9.9)|user_start]]).
