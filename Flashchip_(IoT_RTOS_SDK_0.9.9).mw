@@ -7,33 +7,17 @@
 = Description =
 
 {| class="wikitable"
-! Offset !! Length !! Datatype !! Name !! Default Value !! Notes
+! Offset !! Length !! Datatype !! Name !! Notes
 |-
-| 0 || 4 || uint32 || device_id || 0x001640ef ||
+| 0 || 4 || uint32 || device_id || (default value is 0x001640ef)
 |-
-| 4 || 4 || uint32 || chip_size || 0x00400000 (4 MB) ||
+| 4 || 4 || uint32 || chip_size || size in bytes
 |-
-| 8 || 4 || uint32 || block_size || 0x00010000 (64 KB) ||
+| 8 || 4 || uint32 || block_size ||
 |-
-| 12 || 4 || uint32 || sector_size || 0x00001000 (4 KB) ||
+| 12 || 4 || uint32 || sector_size ||
 |-
-| 16 || 4 || uint32 || page_size || 0x00000100 (256 B) ||
+| 16 || 4 || uint32 || page_size || 
 |-
-| 20 || 4 || uint32 || status_mask || 0x0000ffff ||
+| 20 || 4 || uint32 || status_mask || (default value is 0x0000ffff)
 |}
-
-Note that aside from chip_size, none of the other fields of this structure ever appear to be set by anything (the defaults are always used)
-
-= Source Code =
-
-A struct definition apparently corresponding to flashchip can be found in spi_flash.h in recent versions of the (non-RTOS) IoT SDK, despite the fact that '''flashchip''' itself is never declared in any of the headers (and is presumed to be intended to not be part of the published API).
-
-Although the 0.9.9 RTOS SDK does not have this struct definition in its spi_flash.h, the declaration in spi_flash.o does appear to have a matching size and layout, and thus is assumed to match, thus the same field names have been used here.
-
-= Initial Values =
-
-Values are loaded on startup (in [[user_start (IoT RTOS SDK 0.9.9)|user_start]]).
-
-chip_size is seeded from the [[SPI_Flash_Format#Firmware_Image_Format|SPI flash header]].
-
-Other values are mostly hard-coded.
