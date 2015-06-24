@@ -11,12 +11,12 @@ Note that the last (git checkout) line is very important.  To double-check that 
 
 = Data Structures =
 
-* [[IoT_RTOS_SDK_0.9.9/flashchip|flashchip]]
-* [[IoT_RTOS_SDK_0.9.9/g_ic|g_ic]]
+* [[flashchip (IoT RTOS SDK 0.9.9)|flashchip]]
+* [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]]
 
 = Individual Routines =
 
 == libmain ==
 
-* [[IoT_RTOS_SDK_0.9.9/call_user_start|call_user_start]]
-* [[IoT_RTOS_SDK_0.9.9/user_start|user_start]]
+* [[call_user_start (IoT RTOS SDK 0.9.9)|call_user_start]]
+* [[user_start (IoT RTOS SDK 0.9.9)|user_start]]
