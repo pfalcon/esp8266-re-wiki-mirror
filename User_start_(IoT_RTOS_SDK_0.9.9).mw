@@ -4,6 +4,10 @@
 
 <code>void user_start(void)</code>
 
+= Called From =
+
+* [[IoT_RTOS_SDK_0.9.9/call_user_start|call_user_start]]
+
 = Description =
 
 '''TODO:''' Fill this in.
