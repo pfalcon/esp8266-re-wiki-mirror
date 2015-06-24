@@ -1,0 +1,18 @@
+'''Cache_Read_Disable''' (contrary to its somewhat deceptive name) is the function responsible for disabling memory-mapped access to the SPI ROM (it is unclear whether it also performs other functions as well).
+
+= Prototype =
+
+<code>void Cache_Read_Disable(void)</code>
+
+= Location =
+'''Cache_Read_Disable''' is defined in the OTP ROM at memory address 0x400047f0
+
+= Description =
+
+(This function has not yet been reverse-engineered)
+
+= See Also =
+* [[Cache_Read_Enable]]
+
+= Sources =
+* ld/eagle.rom.addr.v6.ld (from the IoT RTOS SDK 0.9.9)
