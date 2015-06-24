@@ -6,7 +6,7 @@
 
 = Called From =
 
-* [[IoT_RTOS_SDK_0.9.9/call_user_start|call_user_start]]
+* [[call_user_start (IoT RTOS SDK 0.9.9)|call_user_start]]
 
 = Description =
 
