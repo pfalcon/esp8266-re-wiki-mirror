@@ -1,0 +1,23 @@
+'''flashchip''' is an internal data structure apparently used for keeping various information about the particular SPI flash chip connected to the ESP8266.  It appears to be only used from within libmain.a
+
+= Location =
+
+'''flashchip''' is declared in libmain/spi_flash.o at .data+0x0
+
+= Description =
+
+{| class="wikitable"
+! Offset !! Length !! Datatype !! Name !! Notes
+|-
+| 0 || 4 || uint32 || device_id || (default value is 0x001640ef)
+|-
+| 4 || 4 || uint32 || chip_size || size in bytes
+|-
+| 8 || 4 || uint32 || block_size ||
+|-
+| 12 || 4 || uint32 || sector_size ||
+|-
+| 16 || 4 || uint32 || page_size || 
+|-
+| 20 || 4 || uint32 || status_mask || (default value is 0x0000ffff)
+|}
