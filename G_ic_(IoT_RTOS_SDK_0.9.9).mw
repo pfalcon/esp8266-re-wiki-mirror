@@ -1,0 +1,13 @@
+'''g_ic''' is apparently a data structure used to contain a variety of WiFi interface configuration settings.  A portion of its contents are loaded on boot from a reserved page at the end of the SPI flash, and it is used by a variety of WiFi-related routines.
+
+= Location =
+
+'''g_ic''' is declared in libnet80211/ieee80211.o at .bss+0x0
+
+= Description =
+
+(The layout of g_ic is currently mostly undetermined.)
+
+This structure appears to be 1352 (0x548) bytes in size.
+
+The portion from offset 0x1d8 to 0x547 (0x370 bytes) is loaded from SPI flash on boot (at the end of [[IoT_RTOS_SDK_0.9.9/user_start|user_start]]).
