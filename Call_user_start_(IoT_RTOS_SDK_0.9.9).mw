@@ -10,4 +10,4 @@
 In the IoT RTOS SDK, call_user_start() just does the following:
 
 # Sets the Xtensa relocatable vector base (VECBASE) to be 0x40100000
-# Calls the [[IoT_RTOS_SDK_0.9.9/user_start|user_start]] routine in app_main.o
+# Calls the [[user_start (IoT RTOS SDK 0.9.9)|user_start]] routine in app_main.o
