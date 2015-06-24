@@ -21,3 +21,9 @@
 |-
 | 20 || 4 || uint32 || status_mask || (default value is 0x0000ffff)
 |}
+
+= Sources =
+
+A struct definition apparently corresponding to flashchip can be found in spi_flash.h in recent versions of the (non-RTOS) IoT SDK, despite the fact that '''flashchip''' itself is never declared in any of the headers (and is presumed to be intended to not be part of the published API).
+
+Although the 0.9.9 RTOS SDK does not have this struct definition in its spi_flash.h, the declaration in spi_flash.o does appear to have a matching size and layout, and thus is assumed to match, thus the same field names have been used here.
