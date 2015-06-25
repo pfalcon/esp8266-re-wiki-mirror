@@ -7,20 +7,22 @@
 = Description =
 
 {| class="wikitable"
-! Offset !! Length !! Datatype !! Name !! Notes
+! Offset !! Length !! Datatype !! Name !! Default Value !! Notes
 |-
-| 0 || 4 || uint32 || device_id || (default value is 0x001640ef)
+| 0 || 4 || uint32 || device_id || 0x001640ef ||
 |-
-| 4 || 4 || uint32 || chip_size || size in bytes
+| 4 || 4 || uint32 || chip_size || 0x00400000 (4 MB) || Set on startup (in [[user_start (IoT RTOS SDK 0.9.9)|user_start]]) based on value in flash header
 |-
-| 8 || 4 || uint32 || block_size ||
+| 8 || 4 || uint32 || block_size || 0x00010000 (64 KB) ||
 |-
-| 12 || 4 || uint32 || sector_size ||
+| 12 || 4 || uint32 || sector_size || 0x00001000 (4 KB) ||
 |-
-| 16 || 4 || uint32 || page_size || 
+| 16 || 4 || uint32 || page_size || 0x00000100 (256 B) ||
 |-
-| 20 || 4 || uint32 || status_mask || (default value is 0x0000ffff)
+| 20 || 4 || uint32 || status_mask || 0x0000ffff ||
 |}
+
+Note that aside from chip_size, none of the other fields of this structure ever appear to be set by anything (the defaults are always used)
 
 = Sources =
 
