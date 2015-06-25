@@ -42,6 +42,7 @@
 #* uint32 at position 20-23 (slot0) or 24-27 (slot1) is the checksum value (''cksum_val'')
 # Calls SPIRead to read 0x370 bytes (''ic_data'') from the appropriate wifi interface config data page (either the last-2 (slot0) or last-1 (slot1) 4K page of flash)
 # Calls [[Cache_Read_Enable]](0, 0, 1) to enable memory-mapping of SPI flash
+# Calls [[app_main:.irom0.text+0x8 (IoT RTOS SDK 0.9.9)|app_main:.irom0.text+0x8]] to zero out BSS
 # Calls [[os_install_putc1 (IoT RTOS SDK 0.9.9)|os_install_putc1]] to install [[app_main:.text+0x1f4 (IoT RTOS SDK 0.9.9)|app_main:.text+0x1f4]] as the default putc routine
 # If ''cksum_magic'' is 0x55aa55aa, calls [[system_get_checksum (IoT RTOS SDK 0.9.9)|system_get_checksum]](''ic_data'', ''cksum_len'') to calculate checksum and then compares it with ''cksum_val''
 # If the checksum is wrong, or ''cksum_magic'' is a bad value, calls [[app_main:.irom0.text+0x790 (IoT RTOS SDK 0.9.9)|app_main:.irom0.text+0x790]] (with an argument of ''num_flash_pages - 4'') to print an error message/dump (but apparently continues on anyway?)
