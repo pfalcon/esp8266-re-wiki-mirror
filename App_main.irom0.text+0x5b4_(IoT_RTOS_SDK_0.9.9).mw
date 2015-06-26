@@ -1,0 +1,37 @@
+[[File:app_main.irom0.text+0x5b4.svg|thumb|400px|void user_start_phase2(void)]]
+
+= Signature =
+
+<code>static void ''user_start_phase2''(void)</code>
+
+= Called From =
+
+* [[user_start (IoT RTOS SDK 0.9.9)|user_start]]
+
+= Description =
+
+This is a static (non exported) function which performs the remainder of system initialization tasks after [[user_start (IoT RTOS SDK 0.9.9)|user_start]] has enabled mapping of the SPI flash (and thus the .irom0.text segment) to memory.
+
+It performs the following tasks:
+
+# Reads 32 bytes from the RTC memory ([[system_rtc_mem_read (IoT RTOS SDK 0.9.9)|system_rtc_mem_read]]) into [[rst_if (IoT RTOS SDK 0.9.9)|rst_if]]
+# Reads the uint32 value at [[rst_if (IoT RTOS SDK 0.9.9)|rst_if]][0] and verifies that it is less than 4
+#* If the value is greater or equal to 4, it zeros out the contents of [[rst_if (IoT RTOS SDK 0.9.9)|rst_if]] instead
+# Replaces the 32 bytes in the RTC memory with zeroes ([[system_rtc_mem_write (IoT RTOS SDK 0.9.9)|system_rtc_mem_write]])
+# Calls [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]
+# Calls [[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]] to get the OTP MAC address (''mac_addr'')
+# Calls [[wifi_softap_cacl_mac (IoT RTOS SDK 0.9.9)|wifi_softap_cacl_mac]] to calculate the wifi MAC address from ''mac_addr'' and store the result in [[info (IoT RTOS SDK 0.9.9)|info]].wifi_mac_addr
+# Sets [[info (IoT RTOS SDK 0.9.9)|info]][0] = 0x0104a8c0
+# Sets [[info (IoT RTOS SDK 0.9.9)|info]][1] = 0x00ffffff
+# Sets [[info (IoT RTOS SDK 0.9.9)|info]][2] = 0x0104a8c0
+# Calls [[app_main.irom0.text+0x148 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x148]]
+# Reads 128 bytes from the last-3 SPI flash sector (flashchip.chip_size - 0x4000) into a buffer (''phy_info'')
+#* Note that the address this routine calculates for this is actually <code>(flashchip.chip_size / flashchip.sector_size) * 4096 - 0x4000</code>.  This logic is almost certainly incorrect and only happens to work because flashchip.sector_size is (in the current version) always 4096 anyway, but it would clearly lead to a wrong address for any other sector size.  It is unclear why such a complicated address calculation is used in the first place (instead of just <code>flashchip.chip_size - 0x4000</code>, or perhaps <code>flashchip.chip_size - (flashchip.sector_size * 4)</code>).
+# Waits for UART0 TXFIFO to be empty
+# Waits for UART1 TXFIFO to be empty
+# If the first byte of the data read into ''phy_info'' is not 5, copy default data (128 bytes) from app_main:.irom.text+0x0 into ''phy_info'' instead.
+# Calls [[app_main.irom0.text+0x70 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x70]](''phy_info'', ''mac_addr'')
+# Calls [[tcpip_init (IoT RTOS SDK 0.9.9)|tcpip_init]](NULL, NULL) to initialize lwIP
+# Calls [[wdt_init (IoT RTOS SDK 0.9.9)|wdt_init]] to initialize the watchdog timer
+# Uses xTaskCreate to create a FreeRTOS user task to invoke [[user_init_task (IoT RTOS SDK 0.9.9)|user_init_task]] (stack size 1024, priority 14)
+# Calls vTaskStartScheduler to start the FreeRTOS scheduler and then returns.
