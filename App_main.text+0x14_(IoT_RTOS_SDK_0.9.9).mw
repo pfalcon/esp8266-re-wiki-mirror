@@ -1,0 +1,37 @@
+= Signature =
+
+<code>static char ''get_mac_addr''(char *buf)</code>
+
+= Called From =
+
+* [[App main:user_start (IoT RTOS SDK 0.9.9)|user_start]]
+* [[App main:app_main:.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main:.irom0.text+0x5b4]]
+
+= Description =
+
+This (non-exported) function apparently reads the MAC address programmed into the OTP ROM and places it into the supplied buffer.
+
+# If bit 15 of [0x3ff00058] is not set:
+#* This apparently means we are not running on an ESP8266
+#* Print an error message to this effect, and then halt
+# If all bytes from 0x3ff00050 through 0x3ff00057 are zero:
+#* (a MAC address has apparently not been programmed)
+#* Print "empty otp" and then halt
+# Populate ''buf'' with the MAC address of the module, depending on whether bit 12 of [0x3ff00058] is set or not:
+:{| class="wikitable"
+! Byte Num !! bit 12 set !! bit 12 cleared
+|-
+| 0 || [0x3ff0005e] || 0x18
+|-
+| 1 || [0x3ff0005d] || 0xfe
+|-
+| 2 || [0x3ff0005c] || 0x34
+|-
+| 3 || [0x3ff00055] || [0x3ff00055]
+|-
+| 4 || [0x3ff00054] || [0x3ff00054]
+|-
+| 5 || [0x3ff00053] || [0x3ff00053]
+|}
+
+(Note: <code>18:fe:34</code> is a MAC address vendor prefix assigned to Espressif, Inc., thus if bit 12 is clear, it will generate an Espressif MAC address, otherwise it will use the vendor ID programmed into 0x3ff0005c-0x3ff0005e)
