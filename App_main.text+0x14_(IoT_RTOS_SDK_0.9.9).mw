@@ -4,8 +4,8 @@
 
 = Called From =
 
-* [[App main:user_start (IoT RTOS SDK 0.9.9)|user_start]]
-* [[App main:app_main:.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main:.irom0.text+0x5b4]]
+* [[user_start (IoT RTOS SDK 0.9.9)|user_start]]
+* [[app_main:.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main:.irom0.text+0x5b4]]
 
 = Description =
 
