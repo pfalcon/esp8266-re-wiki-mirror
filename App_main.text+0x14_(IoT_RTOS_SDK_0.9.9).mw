@@ -1,6 +1,6 @@
 = Signature =
 
-<code>static char ''get_mac_addr''(char *buf)</code>
+<code>static void ''get_mac_addr''(char *buf)</code>
 
 = Called From =
 
