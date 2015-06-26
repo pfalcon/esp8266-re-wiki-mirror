@@ -1,11 +1,11 @@
 = Signature =
 
-<code>static void ''get_mac_addr''(uint8 *buf)</code>
+<code>static char ''get_mac_addr''(char *buf)</code>
 
 = Called From =
 
-* [[user_start (IoT RTOS SDK 0.9.9)|user_start]]
-* [[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]]
+* [[App main:user_start (IoT RTOS SDK 0.9.9)|user_start]]
+* [[App main:app_main:.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main:.irom0.text+0x5b4]]
 
 = Description =
 
