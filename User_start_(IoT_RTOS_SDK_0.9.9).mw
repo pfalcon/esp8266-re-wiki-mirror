@@ -12,8 +12,8 @@
 
 '''user_start''' performs the following actions:
 
-# It calls [[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]], passing it a temporary buffer.  The data returned in the temporary buffer is ignored.
-#* ([[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]] is apparently called at this point just to check to make sure it's running on an ESP8266 and that the OTP is programmed (though if the OTP was not programmed, it's not clear how we would have gotten to this point in the first place).  [[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]] is called again later from [[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]] which actually uses the data it returns.)
+# It calls [[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]] to get the OTP MAC address, and then completely ignores the returned result.
+#* ([[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]] is apparently called at this point just to check to make sure it's running on an ESP8266 and that the OTP MAC is programmed.  It is called again later from [[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]] which actually uses the result.)
 # Enables SPI_CS_SETUP for SPI0
 # Calls SPIRead to read the first 4 bytes from the SPI flash
 # Uses the flash size/speed information in the 4th byte to set up SPI/flash parameters as follows:
