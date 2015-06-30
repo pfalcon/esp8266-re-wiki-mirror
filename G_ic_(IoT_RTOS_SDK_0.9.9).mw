@@ -6,8 +6,371 @@
 
 = Description =
 
-(The layout of g_ic is currently mostly undetermined.)
-
 This structure appears to be 1352 (0x548) bytes in size.
 
-The portion from offset 0x1d8 to 0x547 (0x370 bytes) is loaded from SPI flash on boot (at the end of [[user_start (IoT RTOS SDK 0.9.9)|user_start]]).
+The portion from offset 0x1d8 to 0x547 (0x370 bytes) is loaded from SPI flash on boot (at the end of [[user_start (IoT RTOS SDK 0.9.9)|user_start]]), and saved back to flash when appropriate by calling [[wifi_param_save_protect (IoT RTOS SDK 0.9.9)|wifi_param_save_protect]].  (The portion from 0x0 to 0x1d7 is apparently ephemeral and not saved in flash)
+
+'''Note:''' The "Referenced by" column is currently incomplete, as only some of the object files (and their disassemblies) have been processed to determine what functions reference this structure.  The following have been done thus far:
+* libmain/app_main.o
+* libmain/user_interface.s
+
+The following still need to be done:
+* libnet80211/ieee80211_crypto_tkip.s
+* libnet80211/ieee80211_hostap.s
+* libnet80211/ieee80211_ht.s
+* libnet80211/ieee80211_input.s
+* libnet80211/ieee80211_output.s
+* libnet80211/ieee80211_phy.s
+* libnet80211/ieee80211_power.s
+* libnet80211/ieee80211_proto.s
+* libnet80211/ieee80211_scan.s
+* libnet80211/ieee80211_sta.s
+* libnet80211/wl_chm.s
+* libnet80211/wl_cnx.s
+* libpp/pm.s
+* libpp/pp.s
+* libpp/wdev.s
+* libwpa/wpa_auth.s
+* libwpa/wpa_main.s
+* libwpa/wpa.s
+
+{| class="wikitable"
+! Offset !! Size !! Datatype !! Name !! Referenced by !! Notes
+|-
+| 0x0 || 4 || pointer || || 
+| pointer to buffer or large structure (at least 0x670 bytes)
+|-
+| 0x4 || 4 || pointer || ||
+[[pp.irom0.text+0xc00 (IoT RTOS SDK 0.9.9)|pp.irom0.text+0xc00]]
+| [g_ic+0x4]+0x4 passed as parameter to [[scan_connect_state (IoT RTOS SDK 0.9.9)|scan_connect_state]]
+|-
+| 0x8 || 8 ||colspan=4 align=center| ''(apparently unused)''
+|-
+| 0x10 || 4 || pointer || ||
+[[user_init_task (IoT RTOS SDK 0.9.9)|user_init_task]]<br>
+[[system_station_got_ip_set (IoT RTOS SDK 0.9.9)|system_station_got_ip_set]]<br>
+[[user_interface.irom0.text+0xc48 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0xc48]]<br>
+[[wifi_station_scan (IoT RTOS SDK 0.9.9)|wifi_station_scan]]<br>
+[[wifi_station_connect (IoT RTOS SDK 0.9.9)|wifi_station_connect]]<br>
+[[wifi_station_disconnect (IoT RTOS SDK 0.9.9)|wifi_station_disconnect]]<br>
+[[wifi_station_get_connect_status (IoT RTOS SDK 0.9.9)|wifi_station_get_connect_status]]
+| pointer to structure passed to [[netif_set_default (IoT RTOS SDK 0.9.9)|netif_set_default]]
+|-
+| 0x14 || 4 || pointer || || 
+[[user_init_task (IoT RTOS SDK 0.9.9)|user_init_task]]<br>
+[[user_interface.irom0.text+0xc48 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0xc48]]<br>
+[[user_interface.irom0.text+0xdb4 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0xdb4]]<br>
+[[user_interface.irom0.text+0x1b88 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x1b88]]<br>
+[[wifi_softap_set_station_info (IoT RTOS SDK 0.9.9)|wifi_softap_set_station_info]]<br>
+[[wifi_softap_get_station_info (IoT RTOS SDK 0.9.9)|wifi_softap_get_station_info]]<br>
+[[wifi_softap_deauth (IoT RTOS SDK 0.9.9)|wifi_softap_deauth]]
+| pointer to structure passed to [[netif_set_default (IoT RTOS SDK 0.9.9)|netif_set_default]]
+|-
+| 0x18 || 1 || uint8 || ||
+|
+|-
+| 0x1c || 4 || uint32 || ||
+|
+|-
+| 0x20 || 4 || uint32 || ||
+|
+|-
+| 0x24 || 8 ||colspan=4 align=center| ''(apparently unused)''
+|-
+| 0x2c || 1 || uint8 || ||
+|
+|-
+| 0x30 || 76 ||colspan=4 align=center| ''(apparently unused)''
+|-
+| 0x7c || 1 || uint8 || ||
+|
+|-
+| 0x7d || 1 || uint8 || ||
+|
+|-
+| 0x7e || 1 || uint8 || ||
+|
+|-
+| 0x7f || 1 || uint8 || ||
+|
+|-
+| 0x80 || 204 ||colspan=4 align=center| ''(apparently unused)''
+|-
+| 0x14c || 4 || pointer || ||
+| pointer to some kind of structure
+|-
+| 0x150 || 20 ||colspan=4 align=center| ''(apparently unused)''
+|-
+| 0x164 || 4 || uint32 || ||
+|
+|-
+| 0x168 || 4 || pointer || ||
+|
+|-
+| 0x16c || 4 || pointer || ||
+|
+|-
+| 0x170 || 4 || pointer || ||
+|
+|-
+| 0x174 || 4 || pointer || ||
+| pointer to some kind of structure
+|-
+| 0x178 || 4 || pointer || ||
+| pointer to some kind of structure
+|-
+| 0x17c || 4 ||colspan=4 align=center| ''(apparently unused)''
+|-
+| 0x180 || 4 || pointer || ||
+|
+|-
+| 0x184 || 4 || pointer || ||
+|
+|-
+| 0x188 || 4 || struct station_info * || station_info_head ||
+[[wifi_softap_get_station_info (IoT RTOS SDK 0.9.9)|wifi_softap_get_station_info]]<br>
+[[wifi_softap_free_station_info (IoT RTOS SDK 0.9.9)|wifi_softap_free_station_info]]
+|
+|-
+| 0x18c || 4 || struct station_info * || station_info_tail ||
+[[wifi_softap_get_station_info (IoT RTOS SDK 0.9.9)|wifi_softap_get_station_info]]<br>
+[[wifi_softap_free_station_info (IoT RTOS SDK 0.9.9)|wifi_softap_free_station_info]]
+|
+|-
+| 0x190 || 4 || uint32 || ||
+|
+|-
+| 0x194 || 4 || uint32 || ||
+|
+|-
+| 0x198 || 40 ||colspan=4 align=center| ''(apparently unused)''
+|-
+| 0x1c0 || 4 || pointer || ||
+| pointer to some kind of structure
+|-
+| 0x1c4 || 4 || pointer || ||
+|
+|-
+| 0x1c8 || 4 || uint32 || ||
+|
+|-
+| 0x1cc || 4 ||colspan=4 align=center| ''(apparently unused)''
+|-
+| 0x1d0 || 2 || uint16 || ||
+|
+|-
+| 0x1d2 || 2 ||colspan=4 align=center| ''(apparently unused)''
+|-
+| 0x1d4 || 1 || uint8 || promiscuous ||
+[[wifi_promiscuous_enable (IoT RTOS SDK 0.9.9)|wifi_promiscuous_enable]]
+|
+|-
+| 0x1d5 || 3 ||colspan=4 align=center| ''(apparently unused)''
+|}
+
+* 0x1d8 - 0x547: Loaded from SPI flash on boot and written back when updated
+
+{| class="wikitable"
+! Offset !! Size !! Datatype !! Name !! Referenced by !! Notes
+|-
+| 0x1d8 || 1 || uint8 || ||
+[[system_get_userbin_addr (IoT RTOS SDK 0.9.9)|system_get_userbin_addr]]<br>
+[[system_restart_enhance (IoT RTOS SDK 0.9.9)|system_restart_enhance]]<br>
+[[system_upgrade_reboot (IoT RTOS SDK 0.9.9)|system_upgrade_reboot]]
+|
+|-
+| 0x1d9 || 1 || uint8 || boot_info ||
+[[system_get_boot_version (IoT RTOS SDK 0.9.9)|system_get_boot_version]]<br>
+[[system_get_test_result (IoT RTOS SDK 0.9.9)|system_get_test_result]]<br>
+[[system_get_userbin_addr (IoT RTOS SDK 0.9.9)|system_get_userbin_addr]]<br>
+[[system_get_boot_mode (IoT RTOS SDK 0.9.9)|system_get_boot_mode]]<br>
+[[system_restart_enhance (IoT RTOS SDK 0.9.9)|system_restart_enhance]]<br>
+[[system_upgrade_reboot (IoT RTOS SDK 0.9.9)|system_upgrade_reboot]]
+|
+* bits 0-4 = boot_version
+* bit 5 = test_result
+* but 6 = ???
+* bit 7 = boot_mode
+|-
+| 0x1da || 3 || uint8[3] || user0_addr ||
+[[system_get_userbin_addr (IoT RTOS SDK 0.9.9)|system_get_userbin_addr]]<br>
+[[system_restart_enhance (IoT RTOS SDK 0.9.9)|system_restart_enhance]]
+|
+|-
+| 0x1dd || 3 || uint8[3] || user1_addr ||
+[[system_get_userbin_addr (IoT RTOS SDK 0.9.9)|system_get_userbin_addr]]<br>
+[[system_restart_enhance (IoT RTOS SDK 0.9.9)|system_restart_enhance]]
+|
+|-
+| 0x1e0 || 1 || uint8 || wifi_mode ||
+[[app_main.irom0.text+0x148 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x148]]<br>
+[[user_init_task (IoT RTOS SDK 0.9.9)|user_init_task]]<br>
+[[system_station_got_ip_set (IoT RTOS SDK 0.9.9)|system_station_got_ip_set]]<br>
+[[wifi_set_opmode_local (IoT RTOS SDK 0.9.9)|wifi_set_opmode_local]]
+| passed as parameter to wifi_mode_set.
+|-
+| 0x1e1 || 1 || uint8 || wifi_led_enable ||
+[[app_main.irom0.text+0x148 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x148]]<br>
+[[system_station_got_ip_set (IoT RTOS SDK 0.9.9)|system_station_got_ip_set]]<br>
+[[wifi_status_led_install (IoT RTOS SDK 0.9.9)|wifi_status_led_install]]
+|
+|-
+| 0x1e2 || 1 || uint8 || wifi_led_gpio ||
+[[system_station_got_ip_set (IoT RTOS SDK 0.9.9)|system_station_got_ip_set]]<br>
+[[wifi_status_led_install (IoT RTOS SDK 0.9.9)|wifi_status_led_install]]
+|
+|-
+| 0x1e3 || 1 || uint8 || ||
+[[wifi_status_led_install (IoT RTOS SDK 0.9.9)|wifi_status_led_install]]
+|
+|-
+| 0x1e4 || 36 ||colspan=4| The following 36-byte structure is bzero'd in app_main.irom0.text+0x148 if [0x1e4] == 0xffffffff
+
+{| class="wikitable"
+! Offset !! Size !! Datatype !! Name !! Referenced by !! Notes
+|-
+| 0x1e4 || 4 || uint32 || ||
+[[app_main.irom0.text+0x148 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x148]]<br>
+[[user_interface.irom0.text+0x12dc (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x12dc]]<br>
+[[wifi_station_ap_change (IoT RTOS SDK 0.9.9)|wifi_station_ap_change]]<br>
+[[wifi_station_connect (IoT RTOS SDK 0.9.9)|wifi_station_connect]]
+| Also accessed as individual bytes in some cases
+|-
+| 0x1e8 || 32 ||colspan=4 align=center| ''???''
+|}
+
+|-
+| 0x208 || 1 || uint8 || ||
+|
+|-
+| 0x209 || 1 || uint8 || ||
+|
+|-
+| 0x20a || 1 || uint8 || ||
+|
+|-
+| 0x20b || 1 ||colspan=4 align=center| ''(apparently unused by SDK)''
+|-
+| 0x20c || 1 || uint8 || ||
+|
+|-
+| 0x20d || 1 ||colspan=4 align=center| ''(apparently unused by SDK)''
+|-
+| 0x20e || 1 || uint8 || ||
+|
+|-
+| 0x20f || 64 || || ||
+[[app_main.irom0.text+0x148 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x148]]
+| bzero'd in app_main.irom0.text+0x148 if [0x1e4] == 0xffffffff
+|-
+| 0x24f || 1 || uint8 || ||
+[[user_interface.irom0.text+0x12dc (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x12dc]]<br>
+[[wifi_station_ap_change (IoT RTOS SDK 0.9.9)|wifi_station_ap_change]]
+|
+|-
+| 0x250 || 49 ||colspan=4 align=center| ''(apparently unused by SDK)''
+|-
+| 0x281 || 1 || uint8 || ||
+[[app_main.irom0.text+0x148 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x148]]<br>
+[[user_interface.irom0.text+0x12dc (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x12dc]]<br>
+[[wifi_station_ap_change (IoT RTOS SDK 0.9.9)|wifi_station_ap_change]]
+| Valid values are 0, 1
+|-
+| 0x282 || 6 ||colspan=4 align=center| ''(apparently unused by SDK)''
+|-
+| 0x288 || 4 || uint32 || ||
+[[wifi_softap_set_default_ssid (IoT RTOS SDK 0.9.9)|wifi_softap_set_default_ssid]]<br>
+[[user_interface.irom0.text+0x1b88 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x1b88]]
+|
+|-
+| 0x28c || 1 || uint8 || ||
+[[wifi_softap_set_default_ssid (IoT RTOS SDK 0.9.9)|wifi_softap_set_default_ssid]]
+|
+|-
+| 0x290 || 28 ||colspan=4 align=center| ''(apparently unused by SDK)''
+|-
+| 0x2ac || 64 || || ||
+[[app_main.irom0.text+0x148 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x148]]
+| bzero'd by app_main.irom0.text+0x148 if [0x30e] >= 5 or [0x30e] == 1
+|-
+| 0x2ec || 1 || uint8 || ||
+[[user_interface.irom0.text+0x1b88 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x1b88]]
+| Only set, never read?
+|-
+| 0x2ed || 32 ||colspan=4 align=center| ''(apparently unused by SDK)''
+|-
+| 0x30d || 1 || uint8 || ||
+[[app_main.irom0.text+0x148 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x148]]
+| Valid range is 1 - 14 (inclusive)
+|-
+| 0x30e || 1 || uint8 || ||
+[[app_main.irom0.text+0x148 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x148]]<br>
+[[user_interface.irom0.text+0x1b88 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x1b88]]
+| Valid values are 0, 2, 3, 4.  Related in some way to 64-byte region at 0x2ac.
+|-
+| 0x30f || 1 || uint8 || ||
+[[app_main.irom0.text+0x148 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x148]]
+| Valid values are 0, 1
+|-
+| 0x310 || 1 || uint8 || ||
+[[app_main.irom0.text+0x148 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x148]]<br>
+[[wifi_softap_set_station_info (IoT RTOS SDK 0.9.9)|wifi_softap_set_station_info]]<br>
+[[wifi_softap_deauth (IoT RTOS SDK 0.9.9)|wifi_softap_deauth]]
+| Valid range is 0 - 4
+|-
+| 0x311 || 3 ||colspan=4 align=center| ''(apparently unused by SDK)''
+|-
+| 0x314 || 1 || uint8 || ap_number ||
+[[app_main.irom0.text+0x148 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x148]]<br>
+[[wifi_station_get_ap_info (IoT RTOS SDK 0.9.9)|wifi_station_get_ap_info]]<br>
+[[wifi_station_ap_number_set (IoT RTOS SDK 0.9.9)|wifi_station_ap_number_set]]<br>
+[[user_interface.irom0.text+0x1400 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x1400]]<br>
+[[wifi_station_ap_change (IoT RTOS SDK 0.9.9)|wifi_station_ap_change]]
+| Valid range is 0 - 5 (inclusive), but it does not appear to be possible to set it to 0 via the APIs (calling wifi_station_ap_number_set(0) is a no-op)
+|-
+| 0x315 || 1 || uint8 || current_ap_id ||
+[[user_interface.irom0.text+0x12dc (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x12dc]]<br>
+[[wifi_station_get_current_ap_id (IoT RTOS SDK 0.9.9)|wifi_station_get_current_ap_id]]<br>
+[[wifi_station_ap_change (IoT RTOS SDK 0.9.9)|wifi_station_ap_change]]
+|
+|-
+| 0x316 || 502 ||colspan=4 align=center| ''(apparently unused by SDK)''
+|-
+| 0x50c || 4 || uint32 || ||
+[[wifi_set_phy_mode (IoT RTOS SDK 0.9.9)|wifi_set_phy_mode]]
+| Also accessed as individual bytes in some cases
+|-
+| 0x510 || 2 || uint16 || ||
+|
+|-
+| 0x512 || 2 || uint16 || ||
+|
+|-
+| 0x514 || 2 || uint16 || ||
+|
+|-
+| 0x516 || 2 ||colspan=4 align=center| ''(apparently unused by SDK)''
+|-
+| 0x518 || 1 || uint8 || auto_connect ||
+[[wifi_station_get_auto_connect (IoT RTOS SDK 0.9.9)|wifi_station_get_auto_connect]]<br>
+[[wifi_station_set_auto_connect (IoT RTOS SDK 0.9.9)|wifi_station_set_auto_connect]]
+|
+|-
+| 0x519 || 3 ||colspan=4 align=center| ''(apparently unused by SDK)''
+|-
+| 0x51c || 4 || enum phy_mode || phy_mode ||
+[[app_main.irom0.text+0x70 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x70]]<br>
+[[app_main.irom0.text+0x148 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x148]]<br>
+[[wifi_get_phy_mode (IoT RTOS SDK 0.9.9)|wifi_get_phy_mode]]<br>
+[[wifi_set_phy_mode (IoT RTOS SDK 0.9.9)|wifi_set_phy_mode]]
+|
+|-
+| 0x520 || 36 ||colspan=4 align=center| ''(apparently unused by SDK)''
+|-
+| 0x544 || 2 || uint16 || ||
+[[app_main.irom0.text+0x148 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x148]]<br>
+[[user_interface.irom0.text+0x1b88 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x1b88]]
+| Valid range is 100 - 60000 (inclusive)
+|-
+| 0x546 || 2 ||colspan=4 align=center| ''(apparently unused by SDK)''
+|}
