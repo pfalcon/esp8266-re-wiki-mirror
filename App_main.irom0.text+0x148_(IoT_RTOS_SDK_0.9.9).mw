@@ -1,0 +1,29 @@
+
+= Signature =
+
+<code>static void ''init_g_ic''(void)</code>
+
+= Called From =
+
+* [[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]]
+
+= Description =
+
+This function performs the following operations:
+
+# If [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].wifi_mode is 0xff, set [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].wifi_mode = 2
+# Call [[wifi_softap_set_default_ssid (IoT RTOS SDK 0.9.9)|wifi_softap_set_default_ssid]]
+# If [g_ic+0x30d] is out of range (1..14 inclusive), set it to 1
+# If [uint16 @ g_ic+0x544] is out of range (100..60000 inclusive), set it to 100
+# If [g_ic+0x30e] is out of range (0,2,3,4):
+#* Set [g_ic+0x30e] to 0
+#* Zero out the 64 bytes starting at g_ic+0x2ac
+# If [g_ic+0x30f] > 1, set it to 0
+# If [g_ic+0x310] > 4, set it to 4
+# If [uint32 @ g_ic+0x1e4] == 0xffffffff:
+#* Zero out the 36 bytes starting at g_ic+0x1e4
+#* Zero out the 64 bytes starting at g_ic+0x20f
+# Set [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].wifi_led_enable = 0
+# If [g_ic+0x281] > 1, set it to 0
+# If [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].ap_number > 5, set it to 1
+# If [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].phy_mode is out of range (1..3 inclusive), set it to PHY_MODE_11N
