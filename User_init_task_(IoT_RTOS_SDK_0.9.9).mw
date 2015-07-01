@@ -1,0 +1,30 @@
+= Prototype =
+
+<code>void user_init_task(void)</code>
+
+= Called From =
+
+(Nowhere directly.  This function is registered as a FreeRTOS task callback at the end of [[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]] (user_start_phase2) )
+
+= Description =
+
+This task callback does the following:
+
+# Calls [[ets_timer_init (IoT RTOS SDK 0.9.9)|ets_timer_init]]()
+# Prints "\nOS SDK ver: %s compiled @ %s %s\n" message
+# Gets PHY version:
+#* Top 16 bits of [0x6000107c]
+# Prints "phy ver: %d, " message
+# Gets PP version:
+#* [0x600011f8]: Bits 8-15 are major version, bits 0-7 are minor version
+# Prints "pp ver: %d.%d\n\n"
+# Calls [[user_init (IoT RTOS SDK 0.9.9)|user_init]]()
+# Sets user_init_flag = 1
+# Calls [[wifi_mode_set (IoT RTOS SDK 0.9.9)|wifi_mode_set]]([[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].wifi_mode)
+# If [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].wifi_mode is 1 or 3, calls [[wifi_station_start (IoT RTOS SDK 0.9.9)|wifi_station_start]]()
+# If [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].wifi_mode is 2 or 3, calls [[wifi_softap_start (IoT RTOS SDK 0.9.9)|wifi_softap_start]]()
+# Calls [[netif_set_default (IoT RTOS SDK 0.9.9)|netif_set_default]].  The argument depends on [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].wifi_mode: 
+#* If [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].wifi_mode == 1, uses [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].station_netif_info.netif
+#* Otherwise, uses [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].softap_netif_info.netif
+# If [[wifi_station_get_auto_connect (IoT RTOS SDK 0.9.9)|wifi_station_get_auto_connect]]() returns 1, it calls [[wifi_station_connect (IoT RTOS SDK 0.9.9)|wifi_station_connect]]()
+# Calls vTaskDelete(NULL) to delete itself from all FreeRTOS task lists
