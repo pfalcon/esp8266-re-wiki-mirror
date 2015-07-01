@@ -1,0 +1,50 @@
+This structure apparently contains information which depends on whether the system is operating in station mode or softap mode (two different copies of this structure are maintained and pointed to by [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].station_netif_info and [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].softap_station_info)
+
+= Description =
+
+{| class="wikitable"
+! Offset !! Size !! Datatype !! Name !! Referenced By !! Notes
+|-
+| 0x0 || 4 || struct netif * || netif ||
+| lwIP structure representing the interface
+|-
+| 0x14 || 4 || uint32 || ||
+|
+|-
+| 0x3c || 4 || uint32 || ||
+|
+|-
+| 0x48 || 4 || uint32 || ||
+|
+|-
+| 0x4c || 4 || uint32 || ||
+|
+|-
+| 0x88 || 4 || pointer || ||
+| Pointer to struct (same structure as 0x90)
+|-
+| 0x90 || 4 || pointer || ||
+| Pointer to struct (same structure as 0x88), 0x90 may only be used in softap mode
+|-
+| 0xb0 || 4 || uint32 || ||
+|
+|-
+| 0xb4 || 4 || pointer || ||
+| Pointer to struct
+|-
+| 0xb8 || 1 || uint8 || ||
+|
+|-
+| 0xb9 || 1 || uint8 || ||
+|
+|-
+| 0xba || 1 || uint8 || ||
+|
+|-
+| 0xbb || 1 || uint8 || ||
+|
+|-
+| 0xbc || 4 || uint32 || ||
+|
+|-
+|}
