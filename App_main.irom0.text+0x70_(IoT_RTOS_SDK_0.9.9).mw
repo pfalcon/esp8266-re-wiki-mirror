@@ -1,0 +1,38 @@
+= Prototype =
+
+<code>static void ''init_networking''(char *phy_info, char *mac_addr)</code>
+
+= Called From =
+
+* [[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]]
+
+= Description =
+
+The tentative name of this function has been chosen as "init_networking", as that appears to be the bulk of what it does, but it also seems to do some initialization of the UARTs as well (but not all of it: other UART initialization is also done in other routines).  It is unclear why things seem to be spread around this way during the startup process.
+
+This static (non-exported) function does the following:
+
+# Calls [[register_chipv6_phy (IoT RTOS SDK 0.9.9)|register_chipv6_phy]](''phy_info'')
+#* If return code is nonzero, print error and halt
+# Calls [[uart_div_modify (IoT RTOS SDK 0.9.9)|uart_div_modify]](0, 1068)
+# Calls [[uart_div_modify (IoT RTOS SDK 0.9.9)|uart_div_modify]](1, 1068)
+# Calls [[phy_disable_agc (IoT RTOS SDK 0.9.9)|phy_disable_agc]]()
+# Calls [[ieee80211_phy_init (IoT RTOS SDK 0.9.9)|ieee80211_phy_init]]([[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].phy_mode)
+# Calls [[lmacInit (IoT RTOS SDK 0.9.9)|lmacInit]]()
+# Calls [[wDev_Initialize (IoT RTOS SDK 0.9.9)|wDev_Initialize]]()
+# Calls [[pp_attach (IoT RTOS SDK 0.9.9)|pp_attach]]()
+# Calls [[ieee80211_ifattach (IoT RTOS SDK 0.9.9)|ieee80211_ifattach]]([[g_ic (IoT RTOS SDK 0.9.9)|g_ic]], ''mac_addr'')
+# Calls [[_xt_isr_mask (IoT RTOS SDK 0.9.9)|_xt_isr_mask]](1)
+#* Interrupt 1 appears to be the interrupt for UART0 (see /examples/driver_lib/include/uart.h)
+# Set/clear [[dport]] bits:
+#* Clear bit 6 (PERI_IO_HSPI_OVERLAP)
+#* Clear bit 5 (PERI_IO_HSPI_PRIO)
+#* Clear bit 4 (???)
+#* Clear bit 3 (PERI_IO_UART1_PIN_SWAP)
+#* Clear bit 2 (PERI_IO_UART0_PIN_SWAP)
+#* Clear bit 1 (PERI_IO_SPI_PORT_SWAP)
+#* Set bit 0 (PERI_IO_UART_PORT_SWAP)
+# Calls [[pm_attach (IoT RTOS SDK 0.9.9)|pm_attach]]()
+# Calls [[phy_enable_agc (IoT RTOS SDK 0.9.9)|phy_enable_agc]]()
+# Calls [[cnx_attach (IoT RTOS SDK 0.9.9)|cnx_attach]]([[g_ic (IoT RTOS SDK 0.9.9)|g_ic]])
+# Calls [[wDevEnableRx (IoT RTOS SDK 0.9.9)|wDevEnableRx]]()
