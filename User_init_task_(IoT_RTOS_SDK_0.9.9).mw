@@ -17,7 +17,6 @@ This task callback does the following:
 # Prints "phy ver: %d, " message
 # Gets PP version:
 #* [0x600011f8]: Bits 8-15 are major version, bits 0-7 are minor version
-#* Note: This address is actually reading from the RTC RAM region (0x600011f8 is near the top of the "reserved for system use" portion of the RTC RAM)
 # Prints "pp ver: %d.%d\n\n"
 # Calls [[user_init (IoT RTOS SDK 0.9.9)|user_init]]()
 # Sets user_init_flag = 1
