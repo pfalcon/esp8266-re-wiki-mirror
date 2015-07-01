@@ -46,7 +46,7 @@ The following still need to be done:
 |-
 | 0x8 || 8 ||colspan=4 align=center| ''(apparently unused)''
 |-
-| 0x10 || 4 || pointer || ||
+| 0x10 || 4 || struct [[g_ic_netif_info (IoT RTOS SDK 0.9.9)|g_ic_netif_info]] * || station_netif_info ||
 [[user_init_task (IoT RTOS SDK 0.9.9)|user_init_task]]<br>
 [[system_station_got_ip_set (IoT RTOS SDK 0.9.9)|system_station_got_ip_set]]<br>
 [[user_interface.irom0.text+0xc48 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0xc48]]<br>
@@ -54,9 +54,9 @@ The following still need to be done:
 [[wifi_station_connect (IoT RTOS SDK 0.9.9)|wifi_station_connect]]<br>
 [[wifi_station_disconnect (IoT RTOS SDK 0.9.9)|wifi_station_disconnect]]<br>
 [[wifi_station_get_connect_status (IoT RTOS SDK 0.9.9)|wifi_station_get_connect_status]]
-| pointer to structure passed to [[netif_set_default (IoT RTOS SDK 0.9.9)|netif_set_default]]
+| Used when wifi_mode == 1 (station mode)
 |-
-| 0x14 || 4 || pointer || || 
+| 0x14 || 4 || struct [[g_ic_netif_info (IoT RTOS SDK 0.9.9)|g_ic_netif_info]] * || softap_netif_info || 
 [[user_init_task (IoT RTOS SDK 0.9.9)|user_init_task]]<br>
 [[user_interface.irom0.text+0xc48 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0xc48]]<br>
 [[user_interface.irom0.text+0xdb4 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0xdb4]]<br>
@@ -64,7 +64,7 @@ The following still need to be done:
 [[wifi_softap_set_station_info (IoT RTOS SDK 0.9.9)|wifi_softap_set_station_info]]<br>
 [[wifi_softap_get_station_info (IoT RTOS SDK 0.9.9)|wifi_softap_get_station_info]]<br>
 [[wifi_softap_deauth (IoT RTOS SDK 0.9.9)|wifi_softap_deauth]]
-| pointer to structure passed to [[netif_set_default (IoT RTOS SDK 0.9.9)|netif_set_default]]
+| Used when wifi_mode == 2 (softap mode)
 |-
 | 0x18 || 1 || uint8 || ||
 |
