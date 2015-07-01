@@ -7,7 +7,9 @@ The structure of the SPI flash is broken up into three sections:
 {| class="wikitable"
 ! Location !! Size !! Function
 |-
-| 0 || flash_size/2 || image 0
+| 0 || 4 KB || bootloader (boot.bin)
+|-
+| 4 KB || flash_size/2 || image 0
 |-
 | flash_size/2 || flash_size/2 - 16 KB || image 1
 |-
