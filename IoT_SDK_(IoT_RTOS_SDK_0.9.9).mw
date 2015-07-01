@@ -20,3 +20,4 @@ Note that the last (git checkout) line is very important.  To double-check that 
 
 * [[call_user_start (IoT RTOS SDK 0.9.9)|call_user_start]]
 * [[user_start (IoT RTOS SDK 0.9.9)|user_start]]
+* [[user_init_task (IoT RTOS SDK 0.9.9)|user_init_task]]
