@@ -9,6 +9,8 @@ Note that the last (git checkout) line is very important.  To double-check that 
 
 = General Information =
 
+* [[Memory Regions (IoT RTOS SDK 0.9.9)|Memory Regions]] as accessed by the SDK
+
 = Data Structures =
 
 * [[flashchip (IoT RTOS SDK 0.9.9)|flashchip]]
