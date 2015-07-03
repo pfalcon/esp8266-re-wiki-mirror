@@ -1,28 +1,17 @@
-This page contains a reference for all memory locations which are referenced in header files, or read/written by routines anywhere in the IoT RTOS SDK 0.9.9 libraries.
-
-'''Note:''' The initial data for this table came from static analysis of disassembly outputs looking for absolute address accesses, and thus may have missed some cases involving computed addresses, etc.  Additional cases will be added as they're found.. -- [[User:Foogod|Foogod]] ([[User talk:Foogod|talk]]) 12:58, 3 July 2015 (EDT)
-
-= <span id="unk_0">Low Memory (0x00000000 - 0x00000001)</span> =
+This page contains a reference for all memory locations which are read/written by routines anywhere in the IoT RTOS SDK 0.9.9 libraries.
 
 {| class="wikitable"
-! Address !! Size !! Name !! Access !! Referenced by !! Notes
+! Address !! Size !! Name !! Referenced by !! Notes
 |-
-| 0x00000000 || 1 || || W ||
+| 0x00000000 || 1 || ||
 [[ieee80211_output.irom0.text+0x6dc (IoT RTOS SDK 0.9.9)|ieee80211_output.irom0.text+0x6dc]]<br>
-| (normally read/write protected region)
+| (apparently write-only)
 |-
-| 0x00000001 || 1 || || W ||
+| 0x00000001 || 1 || ||
 [[ieee80211_output.irom0.text+0x6dc (IoT RTOS SDK 0.9.9)|ieee80211_output.irom0.text+0x6dc]]<br>
-| (normally read/write protected region)
+| (apparently write-only)
 |-
-|}
-
-= <span id="dport0">dport0 Region (0x3ff00000 - 0x3ff0005c)</span> =
-
-{| class="wikitable"
-! Address !! Size !! Name !! Access !! Referenced by !! Notes
-|-
-| 0x3ff00000 || 4 || PERIPHS_DPORT_BASEADDR<ref name="eagle_soc.h">[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/eagle_soc.h include/espressif/esp8266/eagle_soc.h]</ref> || R/W ||
+| 0x3ff00000 || 4 || ||
 [[app_main.irom0.text+0x70 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x70]]<br>
 [[chm_init (IoT RTOS SDK 0.9.9)|chm_init]]<br>
 [[chm_set_current_channel (IoT RTOS SDK 0.9.9)|chm_set_current_channel]]<br>
@@ -59,20 +48,20 @@ This page contains a reference for all memory locations which are referenced in 
 [[wl_cnx.irom0.text+0x69c (IoT RTOS SDK 0.9.9)|wl_cnx.irom0.text+0x69c]]<br>
 |
 |-
-| 0x3ff00004 || 4 || EDGE_INT_ENABLE_REG<ref name="eagle_soc.h"/> || R/W ||
+| 0x3ff00004 || 4 || ||
 [[ets_timer_init (IoT RTOS SDK 0.9.9)|ets_timer_init]]<br>
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
 [[wdt_init (IoT RTOS SDK 0.9.9)|wdt_init]]<br>
 |
 |-
-| 0x3ff00014 || 4 || || R/W ||
+| 0x3ff00014 || 4 || ||
 [[bbpll_cal (IoT RTOS SDK 0.9.9)|bbpll_cal]]<br>
 [[pm.irom0.text+0x128 (IoT RTOS SDK 0.9.9)|pm.irom0.text+0x128]]<br>
 [[slop_test (IoT RTOS SDK 0.9.9)|slop_test]]<br>
 [[system_update_cpu_freq (IoT RTOS SDK 0.9.9)|system_update_cpu_freq]]<br>
 |
 |-
-| 0x3ff00018 || 4 || || R/W ||
+| 0x3ff00018 || 4 || ||
 [[clockgate_watchdog (IoT RTOS SDK 0.9.9)|clockgate_watchdog]]<br>
 [[pm_sdio_nidle (IoT RTOS SDK 0.9.9)|pm_sdio_nidle]]<br>
 [[pm_set_sleep_mode (IoT RTOS SDK 0.9.9)|pm_set_sleep_mode]]<br>
@@ -81,58 +70,43 @@ This page contains a reference for all memory locations which are referenced in 
 [[test_tout (IoT RTOS SDK 0.9.9)|test_tout]]<br>
 |
 |-
-| 0x3ff00024 || 4 || || R/W ||
+| 0x3ff00024 || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 [[system_restart_in_nmi (IoT RTOS SDK 0.9.9)|system_restart_in_nmi]]<br>
 |
 |-
-| 0x3ff00028 || 4 || || R/W ||
+| 0x3ff00028 || 4 || ||
 [[system_uart_swap (IoT RTOS SDK 0.9.9)|system_uart_swap]]<br>
 |
 |-
-| 0x3ff00050 || 4 || chip_id_0 || R ||
+| 0x3ff00050 || 4 || ||
 [[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]]<br>
 [[system_get_chip_id (IoT RTOS SDK 0.9.9)|system_get_chip_id]]<br>
 |
-* Bits 0-23 = ???
-* Bits 24-31 = Bottom 8 bits of chip ID
 |-
-| 0x3ff00054 || 4 || chip_id_1 || R ||
+| 0x3ff00054 || 4 || ||
 [[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]]<br>
 [[get_chip_version (IoT RTOS SDK 0.9.9)|get_chip_version]]<br>
 [[system_get_chip_id (IoT RTOS SDK 0.9.9)|system_get_chip_id]]<br>
 |
-* Bits 0-23 = Top 24 bits of chip ID
-* Bits 24-28 = Chip version
-* Bits 29-31 = ???
 |-
-| 0x3ff00058 || 4 || chip_id_flags || R ||
+| 0x3ff00058 || 4 || ||
 [[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]]<br>
 [[chip_v6_initialize_bb (IoT RTOS SDK 0.9.9)|chip_v6_initialize_bb]]<br>
 [[get_chip_version (IoT RTOS SDK 0.9.9)|get_chip_version]]<br>
 |
-* Bit 12 = MAC vendor ID is in 0x3ff0005c (if bit 12 is 0, use standard Espressif MAC vendor of <code>18:fe:34</code>)
-* Bit 15 = (always set on ESP8266, apparently unset on some other chip variants)
 |-
-| 0x3ff0005c || 4 || mac_addr_vendor || R ||
+| 0x3ff0005c || 4 || ||
 [[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]]<br>
 [[chip_v6_initialize_bb (IoT RTOS SDK 0.9.9)|chip_v6_initialize_bb]]<br>
 [[get_chip_version (IoT RTOS SDK 0.9.9)|get_chip_version]]<br>
 |
-* Bits 0-24 = MAC address vendor ID (if bit 12 of 0x3ff00058 is set)
 |-
-|}
-
-= <span id="wdev">wDev Region (0x3ff20000 - 0x3ff210fc)</span> =
-
-{| class="wikitable"
-! Address !! Size !! Name !! Access !! Referenced by !! Notes
-|-
-| 0x3ff20000 || 4 || || R/W ||
+| 0x3ff20000 || 4 || ||
 [[wdev.irom0.text+0x1fc (IoT RTOS SDK 0.9.9)|wdev.irom0.text+0x1fc]]<br>
 |
 |-
-| 0x3ff20004 || 4 || || R/W ||
+| 0x3ff20004 || 4 || ||
 [[pm_set_wakeup_mac (IoT RTOS SDK 0.9.9)|pm_set_wakeup_mac]]<br>
 [[pm_sleep_set_mac (IoT RTOS SDK 0.9.9)|pm_sleep_set_mac]]<br>
 [[wDevDisableRx (IoT RTOS SDK 0.9.9)|wDevDisableRx]]<br>
@@ -140,39 +114,39 @@ This page contains a reference for all memory locations which are referenced in 
 [[wDev_Initialize (IoT RTOS SDK 0.9.9)|wDev_Initialize]]<br>
 |
 |-
-| 0x3ff20008 || 4 || || W ||
+| 0x3ff20008 || 4 || ||
 [[wDev_AppendRxBlocks (IoT RTOS SDK 0.9.9)|wDev_AppendRxBlocks]]<br>
 [[wdev.irom0.text+0x1fc (IoT RTOS SDK 0.9.9)|wdev.irom0.text+0x1fc]]<br>
 [[wdev.text+0x10 (IoT RTOS SDK 0.9.9)|wdev.text+0x10]]<br>
 |
 |-
-| 0x3ff2000c || 4 || || W ||
+| 0x3ff2000c || 4 || ||
 [[wDev_AppendRxAmpduLensBlocks (IoT RTOS SDK 0.9.9)|wDev_AppendRxAmpduLensBlocks]]<br>
 [[wdev.irom0.text+0x1fc (IoT RTOS SDK 0.9.9)|wdev.irom0.text+0x1fc]]<br>
 |
 |-
-| 0x3ff20010 || 4 || || W ||
+| 0x3ff20010 || 4 || ||
 [[wdev.irom0.text+0x1fc (IoT RTOS SDK 0.9.9)|wdev.irom0.text+0x1fc]]<br>
 |
 |-
-| 0x3ff20014 || 4 || || R ||
+| 0x3ff20014 || 4 || ||
 [[wDev_ProcessFiq (IoT RTOS SDK 0.9.9)|wDev_ProcessFiq]]<br>
 |
 |-
-| 0x3ff20018 || 4 || || R ||
+| 0x3ff20018 || 4 || ||
 [[wDev_ProcessFiq (IoT RTOS SDK 0.9.9)|wDev_ProcessFiq]]<br>
 |
 |-
-| 0x3ff2001c || 4 || || R ||
+| 0x3ff2001c || 4 || ||
 [[wDev_ProcessFiq (IoT RTOS SDK 0.9.9)|wDev_ProcessFiq]]<br>
 |
 |-
-| 0x3ff20038 || 4 || || R ||
+| 0x3ff20038 || 4 || ||
 [[wdev.text+0x1010 (IoT RTOS SDK 0.9.9)|wdev.text+0x1010]]<br>
 [[wdev.text+0x1114 (IoT RTOS SDK 0.9.9)|wdev.text+0x1114]]<br>
 |
 |-
-| 0x3ff2006c || 4 || || R/W ||
+| 0x3ff2006c || 4 || ||
 [[cnx_sta_connect_cmd (IoT RTOS SDK 0.9.9)|cnx_sta_connect_cmd]]<br>
 [[ieee80211_scan.irom0.text+0x488 (IoT RTOS SDK 0.9.9)|ieee80211_scan.irom0.text+0x488]]<br>
 [[scan_start (IoT RTOS SDK 0.9.9)|scan_start]]<br>
@@ -181,71 +155,71 @@ This page contains a reference for all memory locations which are referenced in 
 [[wifi_promiscuous_set_mac (IoT RTOS SDK 0.9.9)|wifi_promiscuous_set_mac]]<br>
 |
 |-
-| 0x3ff2007c || 4 || || W ||
+| 0x3ff2007c || 4 || ||
 [[wdev.irom0.text+0x1fc (IoT RTOS SDK 0.9.9)|wdev.irom0.text+0x1fc]]<br>
 |
 |-
-| 0x3ff20080 || 4 || || W ||
+| 0x3ff20080 || 4 || ||
 [[wdev.irom0.text+0x1fc (IoT RTOS SDK 0.9.9)|wdev.irom0.text+0x1fc]]<br>
 |
 |-
-| 0x3ff20084 || 4 || || W ||
+| 0x3ff20084 || 4 || ||
 [[wdev.irom0.text+0x1fc (IoT RTOS SDK 0.9.9)|wdev.irom0.text+0x1fc]]<br>
 |
 |-
-| 0x3ff20088 || 4 || || W ||
+| 0x3ff20088 || 4 || ||
 [[wdev.irom0.text+0x1fc (IoT RTOS SDK 0.9.9)|wdev.irom0.text+0x1fc]]<br>
 |
 |-
-| 0x3ff20164 || 4 || || R ||
+| 0x3ff20164 || 4 || ||
 [[wDev_GetBAInfo (IoT RTOS SDK 0.9.9)|wDev_GetBAInfo]]<br>
 |
 |-
-| 0x3ff20168 || 4 || || R ||
+| 0x3ff20168 || 4 || ||
 [[wDev_GetBAInfo (IoT RTOS SDK 0.9.9)|wDev_GetBAInfo]]<br>
 |
 |-
-| 0x3ff20174 || 4 || || R ||
+| 0x3ff20174 || 4 || ||
 [[wDev_GetBAInfo (IoT RTOS SDK 0.9.9)|wDev_GetBAInfo]]<br>
 |
 |-
-| 0x3ff20178 || 4 || || R/W ||
+| 0x3ff20178 || 4 || ||
 [[wDev_Initialize (IoT RTOS SDK 0.9.9)|wDev_Initialize]]<br>
 |
 |-
-| 0x3ff201d0 || 4 || || R ||
+| 0x3ff201d0 || 4 || ||
 [[pm_check_mac_idle (IoT RTOS SDK 0.9.9)|pm_check_mac_idle]]<br>
 |
 |-
-| 0x3ff201d4 || 4 || || R ||
+| 0x3ff201d4 || 4 || ||
 [[wdev.text+0x1114 (IoT RTOS SDK 0.9.9)|wdev.text+0x1114]]<br>
 |
 |-
-| 0x3ff20400 || 4 || || W ||
+| 0x3ff20400 || 4 || ||
 [[wdev.irom0.text+0x3c4 (IoT RTOS SDK 0.9.9)|wdev.irom0.text+0x3c4]]<br>
 |
 |-
-| 0x3ff20404 || 4 || || W ||
+| 0x3ff20404 || 4 || ||
 [[wdev.irom0.text+0x3c4 (IoT RTOS SDK 0.9.9)|wdev.irom0.text+0x3c4]]<br>
 |
 |-
-| 0x3ff20408 || 4 || || W ||
+| 0x3ff20408 || 4 || ||
 [[wdev.irom0.text+0x3c4 (IoT RTOS SDK 0.9.9)|wdev.irom0.text+0x3c4]]<br>
 |
 |-
-| 0x3ff2040c || 4 || || W ||
+| 0x3ff2040c || 4 || ||
 [[wDevForceAck6M (IoT RTOS SDK 0.9.9)|wDevForceAck6M]]<br>
 |
 |-
-| 0x3ff20410 || 4 || || R ||
+| 0x3ff20410 || 4 || ||
 [[pm_check_mac_idle (IoT RTOS SDK 0.9.9)|pm_check_mac_idle]]<br>
 |
 |-
-| 0x3ff20418 || 4 || || R ||
+| 0x3ff20418 || 4 || ||
 [[pm.irom0.text+0xf24 (IoT RTOS SDK 0.9.9)|pm.irom0.text+0xf24]]<br>
 |
 |-
-| 0x3ff20800 || 4 || || R/W ||
+| 0x3ff20800 || 4 || ||
 [[wDev_Crypto_Conf (IoT RTOS SDK 0.9.9)|wDev_Crypto_Conf]]<br>
 [[wDev_Crypto_Disable (IoT RTOS SDK 0.9.9)|wDev_Crypto_Disable]]<br>
 [[wdev_exit_sniffer (IoT RTOS SDK 0.9.9)|wdev_exit_sniffer]]<br>
@@ -253,7 +227,7 @@ This page contains a reference for all memory locations which are referenced in 
 [[wdev.irom0.text+0x8bc (IoT RTOS SDK 0.9.9)|wdev.irom0.text+0x8bc]]<br>
 |
 |-
-| 0x3ff20804 || 4 || || R/W ||
+| 0x3ff20804 || 4 || ||
 [[wDev_Crypto_Conf (IoT RTOS SDK 0.9.9)|wDev_Crypto_Conf]]<br>
 [[wDev_Crypto_Disable (IoT RTOS SDK 0.9.9)|wDev_Crypto_Disable]]<br>
 [[wdev_exit_sniffer (IoT RTOS SDK 0.9.9)|wdev_exit_sniffer]]<br>
@@ -261,17 +235,17 @@ This page contains a reference for all memory locations which are referenced in 
 [[wdev.irom0.text+0x8bc (IoT RTOS SDK 0.9.9)|wdev.irom0.text+0x8bc]]<br>
 |
 |-
-| 0x3ff20808 || 4 || || W ||
+| 0x3ff20808 || 4 || ||
 [[wdev.irom0.text+0x8bc (IoT RTOS SDK 0.9.9)|wdev.irom0.text+0x8bc]]<br>
 |
 |-
-| 0x3ff2080c || 4 || || R/W ||
+| 0x3ff2080c || 4 || ||
 [[wDev_Crypto_Disable (IoT RTOS SDK 0.9.9)|wDev_Crypto_Disable]]<br>
 [[wDev_Insert_KeyEntry (IoT RTOS SDK 0.9.9)|wDev_Insert_KeyEntry]]<br>
 [[wDev_remove_KeyEntry (IoT RTOS SDK 0.9.9)|wDev_remove_KeyEntry]]<br>
 |
 |-
-| 0x3ff20c00 || 4 || WDEV_NOW || R ||
+| 0x3ff20c00 || 4 || ||
 [[do_noisefloor (IoT RTOS SDK 0.9.9)|do_noisefloor]]<br>
 [[dpd_init (IoT RTOS SDK 0.9.9)|dpd_init]]<br>
 [[ieee80211_beacon_alloc (IoT RTOS SDK 0.9.9)|ieee80211_beacon_alloc]]<br>
@@ -298,57 +272,57 @@ This page contains a reference for all memory locations which are referenced in 
 [[vApplicationIdleHook (IoT RTOS SDK 0.9.9)|vApplicationIdleHook]]<br>
 [[vApplicationTickHook (IoT RTOS SDK 0.9.9)|vApplicationTickHook]]<br>
 [[wdev.text+0x1114 (IoT RTOS SDK 0.9.9)|wdev.text+0x1114]]<br>
-|Number of microseconds since boot. (source: 2C-ESP8266-SDK__API\ Guide__EN_V1.5.2_20160316.pdf)
+|
 |-
-| 0x3ff20c14 || 4 || || R/W ||
+| 0x3ff20c14 || 4 || ||
 [[pm_set_sleep_mode (IoT RTOS SDK 0.9.9)|pm_set_sleep_mode]]<br>
 [[pm_wakeup_init (IoT RTOS SDK 0.9.9)|pm_wakeup_init]]<br>
 [[wDev_Option_Init (IoT RTOS SDK 0.9.9)|wDev_Option_Init]]<br>
 |
 |-
-| 0x3ff20c18 || 4 || || R/W ||
+| 0x3ff20c18 || 4 || ||
 [[wdev_exit_sniffer (IoT RTOS SDK 0.9.9)|wdev_exit_sniffer]]<br>
 [[wdev_go_sniffer (IoT RTOS SDK 0.9.9)|wdev_go_sniffer]]<br>
 [[wDev_Initialize (IoT RTOS SDK 0.9.9)|wDev_Initialize]]<br>
 |
 |-
-| 0x3ff20c1c || 4 || || R ||
+| 0x3ff20c1c || 4 || ||
 [[wdev.text+0x1114 (IoT RTOS SDK 0.9.9)|wdev.text+0x1114]]<br>
 |
 |-
-| 0x3ff20c20 || 4 || || R ||
+| 0x3ff20c20 || 4 || ||
 [[wDev_ProcessFiq (IoT RTOS SDK 0.9.9)|wDev_ProcessFiq]]<br>
-|Seems to be flags for type of message.  0x00000100 appears to be RX (pretty sure). 0x00010000 is another interesting bit, not sure what problem sending?  0x00020000 and 0x00040000 looks like TX Complete?  0x0008000? Not sure.  Only tested with user interrupts.
+|
 |-
-| 0x3ff20c24 || 4 || || W ||
+| 0x3ff20c24 || 4 || ||
 [[wDev_Initialize (IoT RTOS SDK 0.9.9)|wDev_Initialize]]<br>
 [[wDev_ProcessFiq (IoT RTOS SDK 0.9.9)|wDev_ProcessFiq]]<br>
 [[wdev.text+0x1114 (IoT RTOS SDK 0.9.9)|wdev.text+0x1114]]<br>
-|Interrupt status flags for NMI cause?
+|
 |-
-| 0x3ff20c28 || 4 || || W ||
+| 0x3ff20c28 || 4 || ||
 [[wDev_SetBssid (IoT RTOS SDK 0.9.9)|wDev_SetBssid]]<br>
 |
 |-
-| 0x3ff20c2c || 4 || || W ||
+| 0x3ff20c2c || 4 || ||
 [[wDev_SetBssid (IoT RTOS SDK 0.9.9)|wDev_SetBssid]]<br>
 |
 |-
-| 0x3ff20c30 || 4 || || W ||
+| 0x3ff20c30 || 4 || ||
 [[wDev_SetBssid (IoT RTOS SDK 0.9.9)|wDev_SetBssid]]<br>
 |
 |-
-| 0x3ff20c34 || 4 || || W ||
+| 0x3ff20c34 || 4 || ||
 [[wDev_SetBssid (IoT RTOS SDK 0.9.9)|wDev_SetBssid]]<br>
 |
 |-
-| 0x3ff20c38 || 4 || || W ||
+| 0x3ff20c38 || 4 || ||
 [[wdev_exit_sniffer (IoT RTOS SDK 0.9.9)|wdev_exit_sniffer]]<br>
 [[wdev_go_sniffer (IoT RTOS SDK 0.9.9)|wdev_go_sniffer]]<br>
 [[wDev_SetBssid (IoT RTOS SDK 0.9.9)|wDev_SetBssid]]<br>
 |
 |-
-| 0x3ff20c3c || 4 || || R/W ||
+| 0x3ff20c3c || 4 || ||
 [[wDev_ClearBssid (IoT RTOS SDK 0.9.9)|wDev_ClearBssid]]<br>
 [[wdev_exit_sniffer (IoT RTOS SDK 0.9.9)|wdev_exit_sniffer]]<br>
 [[wdev_go_sniffer (IoT RTOS SDK 0.9.9)|wdev_go_sniffer]]<br>
@@ -356,57 +330,57 @@ This page contains a reference for all memory locations which are referenced in 
 [[wDev_SetRxPolicy (IoT RTOS SDK 0.9.9)|wDev_SetRxPolicy]]<br>
 |
 |-
-| 0x3ff20c40 || 4 || || W ||
+| 0x3ff20c40 || 4 || ||
 [[wDev_SetBssid (IoT RTOS SDK 0.9.9)|wDev_SetBssid]]<br>
 |
 |-
-| 0x3ff20c44 || 4 || || R/W ||
+| 0x3ff20c44 || 4 || ||
 [[wDev_ClearBssid (IoT RTOS SDK 0.9.9)|wDev_ClearBssid]]<br>
 [[wDev_SetBssid (IoT RTOS SDK 0.9.9)|wDev_SetBssid]]<br>
 [[wDev_SetRxPolicy (IoT RTOS SDK 0.9.9)|wDev_SetRxPolicy]]<br>
 |
 |-
-| 0x3ff20c48 || 4 || || W ||
+| 0x3ff20c48 || 4 || ||
 [[wDev_SetMacAddress (IoT RTOS SDK 0.9.9)|wDev_SetMacAddress]]<br>
 |
 |-
-| 0x3ff20c4c || 4 || || W ||
+| 0x3ff20c4c || 4 || ||
 [[wDev_SetMacAddress (IoT RTOS SDK 0.9.9)|wDev_SetMacAddress]]<br>
 |
 |-
-| 0x3ff20c50 || 4 || || W ||
+| 0x3ff20c50 || 4 || ||
 [[wDev_SetMacAddress (IoT RTOS SDK 0.9.9)|wDev_SetMacAddress]]<br>
 |
 |-
-| 0x3ff20c54 || 4 || || W ||
+| 0x3ff20c54 || 4 || ||
 [[wDev_SetMacAddress (IoT RTOS SDK 0.9.9)|wDev_SetMacAddress]]<br>
 |
 |-
-| 0x3ff20c58 || 4 || || W ||
+| 0x3ff20c58 || 4 || ||
 [[wdev_exit_sniffer (IoT RTOS SDK 0.9.9)|wdev_exit_sniffer]]<br>
 [[wdev_go_sniffer (IoT RTOS SDK 0.9.9)|wdev_go_sniffer]]<br>
 [[wDev_SetMacAddress (IoT RTOS SDK 0.9.9)|wDev_SetMacAddress]]<br>
 |
 |-
-| 0x3ff20c5c || 4 || || R/W ||
+| 0x3ff20c5c || 4 || ||
 [[wdev_exit_sniffer (IoT RTOS SDK 0.9.9)|wdev_exit_sniffer]]<br>
 [[wdev_go_sniffer (IoT RTOS SDK 0.9.9)|wdev_go_sniffer]]<br>
 [[wDev_SetMacAddress (IoT RTOS SDK 0.9.9)|wDev_SetMacAddress]]<br>
 |
 |-
-| 0x3ff20c60 || 4 || || W ||
+| 0x3ff20c60 || 4 || ||
 [[wDev_SetMacAddress (IoT RTOS SDK 0.9.9)|wDev_SetMacAddress]]<br>
 |
 |-
-| 0x3ff20c64 || 4 || || R/W ||
+| 0x3ff20c64 || 4 || ||
 [[wDev_SetMacAddress (IoT RTOS SDK 0.9.9)|wDev_SetMacAddress]]<br>
 |
 |-
-| 0x3ff20c6c || 4 || || R/W ||
+| 0x3ff20c6c || 4 || ||
 [[wDev_Option_Init (IoT RTOS SDK 0.9.9)|wDev_Option_Init]]<br>
 |
 |-
-| 0x3ff20c70 || 4 || || R/W ||
+| 0x3ff20c70 || 4 || ||
 [[chip_v6_initialize_bb (IoT RTOS SDK 0.9.9)|chip_v6_initialize_bb]]<br>
 [[chip_v6_rf_init (IoT RTOS SDK 0.9.9)|chip_v6_rf_init]]<br>
 [[chip_v6_set_chan_misc (IoT RTOS SDK 0.9.9)|chip_v6_set_chan_misc]]<br>
@@ -418,28 +392,28 @@ This page contains a reference for all memory locations which are referenced in 
 [[wdev.text+0x1114 (IoT RTOS SDK 0.9.9)|wdev.text+0x1114]]<br>
 |
 |-
-| 0x3ff20c74 || 4 || || R/W ||
+| 0x3ff20c74 || 4 || ||
 [[pm_set_sleep_mode (IoT RTOS SDK 0.9.9)|pm_set_sleep_mode]]<br>
 [[pm_set_wakeup_mac (IoT RTOS SDK 0.9.9)|pm_set_wakeup_mac]]<br>
 [[pm_sleep_set_mac (IoT RTOS SDK 0.9.9)|pm_sleep_set_mac]]<br>
 [[pm_wakeup_init (IoT RTOS SDK 0.9.9)|pm_wakeup_init]]<br>
 |
 |-
-| 0x3ff20c84 || 4 || || R ||
+| 0x3ff20c84 || 4 || ||
 [[wDev_ProcessFiq (IoT RTOS SDK 0.9.9)|wDev_ProcessFiq]]<br>
 |
 |-
-| 0x3ff20c88 || 4 || || R/W ||
+| 0x3ff20c88 || 4 || ||
 [[wdev_exit_sniffer (IoT RTOS SDK 0.9.9)|wdev_exit_sniffer]]<br>
 [[wdev_go_sniffer (IoT RTOS SDK 0.9.9)|wdev_go_sniffer]]<br>
 [[wDev_Option_Init (IoT RTOS SDK 0.9.9)|wDev_Option_Init]]<br>
 |
 |-
-| 0x3ff20c90 || 4 || || R/W ||
+| 0x3ff20c90 || 4 || ||
 [[wDev_Option_Init (IoT RTOS SDK 0.9.9)|wDev_Option_Init]]<br>
 |
 |-
-| 0x3ff20c94 || 4 || || R/W ||
+| 0x3ff20c94 || 4 || ||
 [[rom_tx_mac_disable (IoT RTOS SDK 0.9.9)|rom_tx_mac_disable]]<br>
 [[rom_tx_mac_enable (IoT RTOS SDK 0.9.9)|rom_tx_mac_enable]]<br>
 [[wdev_exit_sniffer (IoT RTOS SDK 0.9.9)|wdev_exit_sniffer]]<br>
@@ -447,174 +421,131 @@ This page contains a reference for all memory locations which are referenced in 
 [[wDev_Option_Init (IoT RTOS SDK 0.9.9)|wDev_Option_Init]]<br>
 |
 |-
-| 0x3ff20ca8 || 4 || || R/W ||
+| 0x3ff20ca8 || 4 || ||
 [[wDev_AppendRxBlocks (IoT RTOS SDK 0.9.9)|wDev_AppendRxBlocks]]<br>
 [[wdev.text+0x10 (IoT RTOS SDK 0.9.9)|wdev.text+0x10]]<br>
 |
 |-
-| 0x3ff20cac || 4 || || R/W ||
+| 0x3ff20cac || 4 || ||
 [[wDev_AppendRxBlocks (IoT RTOS SDK 0.9.9)|wDev_AppendRxBlocks]]<br>
 [[wdev.text+0x10 (IoT RTOS SDK 0.9.9)|wdev.text+0x10]]<br>
 |
 |-
-| 0x3ff20cb0 || 4 || || R/W ||
+| 0x3ff20cb0 || 4 || ||
 [[wDev_SetWaitingQueue (IoT RTOS SDK 0.9.9)|wDev_SetWaitingQueue]]<br>
 |
 |-
-| 0x3ff20cc0 || 4 || || R/W ||
+| 0x3ff20cc0 || 4 || ||
 [[wDev_ClearTxqCollisions (IoT RTOS SDK 0.9.9)|wDev_ClearTxqCollisions]]<br>
 [[wDev_GetTxqCollisions (IoT RTOS SDK 0.9.9)|wDev_GetTxqCollisions]]<br>
 |
 |-
-| 0x3ff20cdc || 4 || || R/W ||
+| 0x3ff20cdc || 4 || ||
 [[lmac.text+0x130 (IoT RTOS SDK 0.9.9)|lmac.text+0x130]]<br>
 [[Tx_Copy2Queue (IoT RTOS SDK 0.9.9)|Tx_Copy2Queue]]<br>
 |
 |-
-| 0x3ff20ce0 || 4 || || R/W ||
+| 0x3ff20ce0 || 4 || ||
 [[lmac.text+0x130 (IoT RTOS SDK 0.9.9)|lmac.text+0x130]]<br>
 [[Tx_Copy2Queue (IoT RTOS SDK 0.9.9)|Tx_Copy2Queue]]<br>
 |
 |-
-| 0x3ff20ce4 || 4 || || R/W ||
+| 0x3ff20ce4 || 4 || ||
 [[lmac.text+0x130 (IoT RTOS SDK 0.9.9)|lmac.text+0x130]]<br>
 [[Tx_Copy2Queue (IoT RTOS SDK 0.9.9)|Tx_Copy2Queue]]<br>
 |
 |-
-| 0x3ff20ce8 || 4 || || R/W ||
+| 0x3ff20ce8 || 4 || ||
 [[lmac.text+0x130 (IoT RTOS SDK 0.9.9)|lmac.text+0x130]]<br>
 [[Tx_Copy2Queue (IoT RTOS SDK 0.9.9)|Tx_Copy2Queue]]<br>
 |
 |-
-| 0x3ff20de0 || 4 || || R/W ||
+| 0x3ff20de0 || 4 || ||
 [[pm_set_wakeup_mac (IoT RTOS SDK 0.9.9)|pm_set_wakeup_mac]]<br>
 [[pm_sleep_set_mac (IoT RTOS SDK 0.9.9)|pm_sleep_set_mac]]<br>
 [[pm_unmask_bt (IoT RTOS SDK 0.9.9)|pm_unmask_bt]]<br>
 [[rom_tx_mac_disable (IoT RTOS SDK 0.9.9)|rom_tx_mac_disable]]<br>
 [[rom_tx_mac_enable (IoT RTOS SDK 0.9.9)|rom_tx_mac_enable]]<br>
-|| Related to BT coexistence feature, the register value depends on the bt_protocol field (52) in the phy_info data.
-
-{| class="wikitable"
-! bt_protocol !! meaning !! register value
-|-
-| 0 || WiFi only (no coexistence) || 0
-|-
-| 1 || BT only (no WiFi) || 0x00003333
-|-
-| 2 || BT_ACTIVE, independent ant || 0x40001110
-|-
-| 3 || BT_ACTIVE/BT_PRIORITY, independent ant || 0x40001550
-|-
-| 4 || BT_ACTIVE, shared ant || 0x40005330
-|-
-| 5 || BT_ACTIVE/BT_PRIORITY, shared ant || 0x40003660
-|}    
-
 |
 |-
-| 0x3ff20e04 || 4 || || R ||
+| 0x3ff20e04 || 4 || ||
 [[wDev_ProcessFiq (IoT RTOS SDK 0.9.9)|wDev_ProcessFiq]]<br>
 |
 |-
-| 0x3ff20e08 || 4 || || R/W ||
+| 0x3ff20e08 || 4 || ||
 [[wDev_Option_Init (IoT RTOS SDK 0.9.9)|wDev_Option_Init]]<br>
 |
 |-
-| 0x3ff21004 || 4 || MacTim_counter_lword || R ||
+| 0x3ff21004 || 4 || ||
 [[wDev_MacTimArm (IoT RTOS SDK 0.9.9)|wDev_MacTimArm]]<br>
-| Low 32 bits of the 64-bit clock counter used for MacTim
+|
 |-
-| 0x3ff21008 || 4 || MacTim_counter_hword || R ||
+| 0x3ff21008 || 4 || ||
 [[wDev_MacTimArm (IoT RTOS SDK 0.9.9)|wDev_MacTimArm]]<br>
-| High 32 bits of the 64-bit clock counter used for MacTim
+|
 |-
-| 0x3ff21014 || 4 || || R/W ||
+| 0x3ff21014 || 4 || ||
 [[wDev_MacTimSetFunc (IoT RTOS SDK 0.9.9)|wDev_MacTimSetFunc]]<br>
 |
 |-
-| 0x3ff21048 || 4 || MacTim1_counter_lword || R ||
+| 0x3ff21048 || 4 || ||
 [[wDev_Get_Next_TBTT (IoT RTOS SDK 0.9.9)|wDev_Get_Next_TBTT]]<br>
 [[wDev_MacTim1Arm (IoT RTOS SDK 0.9.9)|wDev_MacTim1Arm]]<br>
-| Low 32 bits of the 64-bit clock counter used for MacTim1
+|
 |-
-| 0x3ff2104c || 4 || MacTim1_counter_hword || R ||
+| 0x3ff2104c || 4 || ||
 [[wDev_MacTim1Arm (IoT RTOS SDK 0.9.9)|wDev_MacTim1Arm]]<br>
-| High 32 bits of the 64-bit clock counter used for MacTim1
+|
 |-
-| 0x3ff21058 || 4 || || R/W ||
+| 0x3ff21058 || 4 || ||
 [[wDev_Disable_Beacon_Tsf (IoT RTOS SDK 0.9.9)|wDev_Disable_Beacon_Tsf]]<br>
 [[wDev_Enable_Beacon_Tsf (IoT RTOS SDK 0.9.9)|wDev_Enable_Beacon_Tsf]]<br>
 [[wDev_MacTim1SetFunc (IoT RTOS SDK 0.9.9)|wDev_MacTim1SetFunc]]<br>
 |
 |-
-| 0x3ff2105c || 4 || || W ||
+| 0x3ff2105c || 4 || ||
 [[wDev_Reset_TBTT (IoT RTOS SDK 0.9.9)|wDev_Reset_TBTT]]<br>
 |
 |-
-| 0x3ff21060 || 4 || || W ||
+| 0x3ff21060 || 4 || ||
 [[wDev_Reset_TBTT (IoT RTOS SDK 0.9.9)|wDev_Reset_TBTT]]<br>
 |
 |-
-| 0x3ff21098 || 4 || MacTim_ctrl || R/W ||
+| 0x3ff21098 || 4 || ||
 [[wDev_MacTimArm (IoT RTOS SDK 0.9.9)|wDev_MacTimArm]]<br>
-| Bit 31 = activate MacTim timer
+|
 |-
-| 0x3ff2109c || 4 || MacTim_trigger_lword || W ||
+| 0x3ff2109c || 4 || ||
 [[wDev_MacTimArm (IoT RTOS SDK 0.9.9)|wDev_MacTimArm]]<br>
-| Low 32 bits of the 64-bit clock counter value at which MacTim should trigger an NMI 
+|
 |-
-| 0x3ff210a0 || 4 || MacTim_trigger_hword || W ||
+| 0x3ff210a0 || 4 || ||
 [[wDev_MacTimArm (IoT RTOS SDK 0.9.9)|wDev_MacTimArm]]<br>
-| High 32 bits of the 64-bit clock counter value at which MacTim should trigger an NMI 
+|
 |-
-| 0x3ff210c8 || 4 || MacTim1_ctrl || R/W ||
+| 0x3ff210c8 || 4 || ||
 [[wDev_MacTim1Arm (IoT RTOS SDK 0.9.9)|wDev_MacTim1Arm]]<br>
-| Bit 31 = activate MacTim1 timer
+|
 |-
-| 0x3ff210cc || 4 || MacTim1_trigger_lword || W ||
+| 0x3ff210cc || 4 || ||
 [[wDev_MacTim1Arm (IoT RTOS SDK 0.9.9)|wDev_MacTim1Arm]]<br>
-| Low 32 bits of the 64-bit clock counter value at which MacTim1 should trigger an NMI 
+|
 |-
-| 0x3ff210d0 || 4 || MacTim1_trigger_hword || W ||
+| 0x3ff210d0 || 4 || ||
 [[wDev_MacTim1Arm (IoT RTOS SDK 0.9.9)|wDev_MacTim1Arm]]<br>
-| High 32 bits of the 64-bit clock counter value at which MacTim1 should trigger an NMI 
+|
 |-
-| 0x3ff210fc || 4 || || R ||
+| 0x3ff210fc || 4 || ||
 [[wDev_ProcessFiq (IoT RTOS SDK 0.9.9)|wDev_ProcessFiq]]<br>
 [[wdev.text+0x1114 (IoT RTOS SDK 0.9.9)|wdev.text+0x1114]]<br>
 |
 |-
-|}
-
-= <span id="mmio">MMIO Region (0x60000000 - 0x60009d70)</span> =
-
-{| class="wikitable"
-! Address !! Size !! Name !! Access !! Referenced by !! Notes
-|-
-| 0x60000000 || 4 || UART_FIFO(0)<ref name="uart_register.h">[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/uart_register.h include/espressif/esp8266/uart_register.h]</ref> || R/W ||
+| 0x60000000 || 4 || ||
 [[app_main.text+0x1d0 (IoT RTOS SDK 0.9.9)|app_main.text+0x1d0]]<br>
 [[uart_rx_one_char (IoT RTOS SDK 0.9.9)|uart_rx_one_char]]<br>
 |
 |-
-| 0x60000004 || 4 || UART_INT_RAW(0)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000008 || 4 || UART_INT_ST(0)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x6000000c || 4 || UART_INT_ENA(0)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000010 || 4 || UART_INT_CLR(0)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000014 || 4 || UART_CLKDIV(0)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000018 || 4 || UART_AUTOBAUD(0)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x6000001c || 4 || UART_STATUS(0)<ref name="uart_register.h"/> || R ||
+| 0x6000001c || 4 || ||
 [[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]]<br>
 [[app_main.text+0x1d0 (IoT RTOS SDK 0.9.9)|app_main.text+0x1d0]]<br>
 [[system_uart_swap (IoT RTOS SDK 0.9.9)|system_uart_swap]]<br>
@@ -623,379 +554,101 @@ This page contains a reference for all memory locations which are referenced in 
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
 |
 |-
-| 0x60000020 || 4 || UART_CONF0(0)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000024 || 4 || UART_CONF1(0)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000028 || 4 || UART_LOWPULSE(0)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x6000002c || 4 || UART_HIGHPULSE(0)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000030 || 4 || UART_PULSE_NUM(0)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000078 || 4 || UART_DATE(0)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x6000007c || 4 || UART_ID(0)<ref name="uart_register.h"/> || ||
-|
-|-
-|colspan=6|
-|-
-| 0x60000100 || 4 || SPI_CMD(1)<ref name="spi_register.h">[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/spi_register.h include/espressif/esp8266/spi_register.h]</ref> || ||
-|
-|-
-| 0x60000104 || 4 || SPI_ADDR(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000108 || 4 || SPI_CTRL(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x6000010c || 4 || || ||
-| (not referenced by any header file or library)
-|-
-| 0x60000110 || 4 || SPI_RD_STATUS(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000114 || 4 || SPI_CTRL2(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000118 || 4 || SPI_CLOCK(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x6000011c || 4 || SPI_USER(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000120 || 4 || SPI_USER1(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000124 || 4 || SPI_USER2(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000128 || 4 || SPI_WR_STATUS(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x6000012c || 4 || SPI_PIN(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000130 || 4 || SPI_SLAVE(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000134 || 4 || SPI_SLAVE1(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000138 || 4 || SPI_SLAVE2(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x6000013c || 4 || SPI_SLAVE3(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000140 || 4 || SPI_W0(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000144 || 4 || SPI_W1(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000148 || 4 || SPI_W2(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x6000014c || 4 || SPI_W3(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000150 || 4 || SPI_W4(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000154 || 4 || SPI_W5(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000158 || 4 || SPI_W6(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x6000015c || 4 || SPI_W7(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000160 || 4 || SPI_W8(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000164 || 4 || SPI_W9(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000168 || 4 || SPI_W10(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x6000016c || 4 || SPI_W11(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000170 || 4 || SPI_W12(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000174 || 4 || SPI_W13(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000178 || 4 || SPI_W14(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x6000017c || 4 || SPI_W15(1)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x600001fc || 4 || SPI_EXT3(1)<ref name="spi_register.h"/> || ||
-|
-|-
-|colspan=6|
-|-
-| 0x60000200 || 4 || SPI_CMD(0)<ref name="spi_register.h"/> || R/W ||
+| 0x60000200 || 4 || ||
 [[spi_flash_get_id (IoT RTOS SDK 0.9.9)|spi_flash_get_id]]<br>
 |
 |-
-| 0x60000204 || 4 || SPI_ADDR(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000208 || 4 || SPI_CTRL(0)<ref name="spi_register.h"/> || R/W ||
+| 0x60000208 || 4 || ||
 [[app_main.text+0xa0 (IoT RTOS SDK 0.9.9)|app_main.text+0xa0]]<br>
 [[SPIReadModeCnfig (IoT RTOS SDK 0.9.9)|SPIReadModeCnfig]]<br>
 |
 |-
-| 0x6000020c || 4 || || ||
-| (not referenced by any header file or library)
-|-
-| 0x60000210 || 4 || SPI_RD_STATUS(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000214 || 4 || SPI_CTRL2(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000218 || 4 || SPI_CLOCK(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x6000021c || 4 || SPI_USER(0)<ref name="spi_register.h"/> || R/W ||
+| 0x6000021c || 4 || ||
 [[user_start (IoT RTOS SDK 0.9.9)|user_start]]<br>
 |
 |-
-| 0x60000220 || 4 || SPI_USER1(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000224 || 4 || SPI_USER2(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000228 || 4 || SPI_WR_STATUS(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x6000022c || 4 || SPI_PIN(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000230 || 4 || SPI_SLAVE(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000234 || 4 || SPI_SLAVE1(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000238 || 4 || SPI_SLAVE2(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x6000023c || 4 || SPI_SLAVE3(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000240 || 4 || SPI_W0(0)<ref name="spi_register.h"/> || R/W ||
+| 0x60000240 || 4 || ||
 [[spi_flash_get_id (IoT RTOS SDK 0.9.9)|spi_flash_get_id]]<br>
 |
 |-
-| 0x60000244 || 4 || SPI_W1(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000248 || 4 || SPI_W2(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x6000024c || 4 || SPI_W3(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000250 || 4 || SPI_W4(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000254 || 4 || SPI_W5(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000258 || 4 || SPI_W6(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x6000025c || 4 || SPI_W7(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000260 || 4 || SPI_W8(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000264 || 4 || SPI_W9(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000268 || 4 || SPI_W10(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x6000026c || 4 || SPI_W11(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000270 || 4 || SPI_W12(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000274 || 4 || SPI_W13(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x60000278 || 4 || SPI_W14(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x6000027c || 4 || SPI_W15(0)<ref name="spi_register.h"/> || ||
-|
-|-
-| 0x600002fc || 4 || SPI_EXT3(0)<ref name="spi_register.h"/> || ||
-|
-|-
-|colspan=6|
-|-
-| 0x60000300 || 4 || GPIO_OUT_ADDRESS<ref name="gpio_register.h">[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/gpio_register.h include/espressif/esp8266/gpio_register.h]</ref> || W ||
+| 0x60000300 || 4 || ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
 |
 |-
-| 0x60000304 || 4 || GPIO_OUT_W1TS_ADDRESS<ref name="gpio_register.h"/> || W ||
+| 0x60000304 || 4 || ||
 [[gpio_output_set (IoT RTOS SDK 0.9.9)|gpio_output_set]]<br>
 |
 |-
-| 0x60000308 || 4 || GPIO_OUT_W1TC_ADDRESS<ref name="gpio_register.h"/> || W ||
+| 0x60000308 || 4 || ||
 [[gpio_output_set (IoT RTOS SDK 0.9.9)|gpio_output_set]]<br>
 |
 |-
-| 0x6000030c || 4 || GPIO_ENABLE_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x60000310 || 4 || GPIO_ENABLE_W1TS_ADDRESS<ref name="gpio_register.h"/> || W ||
+| 0x60000310 || 4 || ||
 [[gpio_output_set (IoT RTOS SDK 0.9.9)|gpio_output_set]]<br>
 |
 |-
-| 0x60000314 || 4 || GPIO_ENABLE_W1TC_ADDRESS<ref name="gpio_register.h"/> || W ||
+| 0x60000314 || 4 || ||
 [[gpio_output_set (IoT RTOS SDK 0.9.9)|gpio_output_set]]<br>
 |
 |-
-| 0x60000318 || 4 || GPIO_IN_ADDRESS<ref name="gpio_register.h"/> || R ||
+| 0x60000318 || 4 || ||
 [[pm_sdio_nidle (IoT RTOS SDK 0.9.9)|pm_sdio_nidle]]<br>
 [[set_crystal_uart (IoT RTOS SDK 0.9.9)|set_crystal_uart]]<br>
 |
 |-
-| 0x6000031c || 4 || GPIO_STATUS_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x60000320 || 4 || GPIO_STATUS_W1TS_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x60000324 || 4 || GPIO_STATUS_W1TC_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x60000328 || 4 || GPIO_PIN0_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x6000032c || 4 || GPIO_PIN1_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x60000330 || 4 || GPIO_PIN2_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x60000334 || 4 || GPIO_PIN3_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x60000338 || 4 || GPIO_PIN4_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x6000033c || 4 || GPIO_PIN5_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x60000340 || 4 || GPIO_PIN6_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x60000344 || 4 || GPIO_PIN7_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x60000348 || 4 || GPIO_PIN8_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x6000034c || 4 || GPIO_PIN9_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x60000350 || 4 || GPIO_PIN10_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x60000354 || 4 || GPIO_PIN11_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x60000358 || 4 || GPIO_PIN12_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x6000035c || 4 || GPIO_PIN13_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x60000360 || 4 || GPIO_PIN14_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x60000364 || 4 || GPIO_PIN15_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x60000368 || 4 || GPIO_SIGMA_DELTA_ADDRESS<ref name="gpio_register.h"/> || ||
-|
-|-
-| 0x6000036c || 4 || GPIO_RTC_CALIB_SYNC_ADDRESS<ref name="gpio_register.h"/> || R/W ||
+| 0x6000036c || 4 || ||
 [[pm_rtc_clock_cali (IoT RTOS SDK 0.9.9)|pm_rtc_clock_cali]]<br>
 |
 |-
-| 0x60000370 || 4 || GPIO_RTC_CALIB_VALUE_ADDRESS<ref name="gpio_register.h"/> || R/W ||
+| 0x60000370 || 4 || ||
 [[pm_rtc_clock_cali (IoT RTOS SDK 0.9.9)|pm_rtc_clock_cali]]<br>
 |
 |-
-|colspan=6|
-|-
-| 0x60000560 || 4 || || R ||
+| 0x60000560 || 4 || ||
 [[dpd_init (IoT RTOS SDK 0.9.9)|dpd_init]]<br>
 [[dpd_scale_set (IoT RTOS SDK 0.9.9)|dpd_scale_set]]<br>
 [[tx_pwctrl_cal (IoT RTOS SDK 0.9.9)|tx_pwctrl_cal]]<br>
 |
 |-
-| 0x6000057c || 4 || || R/W ||
+| 0x6000057c || 4 || ||
 [[rom_iq_est_disable (IoT RTOS SDK 0.9.9)|rom_iq_est_disable]]<br>
 [[rom_iq_est_enable (IoT RTOS SDK 0.9.9)|rom_iq_est_enable]]<br>
 |
 |-
-| 0x60000580 || 4 || || R ||
+| 0x60000580 || 4 || ||
 [[ram_get_corr_power (IoT RTOS SDK 0.9.9)|ram_get_corr_power]]<br>
 [[ram_rxiq_get_mis (IoT RTOS SDK 0.9.9)|ram_rxiq_get_mis]]<br>
 [[rom_get_corr_power (IoT RTOS SDK 0.9.9)|rom_get_corr_power]]<br>
 [[rom_rxiq_get_mis (IoT RTOS SDK 0.9.9)|rom_rxiq_get_mis]]<br>
 |
 |-
-| 0x60000584 || 4 || || R ||
+| 0x60000584 || 4 || ||
 [[ram_get_corr_power (IoT RTOS SDK 0.9.9)|ram_get_corr_power]]<br>
 [[ram_rxiq_get_mis (IoT RTOS SDK 0.9.9)|ram_rxiq_get_mis]]<br>
 [[rom_get_corr_power (IoT RTOS SDK 0.9.9)|rom_get_corr_power]]<br>
 [[rom_rxiq_get_mis (IoT RTOS SDK 0.9.9)|rom_rxiq_get_mis]]<br>
 |
 |-
-| 0x60000588 || 4 || || R ||
+| 0x60000588 || 4 || ||
 [[ram_get_corr_power (IoT RTOS SDK 0.9.9)|ram_get_corr_power]]<br>
 [[ram_rxiq_get_mis (IoT RTOS SDK 0.9.9)|ram_rxiq_get_mis]]<br>
 [[rom_get_corr_power (IoT RTOS SDK 0.9.9)|rom_get_corr_power]]<br>
 [[rom_rxiq_get_mis (IoT RTOS SDK 0.9.9)|rom_rxiq_get_mis]]<br>
 |
 |-
-| 0x6000058c || 4 || || R ||
+| 0x6000058c || 4 || ||
 [[ram_get_corr_power (IoT RTOS SDK 0.9.9)|ram_get_corr_power]]<br>
 [[ram_rxiq_get_mis (IoT RTOS SDK 0.9.9)|ram_rxiq_get_mis]]<br>
 [[rom_get_corr_power (IoT RTOS SDK 0.9.9)|rom_get_corr_power]]<br>
 [[rom_rxiq_get_mis (IoT RTOS SDK 0.9.9)|rom_rxiq_get_mis]]<br>
 |
 |-
-| 0x60000590 || 4 || || R/W ||
+| 0x60000590 || 4 || ||
 [[chip_v6_rxmax_ext_dig (IoT RTOS SDK 0.9.9)|chip_v6_rxmax_ext_dig]]<br>
 [[set_rx_gain_cal_iq (IoT RTOS SDK 0.9.9)|set_rx_gain_cal_iq]]<br>
 |
 |-
-| 0x60000594 || 4 || || R/W ||
+| 0x60000594 || 4 || ||
 [[phy_pbus_soc_cfg (IoT RTOS SDK 0.9.9)|phy_pbus_soc_cfg]]<br>
 [[ram_pbus_debugmode (IoT RTOS SDK 0.9.9)|ram_pbus_debugmode]]<br>
 [[rom_pbus_debugmode (IoT RTOS SDK 0.9.9)|rom_pbus_debugmode]]<br>
@@ -1005,47 +658,47 @@ This page contains a reference for all memory locations which are referenced in 
 [[tx_cont_en (IoT RTOS SDK 0.9.9)|tx_cont_en]]<br>
 |
 |-
-| 0x60000598 || 4 || || R/W ||
+| 0x60000598 || 4 || ||
 [[chip_v6_rf_init (IoT RTOS SDK 0.9.9)|chip_v6_rf_init]]<br>
 [[phy_pbus_soc_cfg (IoT RTOS SDK 0.9.9)|phy_pbus_soc_cfg]]<br>
 [[tx_cont_dis (IoT RTOS SDK 0.9.9)|tx_cont_dis]]<br>
 [[tx_cont_en (IoT RTOS SDK 0.9.9)|tx_cont_en]]<br>
 |
 |-
-| 0x6000059c || 4 || || R/W ||
+| 0x6000059c || 4 || ||
 [[phy_pbus_soc_cfg (IoT RTOS SDK 0.9.9)|phy_pbus_soc_cfg]]<br>
 [[tx_cont_dis (IoT RTOS SDK 0.9.9)|tx_cont_dis]]<br>
 [[tx_cont_en (IoT RTOS SDK 0.9.9)|tx_cont_en]]<br>
 |
 |-
-| 0x600005a0 || 4 || || R/W ||
+| 0x600005a0 || 4 || ||
 [[chip_v6_rf_init (IoT RTOS SDK 0.9.9)|chip_v6_rf_init]]<br>
 [[phy_pbus_soc_cfg (IoT RTOS SDK 0.9.9)|phy_pbus_soc_cfg]]<br>
 [[ram_pbus_debugmode (IoT RTOS SDK 0.9.9)|ram_pbus_debugmode]]<br>
 [[rom_pbus_force_test (IoT RTOS SDK 0.9.9)|rom_pbus_force_test]]<br>
 |
 |-
-| 0x600005b8 || 4 || || R/W ||
+| 0x600005b8 || 4 || ||
 [[rom_start_tx_tone (IoT RTOS SDK 0.9.9)|rom_start_tx_tone]]<br>
 [[rom_stop_tx_tone (IoT RTOS SDK 0.9.9)|rom_stop_tx_tone]]<br>
 [[txiq_get_mis_pwr (IoT RTOS SDK 0.9.9)|txiq_get_mis_pwr]]<br>
 |
 |-
-| 0x600005bc || 4 || || R/W ||
+| 0x600005bc || 4 || ||
 [[rom_start_tx_tone (IoT RTOS SDK 0.9.9)|rom_start_tx_tone]]<br>
 [[rom_stop_tx_tone (IoT RTOS SDK 0.9.9)|rom_stop_tx_tone]]<br>
 |
 |-
-| 0x600005c0 || 4 || || R/W ||
+| 0x600005c0 || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x600005c4 || 4 || || R/W ||
+| 0x600005c4 || 4 || ||
 [[rom_start_tx_tone (IoT RTOS SDK 0.9.9)|rom_start_tx_tone]]<br>
 [[rom_stop_tx_tone (IoT RTOS SDK 0.9.9)|rom_stop_tx_tone]]<br>
 |
 |-
-| 0x600005c8 || 4 || || R/W ||
+| 0x600005c8 || 4 || ||
 [[phy_pbus_soc_cfg (IoT RTOS SDK 0.9.9)|phy_pbus_soc_cfg]]<br>
 [[pm_open_rf (IoT RTOS SDK 0.9.9)|pm_open_rf]]<br>
 [[pm_sleep_opt (IoT RTOS SDK 0.9.9)|pm_sleep_opt]]<br>
@@ -1054,43 +707,41 @@ This page contains a reference for all memory locations which are referenced in 
 [[set_rx_gain_testchip_50 (IoT RTOS SDK 0.9.9)|set_rx_gain_testchip_50]]<br>
 |
 |-
-| 0x600005dc || 4 || || R ||
+| 0x600005dc || 4 || ||
 [[ram_get_corr_power (IoT RTOS SDK 0.9.9)|ram_get_corr_power]]<br>
 [[rom_dc_iq_est (IoT RTOS SDK 0.9.9)|rom_dc_iq_est]]<br>
 [[rom_get_corr_power (IoT RTOS SDK 0.9.9)|rom_get_corr_power]]<br>
 |
 |-
-| 0x600005e0 || 4 || || R ||
+| 0x600005e0 || 4 || ||
 [[ram_get_corr_power (IoT RTOS SDK 0.9.9)|ram_get_corr_power]]<br>
 [[rom_dc_iq_est (IoT RTOS SDK 0.9.9)|rom_dc_iq_est]]<br>
 [[rom_get_corr_power (IoT RTOS SDK 0.9.9)|rom_get_corr_power]]<br>
 |
 |-
-| 0x600005e4 || 4 || || R ||
+| 0x600005e4 || 4 || ||
 [[ram_get_corr_power (IoT RTOS SDK 0.9.9)|ram_get_corr_power]]<br>
 [[ram_rxiq_get_mis (IoT RTOS SDK 0.9.9)|ram_rxiq_get_mis]]<br>
 [[rom_get_corr_power (IoT RTOS SDK 0.9.9)|rom_get_corr_power]]<br>
 [[set_rx_gain_cal_iq (IoT RTOS SDK 0.9.9)|set_rx_gain_cal_iq]]<br>
 |
 |-
-| 0x600005e8 || 4 || || R/W ||
+| 0x600005e8 || 4 || ||
 [[chip_v6_rf_init (IoT RTOS SDK 0.9.9)|chip_v6_rf_init]]<br>
 [[pm_sleep_opt (IoT RTOS SDK 0.9.9)|pm_sleep_opt]]<br>
 [[pm_wakeup_init (IoT RTOS SDK 0.9.9)|pm_wakeup_init]]<br>
 [[test_tout (IoT RTOS SDK 0.9.9)|test_tout]]<br>
 |
 |-
-| 0x600005fc || 4 || || R/W ||
+| 0x600005fc || 4 || ||
 [[tx_pwctrl_init_cal (IoT RTOS SDK 0.9.9)|tx_pwctrl_init_cal]]<br>
 |
 |-
-|colspan=6|
-|-
-| 0x60000620 || 4 || || W ||
+| 0x60000620 || 4 || ||
 [[ets_timer_init (IoT RTOS SDK 0.9.9)|ets_timer_init]]<br>
 |
 |-
-| 0x60000624 || 4 || || R ||
+| 0x60000624 || 4 || ||
 [[ets_timer_arm_ms_us (IoT RTOS SDK 0.9.9)|ets_timer_arm_ms_us]]<br>
 [[ets_timer_handler_isr (IoT RTOS SDK 0.9.9)|ets_timer_handler_isr]]<br>
 [[ets_timer.irom0.text+0x44 (IoT RTOS SDK 0.9.9)|ets_timer.irom0.text+0x44]]<br>
@@ -1101,18 +752,16 @@ This page contains a reference for all memory locations which are referenced in 
 [[wl_cnx.irom0.text+0x69c (IoT RTOS SDK 0.9.9)|wl_cnx.irom0.text+0x69c]]<br>
 |
 |-
-| 0x60000628 || 4 || || W ||
+| 0x60000628 || 4 || ||
 [[ets_timer_init (IoT RTOS SDK 0.9.9)|ets_timer_init]]<br>
 |
 |-
-| 0x60000630 || 4 || || W ||
+| 0x60000630 || 4 || ||
 [[ets_timer_init (IoT RTOS SDK 0.9.9)|ets_timer_init]]<br>
 [[ets_timer.irom0.text+0x34 (IoT RTOS SDK 0.9.9)|ets_timer.irom0.text+0x34]]<br>
 |
 |-
-|colspan=6|
-|-
-| 0x60000700 || 4 || PERIPHS_RTC_BASEADDR<ref name="eagle_soc.h"/> || R/W ||
+| 0x60000700 || 4 || ||
 [[change_bbpll160_sleep (IoT RTOS SDK 0.9.9)|change_bbpll160_sleep]]<br>
 [[pm_open_rf (IoT RTOS SDK 0.9.9)|pm_open_rf]]<br>
 [[pm_sleep_opt (IoT RTOS SDK 0.9.9)|pm_sleep_opt]]<br>
@@ -1121,13 +770,13 @@ This page contains a reference for all memory locations which are referenced in 
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
 |
 |-
-| 0x60000704 || 4 || RTC_SLP_VAL<ref name="eagle_soc.h"/> || W ||
+| 0x60000704 || 4 || ||
 [[pm_set_sleep_cycles (IoT RTOS SDK 0.9.9)|pm_set_sleep_cycles]]<br>
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
-| Value of RTC counter to wake up from sleep
+|
 |-
-| 0x60000708 || 4 || || R/W ||
+| 0x60000708 || 4 || ||
 [[change_bbpll160_sleep (IoT RTOS SDK 0.9.9)|change_bbpll160_sleep]]<br>
 [[pm_goto_sleep (IoT RTOS SDK 0.9.9)|pm_goto_sleep]]<br>
 [[rtc_get_reset_reason (IoT RTOS SDK 0.9.9)|rtc_get_reset_reason]]<br>
@@ -1135,14 +784,14 @@ This page contains a reference for all memory locations which are referenced in 
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
 |
 |-
-| 0x6000070c || 4 || || W ||
+| 0x6000070c || 4 || ||
 [[change_bbpll160_sleep (IoT RTOS SDK 0.9.9)|change_bbpll160_sleep]]<br>
 [[pm_set_pll_xtal_wait_time (IoT RTOS SDK 0.9.9)|pm_set_pll_xtal_wait_time]]<br>
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
 |
 |-
-| 0x60000710 || 4 || || R/W ||
+| 0x60000710 || 4 || ||
 [[chip_v6_rf_init (IoT RTOS SDK 0.9.9)|chip_v6_rf_init]]<br>
 [[pm_open_rf (IoT RTOS SDK 0.9.9)|pm_open_rf]]<br>
 [[pm_sleep_opt (IoT RTOS SDK 0.9.9)|pm_sleep_opt]]<br>
@@ -1154,52 +803,43 @@ This page contains a reference for all memory locations which are referenced in 
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
 |
 |-
-| 0x60000714 || 4 || || R ||
+| 0x60000714 || 4 || ||
 [[register_chipv6_phy (IoT RTOS SDK 0.9.9)|register_chipv6_phy]]<br>
 [[rtc_get_reset_reason (IoT RTOS SDK 0.9.9)|rtc_get_reset_reason]]<br>
 |
 |-
-| 0x60000718 || 4 || || R/W ||
+| 0x60000718 || 4 || ||
 [[pm_wakeup_opt (IoT RTOS SDK 0.9.9)|pm_wakeup_opt]]<br>
 [[rtc_get_reset_reason (IoT RTOS SDK 0.9.9)|rtc_get_reset_reason]]<br>
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
 |
 |-
-| 0x6000071c || 4 || RTC_SLP_CNT_VAL<ref name="eagle_soc.h"/> || R ||
+| 0x6000071c || 4 || ||
 [[pm_set_sleep_cycles (IoT RTOS SDK 0.9.9)|pm_set_sleep_cycles]]<br>
 [[system_get_rtc_time (IoT RTOS SDK 0.9.9)|system_get_rtc_time]]<br>
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
-| Current value of RTC counter
+|
 |-
-| 0x60000720 || 4 || || W ||
+| 0x60000720 || 4 || ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
 |-
-| 0x60000724 || 4 || || W ||
+| 0x60000724 || 4 || ||
 [[change_bbpll160_sleep (IoT RTOS SDK 0.9.9)|change_bbpll160_sleep]]<br>
 [[pm_goto_sleep (IoT RTOS SDK 0.9.9)|pm_goto_sleep]]<br>
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
 |-
-| 0x60000728 || 4 || || R ||
+| 0x60000728 || 4 || ||
 [[pm_wait4wakeup (IoT RTOS SDK 0.9.9)|pm_wait4wakeup]]<br>
 |
 |-
-| 0x60000730 || 4 || RTC_SCRATCH0<ref name="eagle_soc.h"/> || ||
-|
-|-
-| 0x60000734 || 4 || RTC_SCRATCH1<ref name="eagle_soc.h"/> || ||
-|
-|-
-| 0x60000738 || 4 || RTC_SCRATCH2<ref name="eagle_soc.h"/> || W ||
+| 0x60000738 || 4 || ||
 [[slop_test (IoT RTOS SDK 0.9.9)|slop_test]]<br>
 |
 |-
-| 0x6000073c || 4 || RTC_SCRATCH3<ref name="eagle_soc.h"/> || ||
-|
-|-
-| 0x60000740 || 4 || || W ||
+| 0x60000740 || 4 || ||
 [[change_bbpll160_sleep (IoT RTOS SDK 0.9.9)|change_bbpll160_sleep]]<br>
 [[pm_sleep_opt (IoT RTOS SDK 0.9.9)|pm_sleep_opt]]<br>
 [[sleep_opt_8266 (IoT RTOS SDK 0.9.9)|sleep_opt_8266]]<br>
@@ -1207,7 +847,7 @@ This page contains a reference for all memory locations which are referenced in 
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
 |
 |-
-| 0x60000744 || 4 || || W ||
+| 0x60000744 || 4 || ||
 [[change_bbpll160_sleep (IoT RTOS SDK 0.9.9)|change_bbpll160_sleep]]<br>
 [[pm_open_rf (IoT RTOS SDK 0.9.9)|pm_open_rf]]<br>
 [[pm_sleep_opt (IoT RTOS SDK 0.9.9)|pm_sleep_opt]]<br>
@@ -1216,197 +856,163 @@ This page contains a reference for all memory locations which are referenced in 
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
 |
 |-
-| 0x60000748 || 4 || || R/W ||
+| 0x60000748 || 4 || ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
 |
 |-
-| 0x6000074c || 4 || || W ||
+| 0x6000074c || 4 || ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
 |-
-| 0x60000758 || 4 || || W ||
+| 0x60000758 || 4 || ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
 |-
-| 0x6000075c || 4 || || W ||
+| 0x6000075c || 4 || ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
 |-
-| 0x60000760 || 4 || || W ||
+| 0x60000760 || 4 || ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
 |-
-| 0x60000764 || 4 || || R/W ||
+| 0x60000764 || 4 || ||
 [[pm_sleep_opt (IoT RTOS SDK 0.9.9)|pm_sleep_opt]]<br>
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
 |-
-| 0x60000768 || 4 || RTC_GPIO_OUT<ref name="eagle_soc.h"/> || W ||
+| 0x60000768 || 4 || ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
-| (GPIO16)
+|
 |-
-| 0x60000774 || 4 || RTC_GPIO_ENABLE<ref name="eagle_soc.h"/> || R/W ||
+| 0x60000774 || 4 || ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
-| (GPIO16)
+|
 |-
-| 0x60000780 || 4 || || W ||
+| 0x60000780 || 4 || ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
 |-
-| 0x6000078c || 4 || RTC_GPIO_IN_DATA<ref name="eagle_soc.h"/> || ||
-| (GPIO16)
-|-
-| 0x60000790 || 4 || RTC_GPIO_CONF<ref name="eagle_soc.h"/> || W ||
-[[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
-| (GPIO16)
-|-
-| 0x60000794 || 4 || || W ||
+| 0x60000790 || 4 || ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
 |-
-| 0x60000798 || 4 || || W ||
+| 0x60000794 || 4 || ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
 |-
-| 0x6000079c || 4 || || W ||
+| 0x60000798 || 4 || ||
+[[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
+|
+|-
+| 0x6000079c || 4 || ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
 |
 |-
-| 0x600007a0 || 4 || PAD_XPD_DCDC_CONF<ref name="eagle_soc.h"/> || R/W ||
+| 0x600007a0 || 4 || ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
 [[pm_prepare_to_sleep (IoT RTOS SDK 0.9.9)|pm_prepare_to_sleep]]<br>
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
 |
 |-
-| 0x600007a8 || 4 || || R/W ||
+| 0x600007a8 || 4 || ||
 [[change_bbpll160_sleep (IoT RTOS SDK 0.9.9)|change_bbpll160_sleep]]<br>
 [[pm_wakeup_opt (IoT RTOS SDK 0.9.9)|pm_wakeup_opt]]<br>
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
 |-
-| 0x600007ac || 4 || || W ||
+| 0x600007ac || 4 || ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
 |-
-| 0x600007b0 || 4 || || W ||
+| 0x600007b0 || 4 || ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
 |-
-| 0x600007b4 || 4 || || W ||
+| 0x600007b4 || 4 || ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
 |-
-|colspan=6|
-|-
-| 0x60000800 || 4 || PERIPHS_IO_MUX_CONF_U<ref name="pin_mux_register.h">[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/pin_mux_register.h include/espressif/esp8266/pin_mux_register.h]</ref> || R/W ||
+| 0x60000800 || 4 || ||
 [[app_main.text+0xa0 (IoT RTOS SDK 0.9.9)|app_main.text+0xa0]]<br>
 |
 |-
-| 0x60000804 || 4 || PERIPHS_IO_MUX_MTDI_U<ref name="pin_mux_register.h"/> || R/W ||
+| 0x60000804 || 4 || ||
 [[system_restart (IoT RTOS SDK 0.9.9)|system_restart]]<br>
 |
 |-
-| 0x60000808 || 4 || PERIPHS_IO_MUX_MTCK_U<ref name="pin_mux_register.h"/> || R/W ||
+| 0x60000808 || 4 || ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
 [[system_uart_swap (IoT RTOS SDK 0.9.9)|system_uart_swap]]<br>
 |
 |-
-| 0x6000080c || 4 || PERIPHS_IO_MUX_MTMS_U<ref name="pin_mux_register.h"/> || R/W ||
+| 0x6000080c || 4 || ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
 |
 |-
-| 0x60000810 || 4 || PERIPHS_IO_MUX_MTDO_U<ref name="pin_mux_register.h"/> || R/W ||
+| 0x60000810 || 4 || ||
 [[system_uart_swap (IoT RTOS SDK 0.9.9)|system_uart_swap]]<br>
 |
 |-
-| 0x60000814 || 4 || PERIPHS_IO_MUX_U0RXD_U<ref name="pin_mux_register.h"/> || R/W ||
+| 0x60000814 || 4 || ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
 [[pm_set_sleep_btco (IoT RTOS SDK 0.9.9)|pm_set_sleep_btco]]<br>
 [[pm_set_wakeup_btco (IoT RTOS SDK 0.9.9)|pm_set_wakeup_btco]]<br>
 |
 |-
-| 0x60000818 || 4 || PERIPHS_IO_MUX_U0TXD_U<ref name="pin_mux_register.h"/> || R/W ||
+| 0x60000818 || 4 || ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
 |
 |-
-| 0x6000081c || 4 || PERIPHS_IO_MUX_SD_CLK_U<ref name="pin_mux_register.h"/> || ||
-|
-|-
-| 0x60000820 || 4 || PERIPHS_IO_MUX_SD_DATA0_U<ref name="pin_mux_register.h"/> || R ||
+| 0x60000820 || 4 || ||
 [[set_crystal_uart (IoT RTOS SDK 0.9.9)|set_crystal_uart]]<br>
 |
 |-
-| 0x60000824 || 4 || PERIPHS_IO_MUX_SD_DATA1_U<ref name="pin_mux_register.h"/> || ||
-|
-|-
-| 0x60000828 || 4 || PERIPHS_IO_MUX_SD_DATA2_U<ref name="pin_mux_register.h"/> || ||
-|
-|-
-| 0x6000082c || 4 || PERIPHS_IO_MUX_SD_DATA3_U<ref name="pin_mux_register.h"/> || ||
-|
-|-
-| 0x60000830 || 4 || PERIPHS_IO_MUX_SD_CMD_U<ref name="pin_mux_register.h"/> || ||
-|
-|-
-| 0x60000834 || 4 || PERIPHS_IO_MUX_GPIO0_U<ref name="pin_mux_register.h"/> || R/W ||
+| 0x60000834 || 4 || ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
 [[pm_set_sleep_btco (IoT RTOS SDK 0.9.9)|pm_set_sleep_btco]]<br>
 [[pm_set_wakeup_btco (IoT RTOS SDK 0.9.9)|pm_set_wakeup_btco]]<br>
 |
 |-
-| 0x60000838 || 4 || PERIPHS_IO_MUX_GPIO2_U<ref name="pin_mux_register.h"/> || R/W ||
+| 0x60000838 || 4 || ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
 |
 |-
-| 0x6000083c || 4 || PERIPHS_IO_MUX_GPIO4_U<ref name="pin_mux_register.h"/> || ||
-|
-|-
-| 0x60000840 || 4 || PERIPHS_IO_MUX_GPIO5_U<ref name="pin_mux_register.h"/> || ||
-|
-|-
-|colspan=6|
-|-
-| 0x60000900 || 4 || || R/W ||
+| 0x60000900 || 4 || ||
 [[wdt_init (IoT RTOS SDK 0.9.9)|wdt_init]]<br>
 |
 |-
-| 0x60000904 || 4 || || W ||
+| 0x60000904 || 4 || ||
 [[wdt_init (IoT RTOS SDK 0.9.9)|wdt_init]]<br>
 |
 |-
-| 0x60000908 || 4 || || W ||
+| 0x60000908 || 4 || ||
 [[wdt_init (IoT RTOS SDK 0.9.9)|wdt_init]]<br>
 |
 |-
-| 0x60000914 || 4 || || W ||
+| 0x60000914 || 4 || ||
 [[ppTask (IoT RTOS SDK 0.9.9)|ppTask]]<br>
 [[PPWdtReset (IoT RTOS SDK 0.9.9)|PPWdtReset]]<br>
 [[slop_wdt_feed (IoT RTOS SDK 0.9.9)|slop_wdt_feed]]<br>
 |
 |-
-|colspan=6|
-|-
-| 0x60000a04 || 4 || || R/W ||
+| 0x60000a04 || 4 || ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
 |
 |-
-|colspan=6|
-|-
-| 0x60000b3c || 4 || || R ||
+| 0x60000b3c || 4 || ||
 [[pm_sdio_nidle (IoT RTOS SDK 0.9.9)|pm_sdio_nidle]]<br>
 |
 |-
-| 0x60000b58 || 4 || || R ||
+| 0x60000b58 || 4 || ||
 [[pm_sdio_nidle (IoT RTOS SDK 0.9.9)|pm_sdio_nidle]]<br>
 |
 |-
-|colspan=6|
-|-
-| 0x60000d40 || 4 || || R/W ||
+| 0x60000d40 || 4 || ||
 [[bbpll_cal (IoT RTOS SDK 0.9.9)|bbpll_cal]]<br>
 [[chip_v6_initialize_bb (IoT RTOS SDK 0.9.9)|chip_v6_initialize_bb]]<br>
 [[chip_v6_rf_init (IoT RTOS SDK 0.9.9)|chip_v6_rf_init]]<br>
@@ -1415,17 +1021,17 @@ This page contains a reference for all memory locations which are referenced in 
 [[pm_wakeup_init (IoT RTOS SDK 0.9.9)|pm_wakeup_init]]<br>
 |
 |-
-| 0x60000d48 || 4 || || R/W ||
+| 0x60000d48 || 4 || ||
 [[register_chipv6_phy (IoT RTOS SDK 0.9.9)|register_chipv6_phy]]<br>
 [[system_restart_in_nmi (IoT RTOS SDK 0.9.9)|system_restart_in_nmi]]<br>
 |
 |-
-| 0x60000d4c || 4 || || R/W ||
+| 0x60000d4c || 4 || ||
 [[ram_cal_tos_v60 (IoT RTOS SDK 0.9.9)|ram_cal_tos_v60]]<br>
 [[rom_cal_tos_v50 (IoT RTOS SDK 0.9.9)|rom_cal_tos_v50]]<br>
 |
 |-
-| 0x60000d50 || 4 || || R/W ||
+| 0x60000d50 || 4 || ||
 [[ram_get_fm_sar_dout (IoT RTOS SDK 0.9.9)|ram_get_fm_sar_dout]]<br>
 [[readvdd33 (IoT RTOS SDK 0.9.9)|readvdd33]]<br>
 [[rom_en_pwdet (IoT RTOS SDK 0.9.9)|rom_en_pwdet]]<br>
@@ -1436,7 +1042,7 @@ This page contains a reference for all memory locations which are referenced in 
 [[tx_pwctrl_bg_init (IoT RTOS SDK 0.9.9)|tx_pwctrl_bg_init]]<br>
 |
 |-
-| 0x60000d5c || 4 || || R/W ||
+| 0x60000d5c || 4 || ||
 [[readvdd33 (IoT RTOS SDK 0.9.9)|readvdd33]]<br>
 [[rom_en_pwdet (IoT RTOS SDK 0.9.9)|rom_en_pwdet]]<br>
 [[test_tout (IoT RTOS SDK 0.9.9)|test_tout]]<br>
@@ -1444,191 +1050,155 @@ This page contains a reference for all memory locations which are referenced in 
 [[tx_pwctrl_bg_init (IoT RTOS SDK 0.9.9)|tx_pwctrl_bg_init]]<br>
 |
 |-
-| 0x60000d60 || 4 || || R/W ||
+| 0x60000d60 || 4 || ||
 [[test_tout (IoT RTOS SDK 0.9.9)|test_tout]]<br>
 [[tx_pwctrl_bg_init (IoT RTOS SDK 0.9.9)|tx_pwctrl_bg_init]]<br>
 [[tx_pwctrl_cal (IoT RTOS SDK 0.9.9)|tx_pwctrl_cal]]<br>
 |
 |-
-|colspan=6|
-|-
-| 0x60000f00 || 4 || UART_FIFO(1)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000f04 || 4 || UART_INT_RAW(1)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000f08 || 4 || UART_INT_ST(1)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000f0c || 4 || UART_INT_ENA(1)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000f10 || 4 || UART_INT_CLR(1)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000f14 || 4 || UART_CLKDIV(1)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000f18 || 4 || UART_AUTOBAUD(1)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000f1c || 4 || UART_STATUS(1)<ref name="uart_register.h"/> || R ||
+| 0x60000f1c || 4 || ||
 [[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]]<br>
 [[system_uart_swap (IoT RTOS SDK 0.9.9)|system_uart_swap]]<br>
 [[user_fatal_exception_handler (IoT RTOS SDK 0.9.9)|user_fatal_exception_handler]]<br>
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
 |
 |-
-| 0x60000f20 || 4 || UART_CONF0(1)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000f24 || 4 || UART_CONF1(1)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000f28 || 4 || UART_LOWPULSE(1)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000f2c || 4 || UART_HIGHPULSE(1)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000f30 || 4 || UART_PULSE_NUM(1)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000f78 || 4 || UART_DATE(1)<ref name="uart_register.h"/> || ||
-|
-|-
-| 0x60000f7c || 4 || UART_ID(1)<ref name="uart_register.h"/> || ||
-|
-|-
-|colspan=6|
-|-
-| 0x6000107c || 4 || || R/W ||
+| 0x6000107c || 4 || ||
 [[register_chipv6_phy (IoT RTOS SDK 0.9.9)|register_chipv6_phy]]<br>
 [[user_init_task (IoT RTOS SDK 0.9.9)|user_init_task]]<br>
 |
 |-
-|colspan=6|
+| 0x600011f4 || 4 || ||
+[[cnx_connect_timeout (IoT RTOS SDK 0.9.9)|cnx_connect_timeout]]<br>
+[[eagle_auth_done (IoT RTOS SDK 0.9.9)|eagle_auth_done]]<br>
+[[user_interface.irom0.text+0x12dc (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x12dc]]<br>
+[[wifi_station_ap_change (IoT RTOS SDK 0.9.9)|wifi_station_ap_change]]<br>
+[[wifi_station_connect (IoT RTOS SDK 0.9.9)|wifi_station_connect]]<br>
+[[wl_cnx.irom0.text+0x58c (IoT RTOS SDK 0.9.9)|wl_cnx.irom0.text+0x58c]]<br>
+|
 |-
-| 0x60001100 || 768 || rtc_mem || R/W ||
-[[system_rtc_mem_read (IoT RTOS SDK 0.9.9)|system_rtc_mem_read]]<br>
-[[system_rtc_mem_write (IoT RTOS SDK 0.9.9)|system_rtc_mem_write]]<br>
-| See [[#RTC Mem Region Detail (0x60001100 - 0x600013ff)]]
+| 0x600011f8 || 4 || ||
+[[pp_attach (IoT RTOS SDK 0.9.9)|pp_attach]]<br>
+[[user_init_task (IoT RTOS SDK 0.9.9)|user_init_task]]<br>
+|
 |-
-|colspan=6|
+| 0x600011fc || 4 || ||
+[[data_collect (IoT RTOS SDK 0.9.9)|data_collect]]<br>
+[[wd_reset_cnt (IoT RTOS SDK 0.9.9)|wd_reset_cnt]]<br>
+|
 |-
-| 0x60009824 || 4 || || R ||
+| 0x60009824 || 4 || ||
 [[read_hw_noisefloor (IoT RTOS SDK 0.9.9)|read_hw_noisefloor]]<br>
 |
 |-
-| 0x60009838 || 4 || || R/W ||
+| 0x60009838 || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x6000983c || 4 || || R/W ||
+| 0x6000983c || 4 || ||
 [[ram_rfcal_txiq (IoT RTOS SDK 0.9.9)|ram_rfcal_txiq]]<br>
 [[rom_rfcal_txiq (IoT RTOS SDK 0.9.9)|rom_rfcal_txiq]]<br>
 |
 |-
-| 0x60009860 || 4 || || R/W ||
+| 0x60009860 || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 [[ram_rfcal_txiq (IoT RTOS SDK 0.9.9)|ram_rfcal_txiq]]<br>
 [[rom_rfcal_txiq (IoT RTOS SDK 0.9.9)|rom_rfcal_txiq]]<br>
 [[rom_set_txiq_cal (IoT RTOS SDK 0.9.9)|rom_set_txiq_cal]]<br>
 |
 |-
-| 0x60009864 || 4 || || R/W ||
+| 0x60009864 || 4 || ||
 [[ram_cal_tos_v60 (IoT RTOS SDK 0.9.9)|ram_cal_tos_v60]]<br>
 [[ram_rfcal_txiq (IoT RTOS SDK 0.9.9)|ram_rfcal_txiq]]<br>
 [[rom_cal_tos_v50 (IoT RTOS SDK 0.9.9)|rom_cal_tos_v50]]<br>
 [[rom_rfcal_txiq (IoT RTOS SDK 0.9.9)|rom_rfcal_txiq]]<br>
 |
 |-
-| 0x60009884 || 4 || || W ||
+| 0x60009884 || 4 || ||
 [[phy_dig_spur_prot (IoT RTOS SDK 0.9.9)|phy_dig_spur_prot]]<br>
 |
 |-
-| 0x60009888 || 4 || || W ||
+| 0x60009888 || 4 || ||
 [[phy_dig_spur_prot (IoT RTOS SDK 0.9.9)|phy_dig_spur_prot]]<br>
 |
 |-
-| 0x6000988c || 4 || || W ||
+| 0x6000988c || 4 || ||
 [[phy_dig_spur_prot (IoT RTOS SDK 0.9.9)|phy_dig_spur_prot]]<br>
 |
 |-
-| 0x6000989c || 4 || || W ||
+| 0x6000989c || 4 || ||
 [[phy_dig_spur_prot (IoT RTOS SDK 0.9.9)|phy_dig_spur_prot]]<br>
 |
 |-
-| 0x600098a0 || 4 || || R/W ||
+| 0x600098a0 || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 [[phy_dig_spur_set (IoT RTOS SDK 0.9.9)|phy_dig_spur_set]]<br>
 [[rom_chip_50_set_channel (IoT RTOS SDK 0.9.9)|rom_chip_50_set_channel]]<br>
 |
 |-
-| 0x600098d4 || 4 || || W ||
+| 0x600098d4 || 4 || ||
 [[phy_dig_spur_prot (IoT RTOS SDK 0.9.9)|phy_dig_spur_prot]]<br>
 |
 |-
-| 0x600098ec || 4 || || R/W ||
+| 0x600098ec || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x60009988 || 4 || || R/W ||
+| 0x60009988 || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x600099a8 || 4 || || W ||
+| 0x600099a8 || 4 || ||
 [[phy_dig_spur_prot (IoT RTOS SDK 0.9.9)|phy_dig_spur_prot]]<br>
 |
 |-
-| 0x600099ac || 4 || || W ||
+| 0x600099ac || 4 || ||
 [[phy_dig_spur_prot (IoT RTOS SDK 0.9.9)|phy_dig_spur_prot]]<br>
 |
 |-
-| 0x600099b0 || 4 || || W ||
+| 0x600099b0 || 4 || ||
 [[phy_dig_spur_prot (IoT RTOS SDK 0.9.9)|phy_dig_spur_prot]]<br>
 |
 |-
-| 0x600099b8 || 4 || || W ||
+| 0x600099b8 || 4 || ||
 [[phy_dig_spur_prot (IoT RTOS SDK 0.9.9)|phy_dig_spur_prot]]<br>
 |
 |-
-| 0x600099bc || 4 || || W ||
+| 0x600099bc || 4 || ||
 [[phy_dig_spur_prot (IoT RTOS SDK 0.9.9)|phy_dig_spur_prot]]<br>
 |
 |-
-| 0x60009a28 || 4 || || R/W ||
+| 0x60009a28 || 4 || ||
 [[ant_switch_init (IoT RTOS SDK 0.9.9)|ant_switch_init]]<br>
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 [[ram_rfcal_txiq (IoT RTOS SDK 0.9.9)|ram_rfcal_txiq]]<br>
 [[rom_rfcal_txiq (IoT RTOS SDK 0.9.9)|rom_rfcal_txiq]]<br>
 |
 |-
-| 0x60009a2c || 4 || || R/W ||
+| 0x60009a2c || 4 || ||
 [[noise_init (IoT RTOS SDK 0.9.9)|noise_init]]<br>
 [[start_dig_rx (IoT RTOS SDK 0.9.9)|start_dig_rx]]<br>
 [[stop_dig_rx (IoT RTOS SDK 0.9.9)|stop_dig_rx]]<br>
 |
 |-
-| 0x60009a34 || 4 || || R/W ||
+| 0x60009a34 || 4 || ||
 [[chip_v6_set_chan_rx_cmp (IoT RTOS SDK 0.9.9)|chip_v6_set_chan_rx_cmp]]<br>
 [[noise_init (IoT RTOS SDK 0.9.9)|noise_init]]<br>
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 [[pm_wakeup_init (IoT RTOS SDK 0.9.9)|pm_wakeup_init]]<br>
 |
 |-
-| 0x60009a68 || 4 || || W ||
+| 0x60009a68 || 4 || ||
 [[set_rx_gain_testchip_50 (IoT RTOS SDK 0.9.9)|set_rx_gain_testchip_50]]<br>
 |
 |-
-| 0x60009b00 || 4 || || R/W ||
+| 0x60009b00 || 4 || ||
 [[ant_switch_init (IoT RTOS SDK 0.9.9)|ant_switch_init]]<br>
 [[rom_chip_v5_disable_cca (IoT RTOS SDK 0.9.9)|rom_chip_v5_disable_cca]]<br>
 [[rom_chip_v5_enable_cca (IoT RTOS SDK 0.9.9)|rom_chip_v5_enable_cca]]<br>
 |
 |-
-| 0x60009b08 || 4 || || R/W ||
+| 0x60009b08 || 4 || ||
 [[ant_switch_init (IoT RTOS SDK 0.9.9)|ant_switch_init]]<br>
 [[pm_set_sleep_mode (IoT RTOS SDK 0.9.9)|pm_set_sleep_mode]]<br>
 [[pm_wakeup_init (IoT RTOS SDK 0.9.9)|pm_wakeup_init]]<br>
@@ -1639,40 +1209,40 @@ This page contains a reference for all memory locations which are referenced in 
 [[stop_dig_rx (IoT RTOS SDK 0.9.9)|stop_dig_rx]]<br>
 |
 |-
-| 0x60009b0c || 4 || || R/W ||
+| 0x60009b0c || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x60009b14 || 4 || || R/W ||
+| 0x60009b14 || 4 || ||
 [[chip_60_set_channel (IoT RTOS SDK 0.9.9)|chip_60_set_channel]]<br>
 [[rom_chip_50_set_channel (IoT RTOS SDK 0.9.9)|rom_chip_50_set_channel]]<br>
 |
 |-
-| 0x60009b28 || 4 || || R/W ||
+| 0x60009b28 || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x60009b44 || 4 || || R/W ||
+| 0x60009b44 || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x60009b48 || 4 || || R/W ||
+| 0x60009b48 || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x60009b50 || 4 || || R/W ||
+| 0x60009b50 || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x60009b58 || 4 || || R/W ||
+| 0x60009b58 || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x60009b5c || 4 || || R/W ||
+| 0x60009b5c || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x60009b60 || 4 || || R/W ||
+| 0x60009b60 || 4 || ||
 [[do_noisefloor (IoT RTOS SDK 0.9.9)|do_noisefloor]]<br>
 [[do_noisefloor_lsleep_v50 (IoT RTOS SDK 0.9.9)|do_noisefloor_lsleep_v50]]<br>
 [[noise_check_loop (IoT RTOS SDK 0.9.9)|noise_check_loop]]<br>
@@ -1687,7 +1257,7 @@ This page contains a reference for all memory locations which are referenced in 
 [[start_dig_rx (IoT RTOS SDK 0.9.9)|start_dig_rx]]<br>
 |
 |-
-| 0x60009b64 || 4 || || R/W ||
+| 0x60009b64 || 4 || ||
 [[do_noisefloor_lsleep_v50 (IoT RTOS SDK 0.9.9)|do_noisefloor_lsleep_v50]]<br>
 [[noise_check_loop (IoT RTOS SDK 0.9.9)|noise_check_loop]]<br>
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
@@ -1699,127 +1269,85 @@ This page contains a reference for all memory locations which are referenced in 
 [[rom_start_noisefloor (IoT RTOS SDK 0.9.9)|rom_start_noisefloor]]<br>
 |
 |-
-| 0x60009b68 || 4 || || W ||
+| 0x60009b68 || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x60009b6c || 4 || || W ||
+| 0x60009b6c || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x60009c28 || 4 || || R/W ||
+| 0x60009c28 || 4 || ||
 [[rom_chip_v5_sense_backoff (IoT RTOS SDK 0.9.9)|rom_chip_v5_sense_backoff]]<br>
 |
 |-
-| 0x60009c48 || 4 || || R/W ||
+| 0x60009c48 || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x60009c4c || 4 || || R/W ||
+| 0x60009c4c || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x60009d08 || 4 || || W ||
+| 0x60009d08 || 4 || ||
 [[phy_dig_spur_prot (IoT RTOS SDK 0.9.9)|phy_dig_spur_prot]]<br>
 |
 |-
-| 0x60009d0c || 4 || || W ||
+| 0x60009d0c || 4 || ||
 [[phy_dig_spur_prot (IoT RTOS SDK 0.9.9)|phy_dig_spur_prot]]<br>
 |
 |-
-| 0x60009d10 || 4 || || R/W ||
+| 0x60009d10 || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x60009d18 || 4 || || R/W ||
+| 0x60009d18 || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x60009d1c || 4 || || R/W ||
+| 0x60009d1c || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x60009d20 || 4 || || R/W ||
+| 0x60009d20 || 4 || ||
 [[noise_init (IoT RTOS SDK 0.9.9)|noise_init]]<br>
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x60009d24 || 4 || || R/W ||
+| 0x60009d24 || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 [[rom_chip_v5_sense_backoff (IoT RTOS SDK 0.9.9)|rom_chip_v5_sense_backoff]]<br>
 |
 |-
-| 0x60009d40 || 4 || || R/W ||
+| 0x60009d40 || 4 || ||
 [[noise_init (IoT RTOS SDK 0.9.9)|noise_init]]<br>
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x60009d44 || 4 || || R/W ||
+| 0x60009d44 || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 [[wdev_exit_sniffer (IoT RTOS SDK 0.9.9)|wdev_exit_sniffer]]<br>
 [[wdev_go_sniffer (IoT RTOS SDK 0.9.9)|wdev_go_sniffer]]<br>
 |
 |-
-| 0x60009d4c || 4 || || R/W ||
+| 0x60009d4c || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
-| 0x60009d60 || 4 || || W ||
+| 0x60009d60 || 4 || ||
 [[ant_switch_init (IoT RTOS SDK 0.9.9)|ant_switch_init]]<br>
 |
 |-
-| 0x60009d64 || 4 || || W ||
+| 0x60009d64 || 4 || ||
 [[ant_switch_init (IoT RTOS SDK 0.9.9)|ant_switch_init]]<br>
 |
 |-
-| 0x60009d68 || 4 || || R/W ||
+| 0x60009d68 || 4 || ||
 [[chip_v6_set_chan_rx_cmp (IoT RTOS SDK 0.9.9)|chip_v6_set_chan_rx_cmp]]<br>
 |
 |-
-| 0x60009d70 || 4 || || R/W ||
+| 0x60009d70 || 4 || ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
 |-
 |}
-
-== <span id="rtcmem">RTC Mem Region Detail (0x60001100 - 0x600013ff)</span> ==
-
-The data in this region is stored inside the Real Time Clock, and is persisted even during deep sleep modes when other RAM is lost.  According to the Espressif docs, the first 256 bytes of this region are reserved for system use, and the remaining 512 bytes are available for user programs.
-
-{| class="wikitable"
-! Address !! Size !! Name !! Access !! Referenced by !! Notes
-|-
-| 0x60001100 || 32 || || R/W ||
-[[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]] (via [[system_rtc_mem_read (IoT RTOS SDK 0.9.9)|system_rtc_mem_read]])<br>
-[[user_interface.sdk_system_restart_in_nmi (IoT RTOS SDK 0.9.9)|user_interface.sdk_system_restart_in_nmi]] (via [[system_rtc_mem_read (IoT RTOS SDK 0.9.9)|system_rtc_mem_write]])<br>
-| Read into the [[rst_if (IoT RTOS SDK 0.9.9)|rst_if]] structure on startup
-|-
-| 0x60001120 || 212 || || ||
-| ''(apparently unused)''
-|-
-| 0x600011f4 || 4 || || R/W ||
-[[cnx_connect_timeout (IoT RTOS SDK 0.9.9)|cnx_connect_timeout]]<br>
-[[eagle_auth_done (IoT RTOS SDK 0.9.9)|eagle_auth_done]]<br>
-[[user_interface.irom0.text+0x12dc (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x12dc]]<br>
-[[wifi_station_ap_change (IoT RTOS SDK 0.9.9)|wifi_station_ap_change]]<br>
-[[wifi_station_connect (IoT RTOS SDK 0.9.9)|wifi_station_connect]]<br>
-[[wl_cnx.irom0.text+0x58c (IoT RTOS SDK 0.9.9)|wl_cnx.irom0.text+0x58c]]<br>
-|
-|-
-| 0x600011f8 || 4 || || R/W ||
-[[pp_attach (IoT RTOS SDK 0.9.9)|pp_attach]]<br>
-[[user_init_task (IoT RTOS SDK 0.9.9)|user_init_task]]<br>
-|
-|-
-| 0x600011fc || 4 || || R/W ||
-[[data_collect (IoT RTOS SDK 0.9.9)|data_collect]]<br>
-[[wd_reset_cnt (IoT RTOS SDK 0.9.9)|wd_reset_cnt]]<br>
-|
-|-
-| 0x60001200 || 512 || || ||
-| Available for user data (not used by SDK libs)
-|-
-|}
-
-= References =
-<references/>
