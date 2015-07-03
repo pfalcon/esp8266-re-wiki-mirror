@@ -18,7 +18,7 @@ This page contains a reference for all memory locations which are referenced in 
 {| class="wikitable"
 ! Address !! Size !! Name !! Access !! Referenced by !! Notes
 |-
-| 0x3ff00000 || 4 || || R/W ||
+| 0x3ff00000 || 4 || PERIPHS_DPORT_BASEADDR<ref name="eagle_soc.h">[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/eagle_soc.h include/espressif/esp8266/eagle_soc.h]</ref> || R/W ||
 [[app_main.irom0.text+0x70 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x70]]<br>
 [[chm_init (IoT RTOS SDK 0.9.9)|chm_init]]<br>
 [[chm_set_current_channel (IoT RTOS SDK 0.9.9)|chm_set_current_channel]]<br>
@@ -55,7 +55,7 @@ This page contains a reference for all memory locations which are referenced in 
 [[wl_cnx.irom0.text+0x69c (IoT RTOS SDK 0.9.9)|wl_cnx.irom0.text+0x69c]]<br>
 |
 |-
-| 0x3ff00004 || 4 || || R/W ||
+| 0x3ff00004 || 4 || EDGE_INT_ENABLE_REG<ref name="eagle_soc.h"/> || R/W ||
 [[ets_timer_init (IoT RTOS SDK 0.9.9)|ets_timer_init]]<br>
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
 [[wdt_init (IoT RTOS SDK 0.9.9)|wdt_init]]<br>
@@ -552,12 +552,30 @@ This page contains a reference for all memory locations which are referenced in 
 {| class="wikitable"
 ! Address !! Size !! Name !! Access !! Referenced by !! Notes
 |-
-| 0x60000000 || 4 || || R/W ||
+| 0x60000000 || 4 || UART_FIFO(0)<ref name="uart_register.h">[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/uart_register.h include/espressif/esp8266/uart_register.h]</ref> || R/W ||
 [[app_main.text+0x1d0 (IoT RTOS SDK 0.9.9)|app_main.text+0x1d0]]<br>
 [[uart_rx_one_char (IoT RTOS SDK 0.9.9)|uart_rx_one_char]]<br>
 |
 |-
-| 0x6000001c || 4 || || R ||
+| 0x60000004 || 4 || UART_INT_RAW(0)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000008 || 4 || UART_INT_ST(0)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x6000000c || 4 || UART_INT_ENA(0)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000010 || 4 || UART_INT_CLR(0)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000014 || 4 || UART_CLKDIV(0)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000018 || 4 || UART_AUTOBAUD(0)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x6000001c || 4 || UART_STATUS(0)<ref name="uart_register.h"/> || R ||
 [[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]]<br>
 [[app_main.text+0x1d0 (IoT RTOS SDK 0.9.9)|app_main.text+0x1d0]]<br>
 [[system_uart_swap (IoT RTOS SDK 0.9.9)|system_uart_swap]]<br>
@@ -565,6 +583,29 @@ This page contains a reference for all memory locations which are referenced in 
 [[user_fatal_exception_handler (IoT RTOS SDK 0.9.9)|user_fatal_exception_handler]]<br>
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
 |
+|-
+| 0x60000020 || 4 || UART_CONF0(0)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000024 || 4 || UART_CONF1(0)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000028 || 4 || UART_LOWPULSE(0)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x6000002c || 4 || UART_HIGHPULSE(0)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000030 || 4 || UART_PULSE_NUM(0)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000078 || 4 || UART_DATE(0)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x6000007c || 4 || UART_ID(0)<ref name="uart_register.h"/> || ||
+|
+|-
+|colspan=6|
 |-
 | 0x60000200 || 4 || || R/W ||
 [[spi_flash_get_id (IoT RTOS SDK 0.9.9)|spi_flash_get_id]]<br>
@@ -582,6 +623,8 @@ This page contains a reference for all memory locations which are referenced in 
 | 0x60000240 || 4 || || R/W ||
 [[spi_flash_get_id (IoT RTOS SDK 0.9.9)|spi_flash_get_id]]<br>
 |
+|-
+|colspan=6|
 |-
 | 0x60000300 || 4 || || W ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
@@ -615,6 +658,8 @@ This page contains a reference for all memory locations which are referenced in 
 | 0x60000370 || 4 || || R/W ||
 [[pm_rtc_clock_cali (IoT RTOS SDK 0.9.9)|pm_rtc_clock_cali]]<br>
 |
+|-
+|colspan=6|
 |-
 | 0x60000560 || 4 || || R ||
 [[dpd_init (IoT RTOS SDK 0.9.9)|dpd_init]]<br>
@@ -749,6 +794,8 @@ This page contains a reference for all memory locations which are referenced in 
 [[tx_pwctrl_init_cal (IoT RTOS SDK 0.9.9)|tx_pwctrl_init_cal]]<br>
 |
 |-
+|colspan=6|
+|-
 | 0x60000620 || 4 || || W ||
 [[ets_timer_init (IoT RTOS SDK 0.9.9)|ets_timer_init]]<br>
 |
@@ -772,6 +819,8 @@ This page contains a reference for all memory locations which are referenced in 
 [[ets_timer_init (IoT RTOS SDK 0.9.9)|ets_timer_init]]<br>
 [[ets_timer.irom0.text+0x34 (IoT RTOS SDK 0.9.9)|ets_timer.irom0.text+0x34]]<br>
 |
+|-
+|colspan=6|
 |-
 | 0x60000700 || 4 || || R/W ||
 [[change_bbpll160_sleep (IoT RTOS SDK 0.9.9)|change_bbpll160_sleep]]<br>
@@ -949,6 +998,8 @@ This page contains a reference for all memory locations which are referenced in 
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
 |-
+|colspan=6|
+|-
 | 0x60000800 || 4 || || R/W ||
 [[app_main.text+0xa0 (IoT RTOS SDK 0.9.9)|app_main.text+0xa0]]<br>
 |
@@ -994,6 +1045,8 @@ This page contains a reference for all memory locations which are referenced in 
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
 |
 |-
+|colspan=6|
+|-
 | 0x60000900 || 4 || || R/W ||
 [[wdt_init (IoT RTOS SDK 0.9.9)|wdt_init]]<br>
 |
@@ -1012,9 +1065,13 @@ This page contains a reference for all memory locations which are referenced in 
 [[slop_wdt_feed (IoT RTOS SDK 0.9.9)|slop_wdt_feed]]<br>
 |
 |-
+|colspan=6|
+|-
 | 0x60000a04 || 4 || || R/W ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
 |
+|-
+|colspan=6|
 |-
 | 0x60000b3c || 4 || || R ||
 [[pm_sdio_nidle (IoT RTOS SDK 0.9.9)|pm_sdio_nidle]]<br>
@@ -1023,6 +1080,8 @@ This page contains a reference for all memory locations which are referenced in 
 | 0x60000b58 || 4 || || R ||
 [[pm_sdio_nidle (IoT RTOS SDK 0.9.9)|pm_sdio_nidle]]<br>
 |
+|-
+|colspan=6|
 |-
 | 0x60000d40 || 4 || || R/W ||
 [[bbpll_cal (IoT RTOS SDK 0.9.9)|bbpll_cal]]<br>
@@ -1068,17 +1127,65 @@ This page contains a reference for all memory locations which are referenced in 
 [[tx_pwctrl_cal (IoT RTOS SDK 0.9.9)|tx_pwctrl_cal]]<br>
 |
 |-
-| 0x60000f1c || 4 || || R ||
+|colspan=6|
+|-
+| 0x60000f00 || 4 || UART_FIFO(1)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000f04 || 4 || UART_INT_RAW(1)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000f08 || 4 || UART_INT_ST(1)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000f0c || 4 || UART_INT_ENA(1)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000f10 || 4 || UART_INT_CLR(1)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000f14 || 4 || UART_CLKDIV(1)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000f18 || 4 || UART_AUTOBAUD(1)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000f1c || 4 || UART_STATUS(1)<ref name="uart_register.h"/> || R ||
 [[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]]<br>
 [[system_uart_swap (IoT RTOS SDK 0.9.9)|system_uart_swap]]<br>
 [[user_fatal_exception_handler (IoT RTOS SDK 0.9.9)|user_fatal_exception_handler]]<br>
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
 |
 |-
+| 0x60000f20 || 4 || UART_CONF0(1)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000f24 || 4 || UART_CONF1(1)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000f28 || 4 || UART_LOWPULSE(1)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000f2c || 4 || UART_HIGHPULSE(1)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000f30 || 4 || UART_PULSE_NUM(1)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000f78 || 4 || UART_DATE(1)<ref name="uart_register.h"/> || ||
+|
+|-
+| 0x60000f7c || 4 || UART_ID(1)<ref name="uart_register.h"/> || ||
+|
+|-
+|colspan=6|
+|-
 | 0x6000107c || 4 || || R/W ||
 [[register_chipv6_phy (IoT RTOS SDK 0.9.9)|register_chipv6_phy]]<br>
 [[user_init_task (IoT RTOS SDK 0.9.9)|user_init_task]]<br>
 |
+|-
+|colspan=6|
 |-
 | 0x600011f4 || 4 || || R/W ||
 [[cnx_connect_timeout (IoT RTOS SDK 0.9.9)|cnx_connect_timeout]]<br>
@@ -1098,6 +1205,8 @@ This page contains a reference for all memory locations which are referenced in 
 [[data_collect (IoT RTOS SDK 0.9.9)|data_collect]]<br>
 [[wd_reset_cnt (IoT RTOS SDK 0.9.9)|wd_reset_cnt]]<br>
 |
+|-
+|colspan=6|
 |-
 | 0x60009824 || 4 || || R ||
 [[read_hw_noisefloor (IoT RTOS SDK 0.9.9)|read_hw_noisefloor]]<br>
@@ -1363,3 +1472,6 @@ This page contains a reference for all memory locations which are referenced in 
 |
 |-
 |}
+
+== References ==
+<references/>
