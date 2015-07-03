@@ -1276,49 +1276,70 @@ This page contains a reference for all memory locations which are referenced in 
 |-
 |colspan=6|
 |-
-| 0x60000800 || 4 || || R/W ||
+| 0x60000800 || 4 || PERIPHS_IO_MUX_CONF_U<ref name="pin_mux_register.h">[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/pin_mux_register.h include/espressif/esp8266/pin_mux_register.h]</ref> || R/W ||
 [[app_main.text+0xa0 (IoT RTOS SDK 0.9.9)|app_main.text+0xa0]]<br>
 |
 |-
-| 0x60000804 || 4 || || R/W ||
+| 0x60000804 || 4 || PERIPHS_IO_MUX_MTDI_U<ref name="pin_mux_register.h"/> || R/W ||
 [[system_restart (IoT RTOS SDK 0.9.9)|system_restart]]<br>
 |
 |-
-| 0x60000808 || 4 || || R/W ||
+| 0x60000808 || 4 || PERIPHS_IO_MUX_MTCK_U<ref name="pin_mux_register.h"/> || R/W ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
 [[system_uart_swap (IoT RTOS SDK 0.9.9)|system_uart_swap]]<br>
 |
 |-
-| 0x6000080c || 4 || || R/W ||
+| 0x6000080c || 4 || PERIPHS_IO_MUX_MTMS_U<ref name="pin_mux_register.h"/> || R/W ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
 |
 |-
-| 0x60000810 || 4 || || R/W ||
+| 0x60000810 || 4 || PERIPHS_IO_MUX_MTDO_U<ref name="pin_mux_register.h"/> || R/W ||
 [[system_uart_swap (IoT RTOS SDK 0.9.9)|system_uart_swap]]<br>
 |
 |-
-| 0x60000814 || 4 || || R/W ||
+| 0x60000814 || 4 || PERIPHS_IO_MUX_U0RXD_U<ref name="pin_mux_register.h"/> || R/W ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
 [[pm_set_sleep_btco (IoT RTOS SDK 0.9.9)|pm_set_sleep_btco]]<br>
 [[pm_set_wakeup_btco (IoT RTOS SDK 0.9.9)|pm_set_wakeup_btco]]<br>
 |
 |-
-| 0x60000818 || 4 || || R/W ||
+| 0x60000818 || 4 || PERIPHS_IO_MUX_U0TXD_U<ref name="pin_mux_register.h"/> || R/W ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
 |
 |-
-| 0x60000820 || 4 || || R ||
+| 0x6000081c || 4 || PERIPHS_IO_MUX_SD_CLK_U<ref name="pin_mux_register.h"/> || ||
+|
+|-
+| 0x60000820 || 4 || PERIPHS_IO_MUX_SD_DATA0_U<ref name="pin_mux_register.h"/> || R ||
 [[set_crystal_uart (IoT RTOS SDK 0.9.9)|set_crystal_uart]]<br>
 |
 |-
-| 0x60000834 || 4 || || R/W ||
+| 0x60000824 || 4 || PERIPHS_IO_MUX_SD_DATA1_U<ref name="pin_mux_register.h"/> || ||
+|
+|-
+| 0x60000828 || 4 || PERIPHS_IO_MUX_SD_DATA2_U<ref name="pin_mux_register.h"/> || ||
+|
+|-
+| 0x6000082c || 4 || PERIPHS_IO_MUX_SD_DATA3_U<ref name="pin_mux_register.h"/> || ||
+|
+|-
+| 0x60000830 || 4 || PERIPHS_IO_MUX_SD_CMD_U<ref name="pin_mux_register.h"/> || ||
+|
+|-
+| 0x60000834 || 4 || PERIPHS_IO_MUX_GPIO0_U<ref name="pin_mux_register.h"/> || R/W ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
 [[pm_set_sleep_btco (IoT RTOS SDK 0.9.9)|pm_set_sleep_btco]]<br>
 [[pm_set_wakeup_btco (IoT RTOS SDK 0.9.9)|pm_set_wakeup_btco]]<br>
 |
 |-
-| 0x60000838 || 4 || || R/W ||
+| 0x60000838 || 4 || PERIPHS_IO_MUX_GPIO2_U<ref name="pin_mux_register.h"/> || R/W ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
+|
+|-
+| 0x6000083c || 4 || PERIPHS_IO_MUX_GPIO4_U<ref name="pin_mux_register.h"/> || ||
+|
+|-
+| 0x60000840 || 4 || PERIPHS_IO_MUX_GPIO5_U<ref name="pin_mux_register.h"/> || ||
 |
 |-
 |colspan=6|
