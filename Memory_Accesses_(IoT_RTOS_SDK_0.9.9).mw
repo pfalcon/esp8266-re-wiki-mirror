@@ -1086,7 +1086,7 @@ This page contains a reference for all memory locations which are referenced in 
 |-
 |colspan=6|
 |-
-| 0x60000700 || 4 || || R/W ||
+| 0x60000700 || 4 || PERIPHS_RTC_BASEADDR<ref name="eagle_soc.h"/> || R/W ||
 [[change_bbpll160_sleep (IoT RTOS SDK 0.9.9)|change_bbpll160_sleep]]<br>
 [[pm_open_rf (IoT RTOS SDK 0.9.9)|pm_open_rf]]<br>
 [[pm_sleep_opt (IoT RTOS SDK 0.9.9)|pm_sleep_opt]]<br>
@@ -1095,7 +1095,7 @@ This page contains a reference for all memory locations which are referenced in 
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
 |
 |-
-| 0x60000704 || 4 || || W ||
+| 0x60000704 || 4 || RTC_SLP_VAL<ref name="eagle_soc.h"/> || W ||
 [[pm_set_sleep_cycles (IoT RTOS SDK 0.9.9)|pm_set_sleep_cycles]]<br>
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
@@ -1140,7 +1140,7 @@ This page contains a reference for all memory locations which are referenced in 
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
 |
 |-
-| 0x6000071c || 4 || || R ||
+| 0x6000071c || 4 || RTC_SLP_CNT_VAL<ref name="eagle_soc.h"/> || R ||
 [[pm_set_sleep_cycles (IoT RTOS SDK 0.9.9)|pm_set_sleep_cycles]]<br>
 [[system_get_rtc_time (IoT RTOS SDK 0.9.9)|system_get_rtc_time]]<br>
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
@@ -1160,8 +1160,17 @@ This page contains a reference for all memory locations which are referenced in 
 [[pm_wait4wakeup (IoT RTOS SDK 0.9.9)|pm_wait4wakeup]]<br>
 |
 |-
-| 0x60000738 || 4 || || W ||
+| 0x60000730 || 4 || RTC_SCRATCH0<ref name="eagle_soc.h"/> || ||
+|
+|-
+| 0x60000734 || 4 || RTC_SCRATCH1<ref name="eagle_soc.h"/> || ||
+|
+|-
+| 0x60000738 || 4 || RTC_SCRATCH2<ref name="eagle_soc.h"/> || W ||
 [[slop_test (IoT RTOS SDK 0.9.9)|slop_test]]<br>
+|
+|-
+| 0x6000073c || 4 || RTC_SCRATCH3<ref name="eagle_soc.h"/> || ||
 |
 |-
 | 0x60000740 || 4 || || W ||
@@ -1207,11 +1216,11 @@ This page contains a reference for all memory locations which are referenced in 
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
 |-
-| 0x60000768 || 4 || || W ||
+| 0x60000768 || 4 || RTC_GPIO_OUT<ref name="eagle_soc.h"/> || W ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
 |-
-| 0x60000774 || 4 || || R/W ||
+| 0x60000774 || 4 || RTC_GPIO_ENABLE<ref name="eagle_soc.h"/> || R/W ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
@@ -1220,7 +1229,10 @@ This page contains a reference for all memory locations which are referenced in 
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
 |-
-| 0x60000790 || 4 || || W ||
+| 0x6000078c || 4 || RTC_GPIO_IN_DATA<ref name="eagle_soc.h"/> || ||
+|
+|-
+| 0x60000790 || 4 || RTC_GPIO_CONF<ref name="eagle_soc.h"/> || W ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
 |-
@@ -1237,7 +1249,7 @@ This page contains a reference for all memory locations which are referenced in 
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
 |
 |-
-| 0x600007a0 || 4 || || R/W ||
+| 0x600007a0 || 4 || PAD_XPD_DCDC_CONF<ref name="eagle_soc.h"/> || R/W ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
 [[pm_prepare_to_sleep (IoT RTOS SDK 0.9.9)|pm_prepare_to_sleep]]<br>
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
