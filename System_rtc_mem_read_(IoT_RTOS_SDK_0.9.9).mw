@@ -1,6 +1,6 @@
 = Prototype =
 
-<code>bool system_rtc_mem_read(uint32 src_word, void *dst_addr, uint32 length)</code>
+<code>bool system_rtc_mem_read(src_word, dst_addr, length)</code>
 
 = Called From =
 
