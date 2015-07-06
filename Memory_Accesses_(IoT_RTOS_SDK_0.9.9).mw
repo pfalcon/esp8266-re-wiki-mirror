@@ -1484,24 +1484,10 @@ This page contains a reference for all memory locations which are referenced in 
 |-
 |colspan=6|
 |-
-| 0x600011f4 || 4 || || R/W ||
-[[cnx_connect_timeout (IoT RTOS SDK 0.9.9)|cnx_connect_timeout]]<br>
-[[eagle_auth_done (IoT RTOS SDK 0.9.9)|eagle_auth_done]]<br>
-[[user_interface.irom0.text+0x12dc (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x12dc]]<br>
-[[wifi_station_ap_change (IoT RTOS SDK 0.9.9)|wifi_station_ap_change]]<br>
-[[wifi_station_connect (IoT RTOS SDK 0.9.9)|wifi_station_connect]]<br>
-[[wl_cnx.irom0.text+0x58c (IoT RTOS SDK 0.9.9)|wl_cnx.irom0.text+0x58c]]<br>
-|
-|-
-| 0x600011f8 || 4 || || R/W ||
-[[pp_attach (IoT RTOS SDK 0.9.9)|pp_attach]]<br>
-[[user_init_task (IoT RTOS SDK 0.9.9)|user_init_task]]<br>
-|
-|-
-| 0x600011fc || 4 || || R/W ||
-[[data_collect (IoT RTOS SDK 0.9.9)|data_collect]]<br>
-[[wd_reset_cnt (IoT RTOS SDK 0.9.9)|wd_reset_cnt]]<br>
-|
+| 0x60001100 || 768 || rtc_mem || R/W ||
+[[system_rtc_mem_read (IoT RTOS SDK 0.9.9)|system_rtc_mem_read]]<br>
+[[system_rtc_mem_write (IoT RTOS SDK 0.9.9)|system_rtc_mem_write]]<br>
+| See [[#RTC Mem Region Detail (0x60001100 - 0x600013ff)]]
 |-
 |colspan=6|
 |-
@@ -1767,6 +1753,41 @@ This page contains a reference for all memory locations which are referenced in 
 | 0x60009d70 || 4 || || R/W ||
 [[phy_bb_rx_cfg (IoT RTOS SDK 0.9.9)|phy_bb_rx_cfg]]<br>
 |
+|-
+|}
+
+== RTC Mem Region Detail (0x60001100 - 0x600013ff) ==
+
+The data in this region is stored inside the Real Time Clock, and is persisted even during deep sleep modes when other RAM is lost.  According to the Espressif docs, the first 256 bytes of this region are reserved for system use, and the remaining 512 bytes are available for user programs.
+
+{| class="wikitable"
+! Address !! Size !! Name !! Access !! Referenced by !! Notes
+|-
+| 0x60001100 || 32 || || R ||
+[[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]] (via [[system_rtc_mem_read (IoT RTOS SDK 0.9.9)|system_rtc_mem_read]])<br>
+| Read into the [[rst_if (IoT RTOS SDK 0.9.9)|rst_if]] structure on startup
+|-
+| 0x600011f4 || 4 || || R/W ||
+[[cnx_connect_timeout (IoT RTOS SDK 0.9.9)|cnx_connect_timeout]]<br>
+[[eagle_auth_done (IoT RTOS SDK 0.9.9)|eagle_auth_done]]<br>
+[[user_interface.irom0.text+0x12dc (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x12dc]]<br>
+[[wifi_station_ap_change (IoT RTOS SDK 0.9.9)|wifi_station_ap_change]]<br>
+[[wifi_station_connect (IoT RTOS SDK 0.9.9)|wifi_station_connect]]<br>
+[[wl_cnx.irom0.text+0x58c (IoT RTOS SDK 0.9.9)|wl_cnx.irom0.text+0x58c]]<br>
+|
+|-
+| 0x600011f8 || 4 || || R/W ||
+[[pp_attach (IoT RTOS SDK 0.9.9)|pp_attach]]<br>
+[[user_init_task (IoT RTOS SDK 0.9.9)|user_init_task]]<br>
+|
+|-
+| 0x600011fc || 4 || || R/W ||
+[[data_collect (IoT RTOS SDK 0.9.9)|data_collect]]<br>
+[[wd_reset_cnt (IoT RTOS SDK 0.9.9)|wd_reset_cnt]]<br>
+|
+|-
+| 0x60001200 || 512 || || ||
+| Available for user data (not used by SDK libs)
 |-
 |}
 
