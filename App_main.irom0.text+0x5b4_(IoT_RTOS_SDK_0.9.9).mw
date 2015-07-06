@@ -19,8 +19,8 @@ It performs the following tasks:
 #* If the value is greater or equal to 4, it zeros out the contents of [[rst_if (IoT RTOS SDK 0.9.9)|rst_if]] instead
 # Replaces the 32 bytes in the RTC memory with zeroes ([[system_rtc_mem_write (IoT RTOS SDK 0.9.9)|system_rtc_mem_write]])
 # Calls [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]
-# Calls [[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]] to get the OTP MAC address (''mac_addr'')
-# Calls [[wifi_softap_cacl_mac (IoT RTOS SDK 0.9.9)|wifi_softap_cacl_mac]] to calculate the wifi MAC address from ''mac_addr'' and store the result in [[info (IoT RTOS SDK 0.9.9)|info]].wifi_mac_addr
+# Calls [[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]] to determine the station MAC address from the chip ID and store it in [[info (IoT RTOS SDK 0.9.9)|info]].station_mac_addr
+# Calls [[wifi_softap_cacl_mac (IoT RTOS SDK 0.9.9)|wifi_softap_cacl_mac]] to calculate the softap MAC address from the station MAC address and store the result in [[info (IoT RTOS SDK 0.9.9)|info]].softap_mac_addr
 # Sets [[info (IoT RTOS SDK 0.9.9)|info]][0] = 0x0104a8c0
 # Sets [[info (IoT RTOS SDK 0.9.9)|info]][1] = 0x00ffffff
 # Sets [[info (IoT RTOS SDK 0.9.9)|info]][2] = 0x0104a8c0
