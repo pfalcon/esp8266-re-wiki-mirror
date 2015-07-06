@@ -1,0 +1,26 @@
+= Prototype =
+
+<code>bool system_rtc_mem_write(uint32 dst_word, void *src_addr, uint32 length)</code>
+
+= Called From =
+
+* [[app_main.irom0.text+0x2a0 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x2a0]]
+* [[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]]
+* [[pp_soft_wdt_feed (IoT RTOS SDK 0.9.9)|pp_soft_wdt_feed]]
+* [[ppTask (IoT RTOS SDK 0.9.9)|ppTask]]
+* [[system_restart_in_nmi (IoT RTOS SDK 0.9.9)|system_restart_in_nmi]]
+
+= Description =
+
+# Checks that ''dst_word'' < 192 (size of RTC mem region in 4-byte words):
+#* If not, returns false
+# Checks that ''src_addr'' is aligned on a 4-byte boundary:
+#* If not, returns false
+# Checks that ''length'' would not run off the end of the RTC mem region (i.e. (''dst_word''*4)+''length'' is not more than 768 bytes):
+#* If not, returns false
+# If ''length'' is not a multiple of 4, rounds it up to the next multiple of 4
+# Copies ''length'' bytes (using aligned 4-byte reads/writes) from ''src_addr'' to 0x60001100 + (''dst_word''*4) and returns true
+
+= See Also =
+
+* [[system_rtc_mem_read (IoT RTOS SDK 0.9.9)|system_rtc_mem_read]]
