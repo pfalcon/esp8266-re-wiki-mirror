@@ -502,26 +502,26 @@ This page contains a reference for all memory locations which are referenced in 
 [[wDev_Option_Init (IoT RTOS SDK 0.9.9)|wDev_Option_Init]]<br>
 |
 |-
-| 0x3ff21004 || 4 || || R ||
+| 0x3ff21004 || 4 || MacTim_counter_lword || R ||
 [[wDev_MacTimArm (IoT RTOS SDK 0.9.9)|wDev_MacTimArm]]<br>
-|
+| Low 32 bits of the 64-bit clock counter used for MacTim
 |-
-| 0x3ff21008 || 4 || || R ||
+| 0x3ff21008 || 4 || MacTim_counter_hword || R ||
 [[wDev_MacTimArm (IoT RTOS SDK 0.9.9)|wDev_MacTimArm]]<br>
-|
+| High 32 bits of the 64-bit clock counter used for MacTim
 |-
 | 0x3ff21014 || 4 || || R/W ||
 [[wDev_MacTimSetFunc (IoT RTOS SDK 0.9.9)|wDev_MacTimSetFunc]]<br>
 |
 |-
-| 0x3ff21048 || 4 || || R ||
+| 0x3ff21048 || 4 || MacTim1_counter_lword || R ||
 [[wDev_Get_Next_TBTT (IoT RTOS SDK 0.9.9)|wDev_Get_Next_TBTT]]<br>
 [[wDev_MacTim1Arm (IoT RTOS SDK 0.9.9)|wDev_MacTim1Arm]]<br>
-|
+| Low 32 bits of the 64-bit clock counter used for MacTim1
 |-
-| 0x3ff2104c || 4 || || R ||
+| 0x3ff2104c || 4 || MacTim1_counter_hword || R ||
 [[wDev_MacTim1Arm (IoT RTOS SDK 0.9.9)|wDev_MacTim1Arm]]<br>
-|
+| High 32 bits of the 64-bit clock counter used for MacTim1
 |-
 | 0x3ff21058 || 4 || || R/W ||
 [[wDev_Disable_Beacon_Tsf (IoT RTOS SDK 0.9.9)|wDev_Disable_Beacon_Tsf]]<br>
@@ -537,29 +537,29 @@ This page contains a reference for all memory locations which are referenced in 
 [[wDev_Reset_TBTT (IoT RTOS SDK 0.9.9)|wDev_Reset_TBTT]]<br>
 |
 |-
-| 0x3ff21098 || 4 || || R/W ||
+| 0x3ff21098 || 4 || MacTim_ctrl || R/W ||
 [[wDev_MacTimArm (IoT RTOS SDK 0.9.9)|wDev_MacTimArm]]<br>
-|
+| Bit 31 = activate MacTim timer
 |-
-| 0x3ff2109c || 4 || || W ||
+| 0x3ff2109c || 4 || MacTim_trigger_lword || W ||
 [[wDev_MacTimArm (IoT RTOS SDK 0.9.9)|wDev_MacTimArm]]<br>
-|
+| Low 32 bits of the 64-bit clock counter value at which MacTim should trigger an NMI 
 |-
-| 0x3ff210a0 || 4 || || W ||
+| 0x3ff210a0 || 4 || MacTim_trigger_hword || W ||
 [[wDev_MacTimArm (IoT RTOS SDK 0.9.9)|wDev_MacTimArm]]<br>
-|
+| High 32 bits of the 64-bit clock counter value at which MacTim should trigger an NMI 
 |-
-| 0x3ff210c8 || 4 || || R/W ||
+| 0x3ff210c8 || 4 || MacTim1_ctrl || R/W ||
 [[wDev_MacTim1Arm (IoT RTOS SDK 0.9.9)|wDev_MacTim1Arm]]<br>
-|
+| Bit 31 = activate MacTim1 timer
 |-
-| 0x3ff210cc || 4 || || W ||
+| 0x3ff210cc || 4 || MacTim1_trigger_lword || W ||
 [[wDev_MacTim1Arm (IoT RTOS SDK 0.9.9)|wDev_MacTim1Arm]]<br>
-|
+| Low 32 bits of the 64-bit clock counter value at which MacTim1 should trigger an NMI 
 |-
-| 0x3ff210d0 || 4 || || W ||
+| 0x3ff210d0 || 4 || MacTim1_trigger_hword || W ||
 [[wDev_MacTim1Arm (IoT RTOS SDK 0.9.9)|wDev_MacTim1Arm]]<br>
-|
+| High 32 bits of the 64-bit clock counter value at which MacTim1 should trigger an NMI 
 |-
 | 0x3ff210fc || 4 || || R ||
 [[wDev_ProcessFiq (IoT RTOS SDK 0.9.9)|wDev_ProcessFiq]]<br>
