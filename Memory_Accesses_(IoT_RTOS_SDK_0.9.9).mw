@@ -90,28 +90,36 @@ This page contains a reference for all memory locations which are referenced in 
 [[system_uart_swap (IoT RTOS SDK 0.9.9)|system_uart_swap]]<br>
 |
 |-
-| 0x3ff00050 || 4 || || R ||
+| 0x3ff00050 || 4 || chip_id_0 || R ||
 [[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]]<br>
 [[system_get_chip_id (IoT RTOS SDK 0.9.9)|system_get_chip_id]]<br>
 |
+* Bits 0-23 = ???
+* Bits 24-31 = Bottom 8 bits of chip ID
 |-
-| 0x3ff00054 || 4 || || R ||
+| 0x3ff00054 || 4 || chip_id_1 || R ||
 [[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]]<br>
 [[get_chip_version (IoT RTOS SDK 0.9.9)|get_chip_version]]<br>
 [[system_get_chip_id (IoT RTOS SDK 0.9.9)|system_get_chip_id]]<br>
 |
+* Bits 0-23 = Top 24 bits of chip ID
+* Bits 24-28 = Chip version
+* Bits 29-31 = ???
 |-
-| 0x3ff00058 || 4 || || R ||
+| 0x3ff00058 || 4 || chip_id_flags || R ||
 [[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]]<br>
 [[chip_v6_initialize_bb (IoT RTOS SDK 0.9.9)|chip_v6_initialize_bb]]<br>
 [[get_chip_version (IoT RTOS SDK 0.9.9)|get_chip_version]]<br>
 |
+* Bit 12 = MAC vendor ID is in 0x3ff0005c (if bit 12 is 0, use standard Espressif MAC vendor of <code>18:fe:34</code>)
+* Bit 15 = (always set on ESP8266, apparently unset on some other chip variants)
 |-
-| 0x3ff0005c || 4 || || R ||
+| 0x3ff0005c || 4 || mac_addr_vendor || R ||
 [[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]]<br>
 [[chip_v6_initialize_bb (IoT RTOS SDK 0.9.9)|chip_v6_initialize_bb]]<br>
 [[get_chip_version (IoT RTOS SDK 0.9.9)|get_chip_version]]<br>
 |
+* Bits 0-24 = MAC address vendor ID (if bit 12 of 0x3ff00058 is set)
 |-
 |}
 
