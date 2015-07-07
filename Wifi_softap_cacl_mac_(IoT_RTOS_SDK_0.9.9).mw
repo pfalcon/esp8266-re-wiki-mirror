@@ -1,0 +1,31 @@
+= Prototype =
+
+<code>bool wifi_softap_cacl_mac(char *softap_mac, char *station_mac)</code>
+
+= Called From =
+
+* [[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]]
+
+= Description =
+
+This routine apparently calculates a MAC address to use in SoftAP mode based on the station MAC address (which by default is based on the Espressif vendor OID and the low 24 bits of the chip ID value).  The SoftAP MAC address needs to be different than the station MAC address, as it is possible (wifi_mode == 3) to have both running at the same time.
+
+This routine first copies the 6-byte MAC address from station_mac to softap_mac, and then uses the following algorithm to permute it until it comes up with a result which is different from the original station MAC address:
+
+# Initialize counter to 0
+# Take byte 0 of the station MAC
+# Set bit 1 (OR with 0x02)
+# XOR the result with (counter << 2)
+# Store that as byte 0 of the SoftAP MAC
+# Use strncmp to check if the station MAC and SoftAP MAC are the same.  If not, return success (true)
+# Otherwise, increment the counter and repeat
+
+Setting bit 1 turns the MAC address into a "locally administered" address instead of a globally-unique one, so it is not required to use a specific registered vendor OID.  It then changes the first byte of the vendor OID if necessary until the result is different from the original (presumably to deal with the case where the original already had bit 1 set somehow).
+
+Note that this algorithm is unnecessarily complicated and inefficient.  Exactly the same result would be obtained with the following logic instead:
+
+# If bit 1 of byte 0 is not already set:  Set bit 1
+# Else: XOR bit 2
+# Copy all the other bytes as-is
+
+(There is also no case in which this routine will return a false value, so the return value is meaningless)
