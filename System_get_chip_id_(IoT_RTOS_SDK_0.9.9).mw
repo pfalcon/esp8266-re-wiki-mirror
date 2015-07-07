@@ -1,0 +1,19 @@
+= Prototype =
+
+<code>uint32 system_get_chip_id(void)</code>
+
+= Called From =
+
+(Not called by any SDK library routines)
+
+= Description =
+
+Returns the unique chip ID burned into the ESP8266 at the factory.
+
+The chip ID is located in the dport0 region in bytes 0x3ff00053..0x3ff00056.  Note, however, that these memory locations must be accessed with 32-bit aligned reads, so some additional logic is required to shift the bits around before returning them.
+
+# Returns ([0x3ff00050] >> 24) | ([0x3ff00054] << 8)
+
+= See Also =
+
+* [[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]] -- Called on boot to use the low 24 bits of the chip ID to produce the default MAC address.
