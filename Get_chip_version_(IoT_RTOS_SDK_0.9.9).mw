@@ -1,0 +1,22 @@
+= Prototype =
+
+<code>uint32 get_chip_version(void)</code>
+
+= Called From =
+
+* [[change_bbpll160 (IoT RTOS SDK 0.9.9)|change_bbpll160]]
+* [[pm_set_pll_xtal_wait_time (IoT RTOS SDK 0.9.9)|pm_set_pll_xtal_wait_time]]
+* [[pm_sleep_opt_bb_off (IoT RTOS SDK 0.9.9)|pm_sleep_opt_bb_off]]
+* [[pm_sleep_opt_bb_on (IoT RTOS SDK 0.9.9)|pm_sleep_opt_bb_on]]
+* [[sleep_opt_bb_on_8266 (IoT RTOS SDK 0.9.9)|sleep_opt_bb_on_8266]]
+
+= Description =
+
+# Checks if there is a valid cached value in [[chip_version (IoT RTOS SDK 0.9.9)|chip_version]] (!= 0xffffffff) and if so returns it.
+# If bit 15 of [0x3ff00058] is set:
+#* Chip version is stored in bits 24-28 of [0x3ff00054]
+# Otherwise (bit 15 of [0x3ff00058] is clear):
+#* Chip version is stored in bits 24-28 of [0x3ff0005c]
+#* '''Note:''' in [[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]] (called at the beginning of system startup), if this bit is not set it will print an error message about not running on an ESP8266 and halt, so we would never get here.  It is likely this is here because this particular routine was designed to work for more than just ESP8266 chips (and possibly used in SDKs for other chips too)
+# Read the appropriate memory location (in our case, this is always [0x3ff00054]), AND it and shift it to extract bits 24-28
+# Save the result in [[chip_version (IoT RTOS SDK 0.9.9)|chip_version]] and return it
