@@ -1,0 +1,40 @@
+The '''info''' structure is apparently used by several WiFi-related routines, but the exact meaning of most of the fields have not yet been determined:
+
+{| class="wikitable"
+! Offset !! Length !! Datatype !! Name !! Referenced By !! Notes
+|-
+| 0 || 4 || uint32 || ||
+[[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]]<br>
+|
+|-
+| 4 || 4 || uint32 || ||
+[[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]]<br>
+|
+|-
+| 8 || 4 || uint32 || ||
+[[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]]<br>
+|
+|-
+| 12 || 4 || uint32 || ||
+[[wifi_station_dhcpc_start (IoT RTOS SDK 0.9.9)|wifi_station_dhcpc_start]]<br>
+|
+|-
+| 16 || 4 || uint32 || ||
+[[wifi_station_dhcpc_start (IoT RTOS SDK 0.9.9)|wifi_station_dhcpc_start]]<br>
+|
+|-
+| 20 || 4 || uint32 || ||
+[[wifi_station_dhcpc_start (IoT RTOS SDK 0.9.9)|wifi_station_dhcpc_start]]<br>
+|
+|-
+| 24 || 6 || uint8[] || softap_mac_addr ||
+[[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]]<br>
+[[wifi_mode_set (IoT RTOS SDK 0.9.9)|wifi_mode_set]]<br>
+|
+|-
+| 30 || 6 || uint8[] || station_mac_addr ||
+[[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]]<br>
+[[wifi_mode_set (IoT RTOS SDK 0.9.9)|wifi_mode_set]]<br>
+|
+|-
+|}
