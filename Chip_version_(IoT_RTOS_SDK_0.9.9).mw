@@ -1,0 +1,11 @@
+= Prototype =
+
+<code>int32 chip_version = -1</code>
+
+= Location =
+
+'''chip_version''' is declared in libphy / phy_sleep.o at .data+0x0
+
+= Description =
+
+The '''chip_version''' variable is exported but apparently only used by the [[get_chip_version (IoT RTOS SDK 0.9.9)|get_chip_version]] function to cache the calculated value for future calls.  No other routines appear to reference it.
