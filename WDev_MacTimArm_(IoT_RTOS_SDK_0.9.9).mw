@@ -1,0 +1,30 @@
+= Prototype =
+
+<code>void wDev_MacTimArm(uint32 delay)</code>
+
+= Called From =
+
+(Apparently not called by any routines in the SDK)
+
+= Description =
+
+This function sets the first timer built into the wDev/MAC hardware to fire after the specified ''delay'' (measured in ticks).  When it fires, it will trigger an NMI, and bit 27 of [0x3ff20c20] will be set.
+
+# Checks if NMIIrqIsOn (which apparently indicates we're currently inside the NMI service routine), and if not:
+## Calls vPortEnterCritical()
+## Clears bits 0-4 of [0x3ff00000]
+##* Repeats this step until [0x3ff00000] bit 0 reads back cleared
+# Reads the 64-bit counter value in [0x3ff21008] (high 32 bits) and [0x3ff21004] (low 32 bits)
+# Checks [0x3ff21008] again to make sure it didn't change during the read (indicating the low bits of the counter wrapped around while we were reading), and if so:
+#* Reads [0x3ff21004] again too, and uses the updated values
+# Adds ''delay'' to the 64-bit counter value
+# Writes the new counter value to [0x3ff210a0] (high 32 bits) and [0x3ff2109c] (low 32 bits)
+# Sets bit 31 of [0x3ff21098]
+# If not NMIIrqIsOn:
+## Clears bits 1-4 of [0x3ff00000] and sets bit 0
+## Calls vPortExitCritical()
+
+= See Also =
+
+* [[wDev_MacTimSetFunc (IoT RTOS SDK 0.9.9)|wDev_MacTimSetFunc]]
+* [[wDev_MacTim1Arm (IoT RTOS SDK 0.9.9)|wDev_MacTim1Arm]]
