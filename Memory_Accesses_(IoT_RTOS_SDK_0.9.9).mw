@@ -1107,7 +1107,7 @@ This page contains a reference for all memory locations which are referenced in 
 [[pm_set_sleep_cycles (IoT RTOS SDK 0.9.9)|pm_set_sleep_cycles]]<br>
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
-|
+| Value of RTC counter to wake up from sleep
 |-
 | 0x60000708 || 4 || || R/W ||
 [[change_bbpll160_sleep (IoT RTOS SDK 0.9.9)|change_bbpll160_sleep]]<br>
@@ -1152,7 +1152,7 @@ This page contains a reference for all memory locations which are referenced in 
 [[pm_set_sleep_cycles (IoT RTOS SDK 0.9.9)|pm_set_sleep_cycles]]<br>
 [[system_get_rtc_time (IoT RTOS SDK 0.9.9)|system_get_rtc_time]]<br>
 [[user_interface.irom0.text+0x734 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x734]]<br>
-|
+| Current value of RTC counter
 |-
 | 0x60000720 || 4 || || W ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
@@ -1226,23 +1226,23 @@ This page contains a reference for all memory locations which are referenced in 
 |-
 | 0x60000768 || 4 || RTC_GPIO_OUT<ref name="eagle_soc.h"/> || W ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
-|
+| (GPIO16)
 |-
 | 0x60000774 || 4 || RTC_GPIO_ENABLE<ref name="eagle_soc.h"/> || R/W ||
 [[phy_gpio_cfg (IoT RTOS SDK 0.9.9)|phy_gpio_cfg]]<br>
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
-|
+| (GPIO16)
 |-
 | 0x60000780 || 4 || || W ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
 |
 |-
 | 0x6000078c || 4 || RTC_GPIO_IN_DATA<ref name="eagle_soc.h"/> || ||
-|
+| (GPIO16)
 |-
 | 0x60000790 || 4 || RTC_GPIO_CONF<ref name="eagle_soc.h"/> || W ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
-|
+| (GPIO16)
 |-
 | 0x60000794 || 4 || || W ||
 [[sleep_reset_analog_rtcreg_8266 (IoT RTOS SDK 0.9.9)|sleep_reset_analog_rtcreg_8266]]<br>
