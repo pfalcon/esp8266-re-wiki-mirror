@@ -25,7 +25,7 @@ It performs the following tasks:
 # Sets [[info (IoT RTOS SDK 0.9.9)|info]][1] = 0x00ffffff
 # Sets [[info (IoT RTOS SDK 0.9.9)|info]][2] = 0x0104a8c0
 # Calls [[app_main.irom0.text+0x148 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x148]]
-# Reads 128 bytes from the last-3 SPI flash sector (flashchip.chip_size - 0x4000) into a buffer (''phy_info'')
+# Reads 128 bytes ([[esp_init_data_default.bin (IoT RTOS SDK 0.9.9)|esp_init_data_default.bin]]) from the last-3 SPI flash sector (flashchip.chip_size - 0x4000) into a buffer (''phy_info'')
 #* Note that the address this routine calculates for this is actually <code>(flashchip.chip_size / flashchip.sector_size) * 4096 - 0x4000</code>.  This logic is almost certainly incorrect and only happens to work because flashchip.sector_size is (in the current version) always 4096 anyway, but it would clearly lead to a wrong address for any other sector size.  It is unclear why such a complicated address calculation is used in the first place (instead of just <code>flashchip.chip_size - 0x4000</code>, or perhaps <code>flashchip.chip_size - (flashchip.sector_size * 4)</code>).
 # Waits for UART0 TXFIFO to be empty
 # Waits for UART1 TXFIFO to be empty
