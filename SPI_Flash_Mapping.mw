@@ -1,4 +1,4 @@
-SPI flash ("irom") is mapped at 40200000h when enabled.
+SPI flash ("irom") is mapped at 40200000h when enabled. 1 megabyte of SPI flash can be mapped at a time (at any 1 megabyte aligned offset.)
 
 This area is readable as data with aligned 4-byte reads.
 
