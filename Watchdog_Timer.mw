@@ -1,3 +1,5 @@
+'''NOTE: The following is apparently at least partially wrong (the ESP8266 ''does'' seem to have a hardware WDT, but the SDK doesn't use it).  This needs more investigation -- [[User:Foogod|Foogod]] ([[User talk:Foogod|talk]]) 15:19, 16 July 2015 (EDT)'''
+
 The ESP8266 apparently does not have a hardware watchdog timer, however one is implemented in software by the SDK:
 
 (The following is based primarily on the [[IoT RTOS SDK 0.9.9]], but is believed to be similar for other versions of the SDK)
