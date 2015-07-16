@@ -354,6 +354,11 @@ Most of them live in 60000000h.
 |gpio
 |''Unconfirmed:'' The timer config registers, see <code>include/eagle_soc.h</code>
 |-
+|60000500h
+|>=E4h
+|?
+|Referenced by rom_iq_est_disable / rom_iq_est_enable / rom_dc_iq_est / rom_get_corr_power / rom_start_tx_tone / rom_pbus_force_test
+|-
 |60000600h
 |28h
 |timer
