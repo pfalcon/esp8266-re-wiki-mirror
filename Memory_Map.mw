@@ -12,6 +12,7 @@ The reset vector is 40000080h, which maps to internal ROM.
 !Size
 !Type
 !R/W
+!Alignment
 !Description
 |-
 |00000000h
@@ -19,12 +20,14 @@ The reset vector is 40000080h, which maps to internal ROM.
 |
 |Exc
 |
+|?
 |Causes fault when reading.
 |-
 |20000000h
 |
 |
 |No
+|
 |
 |Unmapped, repeated pattern of 00 80 00 00.
 |-
@@ -33,12 +36,14 @@ The reset vector is 40000080h, which maps to internal ROM.
 |1000h
 |I/O
 |RW?
+|4
 |Memory-mapped I/O, repeated every 100h.
 |-
 |3FF10000h
 |
 |
 |No
+|
 |
 |Unmapped, zeroes.
 |-
@@ -47,12 +52,14 @@ The reset vector is 40000080h, which maps to internal ROM.
 |
 |?
 |RW?
+|
 |Unidentified data.
 |-
 |3FF30000h
 |
 |
 |No
+|
 |
 |Unmapped, zeroes.
 |-
@@ -61,12 +68,14 @@ The reset vector is 40000080h, which maps to internal ROM.
 |20000h
 |?
 |RW?
+|
 |uint32 mapping to the address it is located at. What is this?
 |-
 |3FFE0000h
 |
 |
 |No
+|
 |
 |Unmapped, zeroes.
 |-
@@ -75,6 +84,7 @@ The reset vector is 40000080h, which maps to internal ROM.
 |14000h
 |RAM
 |RW
+|1
 |User data RAM. Available to applications.
 |-
 |3FFFC000h
@@ -82,6 +92,7 @@ The reset vector is 40000080h, which maps to internal ROM.
 |4000h
 |RAM
 |
+|1?
 |ETS system data RAM.
 |-
 |40000000h
@@ -89,12 +100,14 @@ The reset vector is 40000080h, which maps to internal ROM.
 |10000h
 |ROM
 |RW?
+|4?
 |Internal ROM. May be writable somehow, but details unknown.
 |-
 |40010000h
 |
 |
 |No
+|
 |
 |Zeroes. Assumed to be unmapped.
 |-
@@ -103,6 +116,7 @@ The reset vector is 40000080h, which maps to internal ROM.
 |8000h
 |RAM
 |RW
+|4
 |Instruction RAM. Used by bootloader to load SPI Flash &lt;40000h.
 |-
 |40108000h
@@ -110,6 +124,7 @@ The reset vector is 40000080h, which maps to internal ROM.
 |4000h
 |RAM
 |RW
+|4
 |Instruction RAM/FLASH cache ram. OTA bootloader uses it. Mapped here if bit 4 (bit mask 0x10) is clear in the dport0 register 0x3ff00024
 |-
 |4010C000h
@@ -117,12 +132,14 @@ The reset vector is 40000080h, which maps to internal ROM.
 |4000h
 |RAM
 |RW
+|4
 |Instruction RAM/FLASH cache ram. Mapped here if bit 3 (bit mask 0x8) is clear in the dport0 register 0x3ff00024
 |-
 |40110000h
 |
 |
 |?
+|
 |
 |Zeroes, possibly more IRAM.
 |-
@@ -131,19 +148,22 @@ The reset vector is 40000080h, which maps to internal ROM.
 |
 |?
 |
+|
 |Repeated pattern of 59 31 d8 ec.
 |-
 |40200000h
 |
 |
 |100000h
-|
+|RX
+|4
 |SPI Flash is mapped here when configured. See [[Platform:SPI_Flash_Mapping]]
 |-
 |40300000h
 |
 |
 |?
+|
 |
 |Unmapped, repeated pattern of 00 80 00 00.
 |-
@@ -152,6 +172,7 @@ The reset vector is 40000080h, which maps to internal ROM.
 |1000h
 |I/O
 |RW?
+|4
 |Uncached I/O (see MMIO table below)
 |-
 |60001000h
@@ -159,6 +180,7 @@ The reset vector is 40000080h, which maps to internal ROM.
 |800h
 |?
 |RW?
+|4
 |Uncached I/O (see MMIO table below)
 |-
 |60001800h
@@ -166,6 +188,7 @@ The reset vector is 40000080h, which maps to internal ROM.
 |800h
 |?
 |RW?
+|
 |Uncached. Mapped to 60001000h?
 |-
 |60002000h
@@ -173,12 +196,14 @@ The reset vector is 40000080h, which maps to internal ROM.
 |
 |Exc
 |
+|
 |Causes fault when reading.
 |-
 |70000000h
 |
 |90000000h
 |No
+|
 |
 |Unmapped, repeated pattern of 00 80 00 00.
 |}
