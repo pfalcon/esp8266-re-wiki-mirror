@@ -1,5 +1,9 @@
 This page is intended to describe ESP8266-specific terms. More general and widely known terms should be looked up in a search engine on Wikipedia.
 
+=== BootROM ===
+
+ESP8266 has non-modifiable (apparently, mask-technology) ROM, containing 1) bootloader; 2) function library. It is collectively called "BootROM". Avoid calling it just "ROM", that's too unspecific and confusing.
+
 === CHM ===
 
 There're handful of APIs named chm_*. CHM is Channel Manager.
