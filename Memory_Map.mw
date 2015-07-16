@@ -379,6 +379,11 @@ Most of them live in 60000000h.
 |i2c
 |''Unconfirmed:'' Internal I2C controller registers, see ROM functions rom_i2c_readReg, rom_i2c_writeReg
 |-
+|60000D00h
+|&gt;=5Ch
+|sar?
+|Referenced by rom_en_pwdet, rom_get_fm_sar_dout, readvdd33
+|-
 |60000F00h
 |80h
 |uart1
@@ -442,6 +447,7 @@ Most of them live in 60000000h.
                            ||  `- Pull-up during sleep
                            |`- Pull-down
                            `- Pull-up</pre>
+
 == References ==
 
 * [http://www.esp8266.com/viewtopic.php?f=5&t=9&start=30#p274 Forum post Memory Layout, p274]
