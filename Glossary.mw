@@ -8,6 +8,10 @@ ESP8266 has non-modifiable (apparently, mask-technology) ROM, containing 1) boot
 
 There're handful of APIs named chm_*. CHM is Channel Manager.
 
+=== DRAM ===
+
+In ESP8266 (maybe Xtensa) parlance, DRAM is "Data RAM". But such abbreviation conflicts with generally used DRAM term: https://en.wikipedia.org/wiki/DRAM , so avoid its usage and just say "data RAM".
+
 === ESF ===
 
 There're handful of APIs named esf_*.
@@ -19,6 +23,10 @@ ETS appears to be a name/abbreviation of simple RTOS included in BootROM. There'
 === IC ===
 
 "ic" is network interface structure (commonly used abbreviation in other projects is "if").
+
+=== IRAM ===
+
+Instruction RAM.
 
 === LMAC ===
 
