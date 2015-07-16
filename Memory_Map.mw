@@ -402,6 +402,18 @@ Most of them live in 60000000h.
 !Bits
 !Description
 |-
+|3FF0000Ch
+|9
+|SPI ready/idle ([https://github.com/esp8266/Arduino/commit/a6e8697a#diff-b6122a2949eb3496b24d600e0b709e77R285 unconfirmed])
+|-
+|
+|16,17,18,24,25
+|Set SPI flash mapping offset. see [[Cache_Read_Enable]].
+|-
+|
+|26
+|May enable/disable SPI flash mapping (unconfirmed). See [[Cache_Read_Enable]]/[[Cache_Read_Disable]].
+|-
 |3FF00014h
 |0
 |When clear CPU runs at 80MHz. When set CPU runs at 160 MHz. Note that you need to call <code>os_update_cpu_frequency(int freq_in_mhz)</code> when changing the bit. Probably to calibrate timers. The UART divisor is not updated automatically, so you also have to call <code>uart_div_modify(uart_no, clock_freq_in_hz / baud_rate_in_baud)</code>.
