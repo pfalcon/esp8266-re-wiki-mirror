@@ -136,9 +136,9 @@ The reset vector is 40000080h, which maps to internal ROM.
 |40200000h
 |
 |
-|?
+|0x100000
 |
-|SPI Flash is mapped here. Mapping hardware has 32KBytes cache (Unconfirmed). Non-cached code runs 12...13 times slower than code from IRAM. Cached code runs as fast as from IRAM. This area is readable as data with aligned 4-byte reads. Mapping of FLASH to this region is controlled by bit 17 of SPI CTRL register (0x60000208): setting this bit maps the FLASH, clearing it unmaps it.
+|SPI Flash is mapped here when configured. See [[Platform:SPI_Flash_Mapping]]
 |-
 |40300000h
 |
@@ -271,6 +271,10 @@ This is for ESP IoT SDK version 0.8 and above, supporting OTA upgrades.
 |}
 
 == Exception Vectors ==
+
+Hardware defaults to VECBASE at default 40000000h. ESP IoT SDK pre-1.1.0 use this vecbase.
+
+RTOS SDK & recent ESP IoT SDK move it to IRAM during initialisation (actual addresses can be seen in linker script).
 
 {| class="wikitable"
 !Address
