@@ -157,7 +157,7 @@ The reset vector is 40000080h, which maps to internal ROM.
 |100000h
 |RX
 |4
-|SPI Flash is mapped here when configured. See [[Platform:SPI_Flash_Mapping]]
+|SPI Flash is mapped here when configured. See [[SPI_Flash_Mapping]]
 |-
 |40300000h
 |
