@@ -1,1 +1,26 @@
 This page is intended to describe ESP8266-specific terms. More general and widely known terms should be looked up in a search engine on Wikipedia.
+
+=== ESF ===
+
+There're handful of APIs named esf_*.
+
+=== ETS ===
+
+ETS appears to be a name/abbreviation of simple RTOS included in BootROM. There're number of APIs named ets_*.
+
+=== LMAC ===
+
+LMAC is surely some kind of MAC (low MAC? link MAC?). There're number of APIs named lmac_*.
+
+=== PHY ===
+
+Physical layer of WiFi implementation. See https://en.wikipedia.org/wiki/PHY_(chip)
+
+=== PP ===
+
+Facts:
+* There's libpp.a
+* There're number of APIs named pp_*, and these are APIs which appear to deal with packet processing tasks.
+* It's not clear if PP is only software component, or backed by some hardware too, but the latter is possible, at least there's separate "PP version": [[User_init_task_(IoT_RTOS_SDK_0.9.9)]]
+
+PP may mean Packet Processor.
