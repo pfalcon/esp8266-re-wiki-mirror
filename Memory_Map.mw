@@ -1,988 +1,402 @@
-__NOTOC__
 This page describes the physical memory layout of the ESP8266 family.
 
-{| class="wikitable"
-! Start Address !! Size !! R/W !! Access Width<br>(bits) !! Name / Description
-|-
-| 0x00000000 || 0x20000000 || N/A || N/A || [[#prot|Protected Region]]
-|-
-| 0x20000000 || 0x1FF00000 || R   || 8/16/32|| Apparently unmapped (reads as 00 80 00 00)
-|-
-| 0x3FF00000 || 0x10000    || R/W || 8/16/32 || [[#dport0|Dport0]]
-|-
-| 0x3FF10000 || 0x10000    || R   || 8/16/32 || Apparently unmapped (reads as 00 00 00 00)
-|-
-| 0x3FF20000 || 0x10000    || R/W || 8/16/32 || [[#wdev|WDev Control Registers]]
-|-
-| 0x3FF30000 || 0x90000    || R   || 8/16/32 || Apparently unmapped (reads as 00 00 00 00)
-|-
-| 0x3FFC0000 || 0x20000    || R?  || 8/16/32 || [[#unk_1|Unknown Region 1]]
-|-
-| 0x3FFE0000 || 0x8000     || R   || 8/16/32 || Apparently unmapped (reads as 00 00 00 00)
-|-
-| 0x3FFE8000 || 0x18000    || R/W || 8/16/32 || [[#dram|Data RAM]]
-|-
-| 0x40000000 || 0x10000    || R   || 32      || [[#bootrom|Boot ROM]]
-|-
-| 0x40010000 || 0x10000    || R   || 32      || [[#bootrom|Boot ROM]] (repeated)
-|-
-| 0x40020000 || 0xD0000    || R   || 32      || Apparently unmapped (reads as 00 00 00 00)
-|-
-| 0x40100000 || 0x8000     || R/W || 32      || [[#iram|Instruction RAM]]
-|-
-| 0x40108000 || 0x8000     || R/W || 32      || [[#map_iram|Mappable Instruction RAM]]
-|-
-| 0x40110000 || 0x30000    || R   || 32      || Apparently unmapped (reads as 00 00 00 00)
-|-
-| 0x40140000 || 0xC0000    || R   || 32      || Apparently unmapped (reads as 59 31 d8 ec)
-|-
-| 0x40200000 || 0x100000   || R   || 32      || [[#flashcache|SPI Flash Cache]]
-|-
-| 0x40300000 || 0x1FD00000 || R   || 8/16/32 || Apparently unmapped (reads as 00 80 00 00)
-|-
-| 0x60000000 || 0x10000000 || R/W || 8/16/32 || [[#mmio|Memory-Mapped IO Ports]]
-|-
-| 0x70000000 || 0x90000000 || R   || 8/16/32 || Apparently unmapped (reads as 00 00 00 00)
-|}
+== Reset Vector ==
 
-'''Note:''' The reset vector is 0x40000080, which is (predictably) located within the [[#bootrom|Boot ROM]] region.
+The reset vector is 40000080h, which maps to internal ROM.
 
-== <span id="prot">Protected Region (0x00000000 - 0x1FFFFFFF)</span> ==
-
-This region is normally protected against both reads and writes using Xtensa's Region Protection Option.
-
-One bit of the SDK apparently also does do byte-writes to addresses 0x00000000 and 0x00000001 (see [[Memory Accesses (IoT RTOS SDK 0.9.9)#unk_0]]).
-
-{{hypothesis|This region may be set protected just to guard against uncaught null-pointer accesses in user code.  The two accesses in [[ieee80211_output.irom0.text+0x6dc (IoT RTOS SDK 0.9.9)]] may actually just be a code bug or an unused code path.}}
-
-== <span id="dport0">Dport0 Region (0x3FF00000 - 0x3FF0FFFF)</span> ==
-
-Memory-mapped I/O, apparently for functions related to the core Xtensa architecture (as opposed to peripherals). (Reportedly repeats every 0x100 bytes)
-
-This is referred to as "DPORT0" in the Espressif header files and linker scripts, but very little additional information about it is provided.
+== Memory Layout ==
 
 {| class="wikitable"
-! Address !! Register Name !! Description
+!Address
+!Name
+!Size
+!Type
+!R/W
+!Description
 |-
-| 0x3FF00000 || || Apparently related to NMI, accessed in NmiTimSetFunc and NMI_Handler
+|00000000h
+|
+|
+|Exc
+|
+|Causes fault when reading.
 |-
-| 0x3FF00004 || INTC_EDGE_EN<ref name="pvvx:esp8266.h">[https://github.com/pvvx/mp3_decode/blob/master/include/hw/esp8266.h mp3_decode:/include/hw/esp8266.h]</ref> || Controls which interrupts are enabled by the Xtensa interrupt controller.
+|20000000h
+|
+|
+|No
+|
+|Unmapped, repeated pattern of 00 80 00 00.
 |-
-| 0x3FF00008 || || ''(unknown function)''
+|3FF00000h
+|dport0
+|1000h
+|I/O
+|RW?
+|Memory-mapped I/O, repeated every 100h.
 |-
-| 0x3FF0000C || SPI_READY<ref name="pvvx:esp8266.h"/> || SPI ready/idle indicator. Controls SPI memory-mapped caching 
+|3FF10000h
+|
+|
+|No
+|
+|Unmapped, zeroes.
 |-
-| 0x3FF00010 || || ''(unknown function)''
+|3FF20000h
+|?
+|
+|?
+|RW?
+|Unidentified data.
 |-
-| 0x3FF00014 || CLK_PRE_PORT<ref name="pvvx:esp8266.h"/> || System clock prescaler (allows doubling CPU clock frequency)
+|3FF30000h
+|
+|
+|No
+|
+|Unmapped, zeroes.
 |-
-| 0x3FF00018 || ? || Identified as "clock gate watchdog" in some headers.  Exact function unknown.
+|3FFC0000h
+|?
+|20000h
+|?
+|RW?
+|uint32 mapping to the address it is located at. What is this?
 |-
-| 0x3FF0001C || || ''(unknown function)''
+|3FFE0000h
+|
+|
+|No
+|
+|Unmapped, zeroes.
 |-
-| 0x3FF00020 || SPI_ISR<ref name="pvvx:esp8266.h"/> || Interrupt Status Register for SPI and I2S peripherals
+|3FFE8000h
+|dram0
+|14000h
+|RAM
+|RW
+|User data RAM. Available to applications.
 |-
-| 0x3FF00024 || ? || Controls bank mapping between SPI cache and IRAM
+|3FFFC000h
+|
+|4000h
+|RAM
+|
+|ETS system data RAM.
 |-
-| 0x3FF00028 || HOST_INF_SEL || Allows swapping the pins allocated to certain peripherals
+|40000000h
+|brom?
+|10000h
+|ROM
+|RW?
+|Internal ROM. May be writable somehow, but details unknown.
 |-
-| 0x3FF0002C || SLC_TX_DESC_DEBUG<ref name="pvvx:esp8266.h"/> || Apparently related to DMA controller (SLC).  Exact function unknown.
+|40010000h
+|
+|
+|No
+|
+|Zeroes. Assumed to be unmapped.
 |-
-| 0x3FF00030<br>- 0x3FF0004C || || ''(unknown function)''
+|40100000h
+|iram1
+|8000h
+|RAM
+|RW
+|Instruction RAM. Used by bootloader to load SPI Flash &lt;40000h.
 |-
-| 0x3FF00050 || OTP_MAC0<ref name="pvvx:esp8266.h"/> || OTP Memory (Contains byte 6 of MAC address at 0x3FF00053)
+|40108000h
+|?
+|4000h
+|RAM
+|RW
+|Instruction RAM/FLASH cache ram. OTA bootloader uses it. Mapped here if bit 4 (bit mask 0x10) is clear in the dport0 register 0x3ff00024
 |-
-| 0x3FF00054 || OTP_MAC1<ref name="pvvx:esp8266.h"/> || OTP Memory (Contains bytes 4-5 of MAC address at 0x3FF00055, 0x3FF00054)
+|4010C000h
+|?
+|4000h
+|RAM
+|RW
+|Instruction RAM/FLASH cache ram. Mapped here if bit 3 (bit mask 0x8) is clear in the dport0 register 0x3ff00024
 |-
-| 0x3FF00058 || OTP_CHIPID<ref name="pvvx:esp8266.h"/> || OTP Memory (Apparently contains info about chip model/version)
+|40110000h
+|
+|
+|?
+|
+|Zeroes, possibly more IRAM.
 |-
-| 0x3FF0005C || OTP_MAC3 || OTP Memory (Contains vendor portion (bytes 1-3) of MAC address)
+|40140000h
+|
+|
+|?
+|
+|Repeated pattern of 59 31 d8 ec.
 |-
+|40200000h
+|
+|
+|?
+|
+|SPI Flash is mapped here. Mapping hardware has 32KBytes cache (Unconfirmed). Non-cached code runs 12...13 times slower than code from IRAM. Cached code runs as fast as from IRAM. This area is readable as data with aligned 4-byte reads. Mapping of FLASH to this region is controlled by bit 17 of SPI CTRL register (0x60000208): setting this bit maps the FLASH, clearing it unmaps it.
+|-
+|40300000h
+|
+|
+|?
+|
+|Unmapped, repeated pattern of 00 80 00 00.
+|-
+|60000000h
+|?
+|1000h
+|I/O
+|RW?
+|Uncached I/O (see MMIO table below)
+|-
+|60001000h
+|?
+|800h
+|?
+|RW?
+|Uncached I/O (see MMIO table below)
+|-
+|60001800h
+|?
+|800h
+|?
+|RW?
+|Uncached. Mapped to 60001000h?
+|-
+|60002000h
+|
+|
+|Exc
+|
+|Causes fault when reading.
+|-
+|70000000h
+|
+|90000000h
+|No
+|
+|Unmapped, repeated pattern of 00 80 00 00.
 |}
 
-=== INTC_EDGE_EN (0x3FF00004) ===
+== SPI Flash ROM Layout (without OTA upgrades) ==
 
-Controls which peripheral interrupts are actually passed through to the CPU by the interrupt controller.
+This is for ESP IoT SDK version 0.8 and above.
 
 {| class="wikitable"
-! Bits !! Description
+!Address
+!Size
+!Name
+!Description
 |-
-| 0 || Enable watchdog timer interrupt
+|00000h
+|248k
+|app.v6.flash.bin
+|User application
 |-
-| 1 || Enable TIMER_FRC1 interrupt
+|3E000h
+|8k
+|master_device_key.bin
+|OTA device key. ''Unconfirmed:'' Not used without OTA
 |-
-| 2 || Enable TIMER_FRC2 interrupt
+|40000h
+|240k
+|app.v6.irom0text.bin
+|SDK libraries
 |-
+|7C000h
+|8k
+|esp_init_data_default.bin
+|Default configuration
+|-
+|7E000h
+|8k
+|blank.bin
+|Filled with FFh. May be WiFi configuration
 |}
 
-=== SPI_READY (0x3FF0000C) ===
+== SPI Flash ROM Layout (with OTA upgrades) ==
+
+This is for ESP IoT SDK version 0.8 and above, supporting OTA upgrades.
 
 {| class="wikitable"
-! Bits !! Description
+!Address
+!Size
+!Name
+!Description
 |-
-| 0 || Cache flush start bit. SDK 1.5.3 driver_lib/driver/spi.c
+|00000h
+|4k
+|boot.bin
+|Bootloader
 |-
-| 1 || Cache is empty bit. SDK 1.5.3 driver_lib/driver/spi.c
+|01000h
+|64k
+|app.v6.flash1.bin
+|User application, slot 1
 |-
-| 9 || SPI ready/idle ([https://github.com/esp8266/Arduino/commit/a6e8697a#diff-b6122a2949eb3496b24d600e0b709e77R285 unconfirmed])
+|11000h
+|180k
+|app.v6.irom0text1.bin
+|SDK libraries, slot 1
 |-
-| 16,17,18,24,25 || Set SPI flash mapping offset. see [[Cache_Read_Enable]].
+|3E000h
+|8k
+|master_device_key.bin
+|OTA device key
 |-
-| 26 || May enable/disable SPI flash mapping (unconfirmed). See [[Cache_Read_Enable]]/[[Cache_Read_Disable]].
+|40000h
+|4k
+|
+|Unused
 |-
+|41000h
+|64k
+|app.v6.flash1.bin
+|User application, slot 2
+|-
+|51000h
+|180k
+|app.v6.irom0text1.bin
+|SDK libraries, slot 2
+|-
+|7E000h
+|8k
+|blank.bin
+|Filled with FFh. May be WiFi configuration.
 |}
 
-=== CLK_PRE_PORT (0x3FF00014) ===
+== Exception Vectors ==
 
 {| class="wikitable"
-! Bits !! Description
+!Address
+!Name
 |-
-| 0 || When clear CPU runs at 80MHz. When set CPU runs at 160 MHz. Note that you need to call <code>os_update_cpu_frequency(int freq_in_mhz)</code> when changing the bit. Probably to calibrate timers. The UART divisor is not updated automatically, so you also have to call <code>uart_div_modify(uart_no, clock_freq_in_hz / baud_rate_in_baud)</code>.
+|40000010h
+|DebugException
 |-
+|40000020h
+|NMIException
+|-
+|40000030h
+|KernelException
+|-
+|40000050h
+|UserException
+|-
+|40000070h
+|DoubleException
+|-
+|40000080h
+|Reset
 |}
 
-=== SPI_ISR (0x3FF00020) ===
-{| class="wikitable"
-! Bits !! Description
-|-
-| 4 || SPI0 interrupt occurred
-|-
-| 7 || SPI1 (HSPI) interrupt occurred
-|-
-| 9 || I2S interrupt occurred
-|-
-|}
+== Memmory-Mapped I/O Registers ==
 
-=== SPI cache bank control (0x3FF00024) ===
-
-{| class="wikitable"
-! Bits !! Description
-|-
-| 3 || When clear IRAM is mapped at 4010C000h..4010FFFFh. When set that region reads as 0.
-|-
-| 4 || When clear IRAM is mapped at 40108000h..4010BFFFh. When set that region reads as 0.
-|-
-|}
-
-'''Note:''' According to <ref name="pvvx:esp8266.h"/>:
-
-<pre>
- bit7 16k IRAM base 0x40108000 = SPI cache flash  
- bit8 16k IRAM base 0x4010C000 = SPI cache flash
-</pre>
-
-{{todo|Confirm which set of bits actually control this, and if possible what the other ones do}}
-
-=== HOST_INF_SEL (0x3FF00028) ===
-
-{{todo|All of these are unconfirmed.  Should be easy to double-check most of them.}}
+Most of them live in 60000000h.
 
 {| class="wikitable"
-! Bits !! Description
+!Base Address
+!Size
+!Name
+!Description
 |-
-| 0 || Swap UART0 and UART1
+|60000000h
+|80h
+|uart0
+|The UART0 config registers, see <code>examples/IoT_Demo/include/drivers/uart_register.h</code>
 |-
-| 1 || Swap SPI0 and SPI1
+|60000100h
+|100h
+|spi1
+|''Unconfirmed:'' The SPI controller registers, see examples/IoT_Demo/include/driver/spi_register.h
 |-
-| 2 || Swap UART0 pins (RX <-> CTS, TX <-> RTS)
+|60000200h
+|100h
+|spi0
+|''Unconfirmed:'' The SPI controller registers, see examples/IoT_Demo/include/driver/spi_register.h
 |-
-| 3 || Swap UART1 pins (RX <-> CTS, TX <-> RTS)
+|60000300h
+|74h
+|gpio
+|''Unconfirmed:'' The timer config registers, see <code>include/eagle_soc.h</code>
 |-
-| 5 || "hspi is with the higher prior" ''(unclear what this means)''
+|60000600h
+|28h
+|timer
+|''Unconfirmed:'' The timer config registers, see <code>include/eagle_soc.h</code>
 |-
-| 6 || SPI0 and SPI1 both share HSPI (SPI1) pins
+|60000700h
+|A4h
+|rtc
+|''Unconfirmed:'' The RTC config registers, see <code>include/eagle_soc.h</code>
 |-
-| 7 || SPI0 and SPI1 both share SPI (SPI0) pins
+|60000800h
+|44h
+|iomux
+|The IO MUX config registers, see <code>include/eagle_soc.h</code>
 |-
+|60000d00h
+|&gt;=8
+|i2c
+|''Unconfirmed:'' Internal I2C controller registers, see ROM functions rom_i2c_readReg, rom_i2c_writeReg
+|-
+|60000F00h
+|80h
+|uart1
+|The UART1 config registers, see <code>examples/IoT_Demo/include/drivers/uart_register.h</code>
+|-
+|60001000h
+|100h
+|rtcb
+|RTC backup memory, see <code>rtc_mem_backup</code>
+|-
+|60001100h
+|100h
+|rtcs
+|RTC system memory, see <code>system_rtc_mem_write</code>
+|-
+|60001200h
+|200h
+|rtcu
+|RTC user memory
 |}
 
-== <span id="wdev">Wdev Control Registers (0x3FF20000 - 0x3FF2FFFF)</span> ==
-
-This region appears to contain memory-mapped IO registers for interacting with the WiFi MAC module and related functions (which appear to be collectively referred to as "wdev" in the SDK)
-
-See also: [[Memory Accesses (IoT RTOS SDK 0.9.9)#wdev]]
-
-=== Random generator? (0x3FF20E44) ===
-{| class="wikitable"
-! Bits !! Description
-|-
-| 0-31 || Random value
-|-
-|}
-
-Details of this register are sparse, but it appears to produce a new (high-quality) random value every time it is read.
-
-See [[Random Number Generator]] for more info.
-
-== <span id="unk_1">Unknown Region 1 (0x3FFC0000 - 0x3FFDFFFF)</span> ==
-
-Reading from this region apparently just returns the memory address.  It's unclear whether this is for some purpose or not.
-
-{{Todo|Determine write behavior}}
-
-== <span id="dram">Data RAM (0x3FFE8000 - 0x3FFFFFFF)</span> ==
-
-This is standard RAM intended for storing application/system data.  Supports sub-word (byte, half-word) accesses.  Contents are lost on power-off or deep-sleep mode.
-
-When using the SDK, this region is further divided up as follows:
-
-* 0x3FFE8000 - 0x3FFFBFFF -- User data RAM (available to the application)
-* 0x3FFFC000 - 0x3FFFFFFF -- Reserved for the ETS/SDK system
-
-(Note that even when not using the SDK, some library routines in the boot ROM area may still assume this layout and attempt to use arbitrary memory in the 0x3FFFC000 portion if they are called (whether this is actually true is currently unclear))
-
-== <span id="bootrom">Boot ROM (0x40000000 - 0x4000FFFF)</span> ==
-
-Read-only memory containing instruction code programmed into the chip by Espressif which (as far as is known) cannot be reprogrammed.  This ROM contains both the initial boot code and first-stage boot loader, as well as a number of library routines which can be called from the application or SDK to perform basic functions.
-
-'''Note:''' The Boot ROM is 64 KiB and can be found at 0x40000000.  The same 64 KiB Boot ROM image is also mapped to 0x40010000 (but it does not appear that anything references it via that address range).
-
-=== Exception Vectors ===
-
-The Xtensa exception vector base address defaults to 0x40000000 (the beginning of the boot ROM). ESP IoT SDK pre-1.1.0 use this as-is, but the RTOS SDK and recent ESP IoT SDK move it to IRAM during initialisation using the WSR.VECBASE instruction (actual addresses can be seen in linker script).  Default addresses are as follows:
-
-{| class="wikitable"
-! Address !! Name
-|-
-| 0x40000010 || DebugException
-|-
-| 0x40000020 || NMIException
-|-
-| 0x40000030 || KernelException
-|-
-| 0x40000040 || ''(apparently unused)''
-|-
-| 0x40000050 || UserException
-|-
-| 0x40000060 || ''(apparently unused)''
-|-
-| 0x40000070 || DoubleException
-|-
-| 0x40000080 || Reset
-|}
-
-== <span id="iram">Instruction RAM (0x40100000 - 0x40107FFF)</span> ==
-
-General-purpose instruction RAM.  Contents are lost on power-off or deep-sleep mode.
-
-Code is loaded into this region by the boot loader from the SPI Flash prior to starting the user portion of the application.
-
-== <span id="map_iram">Mappable Instruction RAM (0x40108000 - 0x4010FFFF)</span> ==
-
-Instruction RAM/FLASH cache ram. OTA bootloader uses it.  Apparently mapped as two separate 16 KB blocks (0x4000):
-
-* 0x40108000 - 0x4010BFFF: Mapped if bit 4 (bit mask 0x10) is clear in the dport0 register 0x3ff00024
-* 0x4010C000 - 0x4010FFFF: Mapped if bit 3 (bit mask 0x8) is clear in the dport0 register 0x3ff00024
-
-{{question|How is this related to the SPI Flash cache?  Why is it possible to unmap it?}}
-{{hypothesis|This may be the same physical RAM as is used for the SPI Flash cache, and these bits just switch it between being used for cache vs. for general-purpose IRAM.  If so, this implies it may be possible to pick between using 16 KB vs 32 KB cache size (and use the rest for IRAM)}}
-{{question|Assuming the above, does this have anything to do with the mysterious third parameter to [[Cache_Read_Enable]]?}}
-
-== <span id="flashcache">SPI Flash Cache (0x40200000 - 0x40300000)</span> ==
-
-A selectable portion of the external SPI Flash memory can be mapped to this address range (for example, to execute code directly from Flash).  The memory-mapping includes a cache to speed up frequently-accessed portions (the size and configuration of the cache layer is currently unclear).
-
-For more information on how this is configured, see [[SPI_Flash_Mapping]]
-
-== <span id="mmio">Memory-Mapped IO Ports (0x60000000 - 0x6FFFFFFF)</span> ==
-
-This region contains the interface ports for most of the peripheral devices inside the ESP8266.  Except for the PHY hardware interface at 0x60009824, the ports for each device appear to be mapped in distinct 0x100-byte address blocks, making them easy to identify and distinguish:
+=== dport0 (3FF00000h–) ===
 
 {| class="wikitable"
-! Base Address !! Size !! Name !! Description
+!Address
+!Bits
+!Description
 |-
-| 0x60000000 || 0x80 || uart0 || [[#uart0_regs|UART0 Registers]]
+|3FF00014h
+|0
+|When clear CPU runs at 80MHz. When set CPU runs at 160 MHz. Note that you need to call <code>os_update_cpu_frequency(int freq_in_mhz)</code> when changing the bit. Probably to calibrate timers. The UART divisor is not updated automatically, so you also have to call <code>uart_div_modify(uart_no, clock_freq_in_hz / baud_rate_in_baud)</code>.
 |-
-| 0x60000100 || 0x100 || spi1 || [[#spi1_regs|SPI1 Registers]]
+|3FF00024h
+|3
+|When clear IRAM is mapped at 40108000h..4010BFFFh. When set that region reads as 0.
 |-
-| 0x60000200 || 0x100 || spi0 || [[#spi0_regs|SPI0 Registers]]
-|-
-| 0x60000300 || 0x74 || gpio || [[#gpio_regs|GPIO Registers]]
-|-
-| 0x60000400 || ? || ? || (Reads as zeroes.  No known references to this address range)
-|-
-| 0x60000500 || 0x100 || ? || Apparently related to WiFi radio power control (unclear how this is distinct from other PHY-related registers)
-|-
-| 0x60000600 || 0x34 || timer || [[#timer_regs|Timer Registers]]
-|-
-| 0x60000700 || 0xB8 || rtc || [[#rtc_regs|Real Time Clock Registers]]
-|-
-| 0x60000800 || 0x44 || iomux || [[#iomux_regs|IOMUX Registers]]
-|-
-| 0x60000900 || 0x18 || wdt || [[#wdt_regs|Watchdog Timer Registers]]
-|-
-| 0x60000A00 || 0x8 || ? || Possibly related to PHY and/or GPIO (referenced by phy_gpio_cfg)
-|-
-| 0x60000B00 || 0xC0 || slc || [[#slc_regs|DMA Control Registers]]
-|-
-| 0x60000C00 || ? || ? || (Reads as zeroes.  No known references to this address range)
-|-
-| 0x60000D00 || 0x5C || i2c || [[#i2c_regs|internal I2C communication registers]]
-|-
-| 0x60000E00 || 0x30 || i2s || [[#i2s_regs|I2S registers]]
-|-
-| 0x60000F00 || 0x80 || uart1 || [[#uart1_regs|UART1 Registers]]
-|-
-| 0x60001000 || 0x100 || rtcb || RTC backup memory, see <code>rtc_mem_backup</code>
-|-
-| 0x60001100 || 0x300 || rtcmem || RTC semi-persistent memory, see <code>system_rtc_mem_write</code>
-|-
-| 0x60001400 || 0x400 || ? || (Same data repeated every 0x100 bytes.  May be unused)
-|-
-| 0x60001800 || 0x400 || ? || Appears to be something here (No known references to this address range)
-|-
-| 0x60001C00 || 0x400 || ? || (Same data repeated every 0x100 bytes.  May be unused)
-|-
-| 0x60002000 || 0x6000 ||  || (Reads from this region cause ESP8266 to lock up)
-|-
-| 0x60008000 || 0x1800 ||  || Apparently unmapped (Reads as AA 55 5A F0)
-|-
-| 0x60009800 || 0x57C || phy || ''Unconfirmed:'' PHY control registers
-|-
-| 0x60009D7C || 0x6284 ||  || Apparently unmapped (Reads as AA 55 5A F0)
-|-
-| 0x60010000 || 0xFFF0000 ||  || (Reads from this region cause ESP8266 to lock up)
-|-
+|
+|4
+|When clear IRAM is mapped at 4010C000h..4010FFFFh. When set that region reads as 0.
 |}
 
-=== <span id="uart0_regs">UART0 Registers (0x600000xx)</span> ===
+=== iomux Pin Registers (60000804h–60000843h) ===
 
-'''See Also:''' [[UART Register Details]]
-
-{| class="wikitable"
-! Address !! Register Name
-|-
-| 0x60000000 || UART0_FIFO<ref name="uart_register.h">[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/uart_register.h include/espressif/esp8266/uart_register.h]</ref>
-|-
-| 0x60000004 || UART0_INT_RAW<ref name="uart_register.h"/>
-|-
-| 0x60000008 || UART0_INT_ST<ref name="uart_register.h"/>
-|-
-| 0x6000000C || UART0_INT_ENA<ref name="uart_register.h"/>
-|-
-| 0x60000010 || UART0_INT_CLR<ref name="uart_register.h"/>
-|-
-| 0x60000014 || UART0_CLKDIV<ref name="uart_register.h"/>
-|-
-| 0x60000018 || UART0_AUTOBAUD<ref name="uart_register.h"/>
-|-
-| 0x6000001C || UART0_STATUS<ref name="uart_register.h"/>
-|-
-| 0x60000020 || UART0_CONF0<ref name="uart_register.h"/>
-|-
-| 0x60000024 || UART0_CONF1<ref name="uart_register.h"/>
-|-
-| 0x60000028 || UART0_LOWPULSE<ref name="uart_register.h"/>
-|-
-| 0x6000002C || UART0_HIGHPULSE<ref name="uart_register.h"/>
-|-
-| 0x60000030 || UART0_PULSE_NUM<ref name="uart_register.h"/>
-|-
-| 0x60000078 || UART0_DATE<ref name="uart_register.h"/>
-|-
-| 0x6000007C || UART0_ID<ref name="uart_register.h"/>
-|-
-|}
-
-=== <span id="spi1_regs">SPI1 Registers (0x600001xx)</span> ===
-
-'''See Also:''' [[SPI Register Details]]
-
-{| class="wikitable"
-! Address !! Register Name
-|-
-| 0x60000100 || SPI1_CMD<ref name="spi_register.h">[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/spi_register.h include/espressif/esp8266/spi_register.h]</ref>
-|-
-| 0x60000104 || SPI1_ADDR<ref name="spi_register.h"/>
-|-
-| 0x60000108 || SPI1_CTRL<ref name="spi_register.h"/>
-|-
-| 0x6000010C || SPI1_CTRL1
-|-
-| 0x60000110 || SPI1_RD_STATUS<ref name="spi_register.h"/>
-|-
-| 0x60000114 || SPI1_CTRL2<ref name="spi_register.h"/>
-|-
-| 0x60000118 || SPI1_CLOCK<ref name="spi_register.h"/>
-|-
-| 0x6000011C || SPI1_USER<ref name="spi_register.h"/>
-|-
-| 0x60000120 || SPI1_USER1<ref name="spi_register.h"/>
-|-
-| 0x60000124 || SPI1_USER2<ref name="spi_register.h"/>
-|-
-| 0x60000128 || SPI1_WR_STATUS<ref name="spi_register.h"/>
-|-
-| 0x6000012C || SPI1_PIN<ref name="spi_register.h"/>
-|-
-| 0x60000130 || SPI1_SLAVE<ref name="spi_register.h"/>
-|-
-| 0x60000134 || SPI1_SLAVE1<ref name="spi_register.h"/>
-|-
-| 0x60000138 || SPI1_SLAVE2<ref name="spi_register.h"/>
-|-
-| 0x6000013C || SPI1_SLAVE3<ref name="spi_register.h"/>
-|-
-| 0x60000140 || SPI1_W0<ref name="spi_register.h"/>
-|-
-| 0x60000144 || SPI1_W1<ref name="spi_register.h"/>
-|-
-| 0x60000148 || SPI1_W2<ref name="spi_register.h"/>
-|-
-| 0x6000014C || SPI1_W3<ref name="spi_register.h"/>
-|-
-| 0x60000150 || SPI1_W4<ref name="spi_register.h"/>
-|-
-| 0x60000154 || SPI1_W5<ref name="spi_register.h"/>
-|-
-| 0x60000158 || SPI1_W6<ref name="spi_register.h"/>
-|-
-| 0x6000015C || SPI1_W7<ref name="spi_register.h"/>
-|-
-| 0x60000160 || SPI1_W8<ref name="spi_register.h"/>
-|-
-| 0x60000164 || SPI1_W9<ref name="spi_register.h"/>
-|-
-| 0x60000168 || SPI1_W10<ref name="spi_register.h"/>
-|-
-| 0x6000016C || SPI1_W11<ref name="spi_register.h"/>
-|-
-| 0x60000170 || SPI1_W12<ref name="spi_register.h"/>
-|-
-| 0x60000174 || SPI1_W13<ref name="spi_register.h"/>
-|-
-| 0x60000178 || SPI1_W14<ref name="spi_register.h"/>
-|-
-| 0x6000017C || SPI1_W15<ref name="spi_register.h"/>
-|-
-| 0x60000180<br> - 0x600001EC || ''(unknown)''
-|-
-| 0x600001F0 || SPI1_EXT0
-|-
-| 0x600001F4 || SPI1_EXT1
-|-
-| 0x600001F8 || SPI1_EXT2
-|-
-| 0x600001FC || SPI1_EXT3<ref name="spi_register.h"/>
-|-
-|}
-=== <span id="spi0_regs">SPI0 Registers (0x600002xx)</span> ===
-
-'''See Also:''' [[SPI Register Details]]
-
-{| class="wikitable"
-! Address !! Register Name
-|-
-| 0x60000200 || SPI0_CMD<ref name="spi_register.h"/>
-|-
-| 0x60000204 || SPI0_ADDR<ref name="spi_register.h"/>
-|-
-| 0x60000208 || SPI0_CTRL<ref name="spi_register.h"/>
-|-
-| 0x6000020C || SPI0_CTRL1
-|-
-| 0x60000210 || SPI0_RD_STATUS<ref name="spi_register.h"/>
-|-
-| 0x60000214 || SPI0_CTRL2<ref name="spi_register.h"/>
-|-
-| 0x60000218 || SPI0_CLOCK<ref name="spi_register.h"/>
-|-
-| 0x6000021C || SPI0_USER<ref name="spi_register.h"/>
-|-
-| 0x60000220 || SPI0_USER1<ref name="spi_register.h"/>
-|-
-| 0x60000224 || SPI0_USER2<ref name="spi_register.h"/>
-|-
-| 0x60000228 || SPI0_WR_STATUS<ref name="spi_register.h"/>
-|-
-| 0x6000022C || SPI0_PIN<ref name="spi_register.h"/>
-|-
-| 0x60000230 || SPI0_SLAVE<ref name="spi_register.h"/>
-|-
-| 0x60000234 || SPI0_SLAVE1<ref name="spi_register.h"/>
-|-
-| 0x60000238 || SPI0_SLAVE2<ref name="spi_register.h"/>
-|-
-| 0x6000023C || SPI0_SLAVE3<ref name="spi_register.h"/>
-|-
-| 0x60000240 || SPI0_W0<ref name="spi_register.h"/>
-|-
-| 0x60000244 || SPI0_W1<ref name="spi_register.h"/>
-|-
-| 0x60000248 || SPI0_W2<ref name="spi_register.h"/>
-|-
-| 0x6000024C || SPI0_W3<ref name="spi_register.h"/>
-|-
-| 0x60000250 || SPI0_W4<ref name="spi_register.h"/>
-|-
-| 0x60000254 || SPI0_W5<ref name="spi_register.h"/>
-|-
-| 0x60000258 || SPI0_W6<ref name="spi_register.h"/>
-|-
-| 0x6000025C || SPI0_W7<ref name="spi_register.h"/>
-|-
-| 0x60000260 || SPI0_W8<ref name="spi_register.h"/>
-|-
-| 0x60000264 || SPI0_W9<ref name="spi_register.h"/>
-|-
-| 0x60000268 || SPI0_W10<ref name="spi_register.h"/>
-|-
-| 0x6000026C || SPI0_W11<ref name="spi_register.h"/>
-|-
-| 0x60000270 || SPI0_W12<ref name="spi_register.h"/>
-|-
-| 0x60000274 || SPI0_W13<ref name="spi_register.h"/>
-|-
-| 0x60000278 || SPI0_W14<ref name="spi_register.h"/>
-|-
-| 0x6000027C || SPI0_W15<ref name="spi_register.h"/>
-|-
-| 0x60000280<br> - 0x600002EC || ''(unknown)''
-|-
-| 0x600002F0 || SPI0_EXT0
-|-
-| 0x600002F4 || SPI0_EXT1
-|-
-| 0x600002F8 || SPI0_EXT2
-|-
-| 0x600002FC || SPI0_EXT3<ref name="spi_register.h"/>
-|-
-|}
-
-=== <span id="gpio_regs">GPIO Registers (0x600003xx)</span> ===
-
-'''See Also:''' [[GPIO Register Details]]
-
-{| class="wikitable"
-! Address !! Register Name
-|-
-| 0x60000300 || GPIO_OUT<ref name="gpio_register.h">[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/gpio_register.h include/espressif/esp8266/gpio_register.h]</ref>
-|-
-| 0x60000304 || GPIO_OUT_W1TS<ref name="gpio_register.h"/>
-|-
-| 0x60000308 || GPIO_OUT_W1TC<ref name="gpio_register.h"/>
-|-
-| 0x6000030C || GPIO_ENABLE<ref name="gpio_register.h"/>
-|-
-| 0x60000310 || GPIO_ENABLE_W1TS<ref name="gpio_register.h"/>
-|-
-| 0x60000314 || GPIO_ENABLE_W1TC<ref name="gpio_register.h"/>
-|-
-| 0x60000318 || GPIO_IN<ref name="gpio_register.h"/>
-|-
-| 0x6000031C || GPIO_STATUS<ref name="gpio_register.h"/>
-|-
-| 0x60000320 || GPIO_STATUS_W1TS<ref name="gpio_register.h"/>
-|-
-| 0x60000324 || GPIO_STATUS_W1TC<ref name="gpio_register.h"/>
-|-
-| 0x60000328 || GPIO_PIN0<ref name="gpio_register.h"/>
-|-
-| 0x6000032C || GPIO_PIN1<ref name="gpio_register.h"/>
-|-
-| 0x60000330 || GPIO_PIN2<ref name="gpio_register.h"/>
-|-
-| 0x60000334 || GPIO_PIN3<ref name="gpio_register.h"/>
-|-
-| 0x60000338 || GPIO_PIN4<ref name="gpio_register.h"/>
-|-
-| 0x6000033C || GPIO_PIN5<ref name="gpio_register.h"/>
-|-
-| 0x60000340 || GPIO_PIN6<ref name="gpio_register.h"/>
-|-
-| 0x60000344 || GPIO_PIN7<ref name="gpio_register.h"/>
-|-
-| 0x60000348 || GPIO_PIN8<ref name="gpio_register.h"/>
-|-
-| 0x6000034C || GPIO_PIN9<ref name="gpio_register.h"/>
-|-
-| 0x60000350 || GPIO_PIN10<ref name="gpio_register.h"/>
-|-
-| 0x60000354 || GPIO_PIN11<ref name="gpio_register.h"/>
-|-
-| 0x60000358 || GPIO_PIN12<ref name="gpio_register.h"/>
-|-
-| 0x6000035C || GPIO_PIN13<ref name="gpio_register.h"/>
-|-
-| 0x60000360 || GPIO_PIN14<ref name="gpio_register.h"/>
-|-
-| 0x60000364 || GPIO_PIN15<ref name="gpio_register.h"/>
-|-
-| 0x60000368 || GPIO_SIGMA_DELTA<ref name="gpio_register.h"/>
-|-
-| 0x6000036C || GPIO_RTC_CALIB_SYNC<ref name="gpio_register.h"/>
-|-
-| 0x60000370 || GPIO_RTC_CALIB_VALUE<ref name="gpio_register.h"/>
-|-
-|}
-
-=== <span id="timer_regs">Timer Registers (0x600006xx)</span> ===
-
-'''See Also:''' [[Timer Register Details]]
-
-{| class="wikitable"
-! Address !! Register Name
-|-
-| 0x60000600 || TIMER_FRC1_LOAD<ref name="timer_register.h">[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/timer_register.h include/espressif/esp8266/timer_register.h]</ref>
-|-
-| 0x60000604 || TIMER_FRC1_COUNT<ref name="timer_register.h"/>
-|-
-| 0x60000608 || TIMER_FRC1_CTRL<ref name="timer_register.h"/>
-|-
-| 0x6000060C || TIMER_FRC1_INT<ref name="timer_register.h"/>
-|-
-| 0x60000610<br> - 0x6000061F || ''(unknown)''
-|-
-| 0x60000620 || TIMER_FRC2_LOAD<ref name="timer_register.h"/>
-|-
-| 0x60000624 || TIMER_FRC2_COUNT<ref name="timer_register.h"/>
-|-
-| 0x60000628 || TIMER_FRC2_CTRL<ref name="timer_register.h"/>
-|-
-| 0x6000062C || TIMER_FRC2_INT<ref name="timer_register.h"/>
-|-
-| 0x60000630 || TIMER_FRC2_ALARM<ref name="timer_register.h"/>
-|-
-|}
-
-=== <span id="rtc_regs">Real Time Clock Registers (0x600007xx)</span> ===
-
-'''See Also:''' [[RTC Register Details]]
-
-{| class="wikitable"
-! Address !! Register Name
-|-
-| 0x60000700 || ''(unknown)''
-|-
-| 0x60000704 || RTC_SLP_VAL<ref name="eagle_soc.h">[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/eagle_soc.h include/espressif/esp8266/eagle_soc.h]</ref>
-|-
-| 0x60000708<br> - 0x60000718 || ''(unknown)''
-|-
-| 0x6000071C || RTC_SLP_CNT_VAL<ref name="eagle_soc.h"/>
-|-
-| 0x60000720 || RTC_INT_ST<ref name="pvvx:esp8266.h">[https://github.com/pvvx/mp3_decode/blob/master/include/hw/esp8266.h mp3_decode:/include/hw/esp8266.h]</ref>
-|-
-| 0x60000724 || RTC_INT_CLR<ref name="pvvx:esp8266.h"/>
-|-
-| 0x60000728 || RTC_INT_ENA<ref name="pvvx:esp8266.h"/>
-|-
-| 0x6000072C || ''(unknown)''
-|-
-| 0x60000730 || RTC_SCRATCH0<ref name="eagle_soc.h"/>
-|-
-| 0x60000734 || RTC_SCRATCH1<ref name="eagle_soc.h"/>
-|-
-| 0x60000738 || RTC_SCRATCH2<ref name="eagle_soc.h"/>
-|-
-| 0x6000073C || RTC_SCRATCH3<ref name="eagle_soc.h"/>
-|-
-| 0x60000740<br> - 0x60000764 || ''(unknown)''
-|-
-| 0x60000768 || RTC_GPIO_OUT<ref name="eagle_soc.h"/>
-|-
-| 0x6000076C<br> - 0x60000770 || ''(unknown)''
-|-
-| 0x60000774 || RTC_GPIO_ENABLE<ref name="eagle_soc.h"/>
-|-
-| 0x60000780<br> - 0x60000788 || ''(unknown)''
-|-
-| 0x6000078C || RTC_GPIO_IN_DATA<ref name="eagle_soc.h"/>
-|-
-| 0x60000790 || RTC_GPIO_CONF<ref name="eagle_soc.h"/>
-|-
-| 0x60000794 || RTC_GPIO0_CFG<ref name="pvvx:esp8266.h"/>
-|-
-| 0x60000798 || RTC_GPIO1_CFG<ref name="pvvx:esp8266.h"/>
-|-
-| 0x6000079C || RTC_GPIO2_CFG<ref name="pvvx:esp8266.h"/>
-|-
-| 0x600007A0 || RTC_GPIO3_CFG<ref name="pvvx:esp8266.h"/> / PAD_XPD_DCDC_CONF<ref name="eagle_soc.h"/>
-|-
-| 0x600007A4 || RTC_GPIO4_CFG<ref name="pvvx:esp8266.h"/>
-|-
-| 0x600007A8 || RTC_GPIO5_CFG<ref name="pvvx:esp8266.h"/>
-|-
-| 0x600007AC<br> - 0x600007B4 || ''(unknown)''
-|-
-|}
-
-=== <span id="iomux_regs">IOMUX Registers (0x600008xx)</span> ===
-
-'''See Also:''' [[IOMUX Register Details]]
-
-{| class="wikitable"
-! Address !! Register Name
-|-
-| 0x60000800 || IOMUX_CONF<ref name="pin_mux_register.h">[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/pin_mux_register.h include/espressif/esp8266/pin_mux_register.h]</ref>
-|-
-| 0x60000804 || IOMUX_MTDI<ref name="pin_mux_register.h"/>
-|-
-| 0x60000808 || IOMUX_MTCK<ref name="pin_mux_register.h"/>
-|-
-| 0x6000080C || IOMUX_MTMS<ref name="pin_mux_register.h"/>
-|-
-| 0x60000810 || IOMUX_MTDO<ref name="pin_mux_register.h"/>
-|-
-| 0x60000814 || IOMUX_U0RXD<ref name="pin_mux_register.h"/>
-|-
-| 0x60000818 || IOMUX_U0TXD<ref name="pin_mux_register.h"/>
-|-
-| 0x6000081C || IOMUX_SD_CLK<ref name="pin_mux_register.h"/>
-|-
-| 0x60000820 || IOMUX_SD_DATA0<ref name="pin_mux_register.h"/>
-|-
-| 0x60000824 || IOMUX_SD_DATA1<ref name="pin_mux_register.h"/>
-|-
-| 0x60000828 || IOMUX_SD_DATA2<ref name="pin_mux_register.h"/>
-|-
-| 0x6000082C || IOMUX_SD_DATA3<ref name="pin_mux_register.h"/>
-|-
-| 0x60000830 || IOMUX_SD_CMD<ref name="pin_mux_register.h"/>
-|-
-| 0x60000834 || IOMUX_GPIO0<ref name="pin_mux_register.h"/>
-|-
-| 0x60000838 || IOMUX_GPIO2<ref name="pin_mux_register.h"/>
-|-
-| 0x6000083C || IOMUX_GPIO4<ref name="pin_mux_register.h"/>
-|-
-| 0x60000840 || IOMUX_GPIO5<ref name="pin_mux_register.h"/>
-|-
-|}
-
-=== <span id="wdt_regs">Watchdog Timer Registers (0x600009xx)</span> ===
-
-'''See Also:''' [[Watchdog Timer Register Details]]
-
-{| class="wikitable"
-! Address !! Register Name
-|-
-| 0x60000900 || WDT_CTRL<ref name="pvvx:esp8266.h"/>
-|-
-| 0x60000904 || WDT_REG1<ref name="pvvx:esp8266.h"/>
-|-
-| 0x60000908 || WDT_REG2<ref name="pvvx:esp8266.h"/>
-|-
-| 0x6000090C || ''(unknown)''
-|-
-| 0x60000910 || ''(unknown)''
-|-
-| 0x60000914 || WDT_FEED<ref name="pvvx:esp8266.h"/>
-|-
-|}
-
-=== <span id="slc_regs">DMA Control Registers (0x60000Bxx)</span> ===
-
-'''See Also:''' [[DMA Register Details]]
-
-{| class="wikitable"
-! Address !! Register Name
-|-
-| 0x60000B00 || SLC_CONF0<ref name="slc_register.h">[https://github.com/espressif/esp8266_mp3_decoder/blob/master/mp3/include/slc_register.h esp8266_mp3_decoder:mp3/include/slc_register.h]</ref>
-|-
-| 0x60000B04 || SLC_INT_RAW<ref name="slc_register.h"/>
-|-
-| 0x60000B08 || SLC_INT_STATUS<ref name="slc_register.h"/>
-|-
-| 0x60000B0C || SLC_INT_ENA<ref name="slc_register.h"/>
-|-
-| 0x60000B10 || SLC_INT_CLR<ref name="slc_register.h"/>
-|-
-| 0x60000B14 || SLC_RX_STATUS<ref name="slc_register.h"/>
-|-
-| 0x60000B18 || SLC_RX_FIFO_PUSH<ref name="slc_register.h"/>
-|-
-| 0x60000B1C || SLC_TX_STATUS<ref name="slc_register.h"/>
-|-
-| 0x60000B20 || SLC_TX_FIFO_POP<ref name="slc_register.h"/>
-|-
-| 0x60000B24 || SLC_RX_LINK<ref name="slc_register.h"/>
-|-
-| 0x60000B28 || SLC_TX_LINK<ref name="slc_register.h"/>
-|-
-| 0x60000B2C || SLC_INTVEC_TOHOST<ref name="slc_register.h"/>
-|-
-| 0x60000B30 || SLC_TOKEN0<ref name="slc_register.h"/>
-|-
-| 0x60000B34 || SLC_TOKEN1<ref name="slc_register.h"/>
-|-
-| 0x60000B38 || SLC_CONF1<ref name="slc_register.h"/>
-|-
-| 0x60000B3C || SLC_STATE0<ref name="slc_register.h"/>
-|-
-| 0x60000B40 || SLC_STATE1<ref name="slc_register.h"/>
-|-
-| 0x60000B44 || SLC_BRIDGE_CONF<ref name="slc_register.h"/>
-|-
-| 0x60000B48 || SLC_RX_EOF_DES_ADDR<ref name="slc_register.h"/>
-|-
-| 0x60000B4C || SLC_TX_EOF_DES_ADDR<ref name="slc_register.h"/>
-|-
-| 0x60000B50 || SLC_RX_EOF_BFR_DES_ADDR<ref name="slc_register.h"/>
-|-
-| 0x60000B54 || SLC_AHB_TEST<ref name="slc_register.h"/>
-|-
-| 0x60000B58 || SLC_SDIO_ST<ref name="slc_register.h"/>
-|-
-| 0x60000B5C || SLC_RX_DSCR_CONF<ref name="slc_register.h"/>
-|-
-| 0x60000B60 || SLC_TXLINK_DSCR<ref name="slc_register.h"/>
-|-
-| 0x60000B64 || SLC_TXLINK_DSCR_BF0<ref name="slc_register.h"/>
-|-
-| 0x60000B68 || SLC_TXLINK_DSCR_BF1<ref name="slc_register.h"/>
-|-
-| 0x60000B6C || SLC_RXLINK_DSCR<ref name="slc_register.h"/>
-|-
-| 0x60000B70 || SLC_RXLINK_DSCR_BF0<ref name="slc_register.h"/>
-|-
-| 0x60000B74 || SLC_RXLINK_DSCR_BF1<ref name="slc_register.h"/>
-|-
-| 0x60000B78 || SLC_DATE<ref name="slc_register.h"/>
-|-
-| 0x60000B7C || SLC_ID<ref name="slc_register.h"/>
-|-
-| 0x60000B80 || ''(unknown)''
-|-
-| 0x60000B84 || ''(unknown)''
-|-
-| 0x60000B88 || SLC_HOST_INTR_RAW<ref name="slc_register.h"/>
-|-
-| 0x60000B8C || ''(unknown)''
-|-
-| 0x60000B90 || ''(unknown)''
-|-
-| 0x60000B94 || SLC_HOST_CONF_W0<ref name="slc_register.h"/>
-|-
-| 0x60000B98 || SLC_HOST_CONF_W1<ref name="slc_register.h"/>
-|-
-| 0x60000B9C || SLC_HOST_INTR_ST<ref name="slc_register.h"/>
-|-
-| 0x60000BA0 || SLC_HOST_CONF_W2<ref name="slc_register.h"/>
-|-
-| 0x60000BA4 || SLC_HOST_CONF_W3<ref name="slc_register.h"/>
-|-
-| 0x60000BA8 || SLC_HOST_CONF_W4<ref name="slc_register.h"/>
-|-
-| 0x60000BAC || ''(unknown)''
-|-
-| 0x60000BB0 || SLC_HOST_INTR_CLR<ref name="slc_register.h"/>
-|-
-| 0x60000BB4 || SLC_HOST_INTR_ENA<ref name="slc_register.h"/>
-|-
-| 0x60000BB8 || ''(unknown)''
-|-
-| 0x60000BBC || SLC_HOST_CONF_W5<ref name="slc_register.h"/>
-|-
-|}
-
-=== <span id="i2c_regs">I2C Registers (0x60000Dxx)</span> ===
-
-These are registers that allow communication with internal blocks that are presumably connected with an I2C bus. For each such device a separate register exists for read/write operations. Examples of such devices are e.g. the ADC, an input mux for the ADC input and some kind of PLL which supplies e.g. the clock for the I2S block.
-
-I2C registers have the following form: bits 0..7 = block, bits 8..15 = register address, bits 16..23 = register data, bit 25 = 0 if request finished processing, 1 otherwise.
-
-After writing the block and (device) register address to an I2C register and zeroing out bits 16..31, wait until bit 25 == 0, then read the result from bits 16..23.
-
-(Source: <ref name="espressif code on forum">[https://github.com/espressif/esp8266_mp3_decoder/blob/master/mp3/include/i2s_reg.h esp8266_mp3_decoder:mp3/include/i2s_reg.h]</ref>, confirmed by disassembly of rom_i2c_readReg, rom_i2c_readReg_Mask, rom_i2c_writeReg and rom_i2c_writeReg_Mask.)
-
-{| class="wikitable"
-! Address !! Register Name
-|-
-| 0x60000D00 ... || unknown
-|-
-| 0x60000D08 || hostid = 2 (presumably ADC input mux) Source: esp_iot_sdk_v0.9.1/examples/IoT_Demo/driver/adc.c (block 0x6C, reg 0x0: bit 5 = 1 presumably connects ADC input to ADC pin)
-|-
-| ... || unknown
-|-
-| 0x60000D10 || hostid = 4 (presumably some PLL supplies I2S clock, called "bbpll" by espressif) (block 0x67, reg 0x4: Bit 7 = 1 enables clock output to I2S block)
-|-
-| ... || unknown
-|-
-| 0x60000D50 || hostid = 14 (presumably the ADC) Source: esp_iot_sdk_v0.9.1/examples/IoT_Demo/driver/adc.c
-|-
-| ... || unknown
-|-
-| 0x60000D5C || possibly an ADC configuration register (possibly not a normal I2C register as espressif code does not confirm that write was processed like it does for other I2C registers.) Source: esp_iot_sdk_v0.9.1/examples/IoT_Demo/driver/adc.c
-|-
-| ... || unknown
-|-
-| 0x60000D60 || some kind of configuration register (possibly not a normal I2C register as espressif code does not confirm that write was processed like it does for other I2C registers.) Source: esp_iot_sdk_v0.9.1/examples/IoT_Demo/driver/adc.c
-|-
-|}
-
-=== <span id="i2s_regs">I2S Registers (0x60000Exx)</span> ===
-
-'''See Also:''' [[I2S Register Details]]
-
-{| class="wikitable"
-! Address !! Register Name
-|-
-| 0x60000E00 || I2S_TXFIFO<ref name="i2s_register.h">[https://github.com/espressif/esp8266_mp3_decoder/blob/master/mp3/include/i2s_reg.h esp8266_mp3_decoder:mp3/include/i2s_reg.h]</ref>
-|-
-| 0x60000E04 || I2S_RXFIFO<ref name="i2s_register.h"/>
-|-
-| 0x60000E08 || I2S_CONF<ref name="i2s_register.h"/>
-|-
-| 0x60000E0C || I2S_INT_RAW<ref name="i2s_register.h"/>
-|-
-| 0x60000E10 || I2S_INT_ST<ref name="i2s_register.h"/>
-|-
-| 0x60000E14 || I2S_INT_ENA<ref name="i2s_register.h"/>
-|-
-| 0x60000E18 || I2S_INT_CLR<ref name="i2s_register.h"/>
-|-
-| 0x60000E1C || I2S_TIMING<ref name="i2s_register.h"/>
-|-
-| 0x60000E20 || I2S_FIFO_CONF<ref name="i2s_register.h"/>
-|-
-| 0x60000E24 || I2S_RXEOF_NUM<ref name="i2s_register.h"/>
-|-
-| 0x60000E28 || I2S_CONF_SIGLE_DATA<ref name="i2s_register.h"/>
-|-
-| 0x60000E2C || I2S_CONF_CHAN<ref name="i2s_register.h"/>
-|-
-|}
-
-=== <span id="uart1_regs">UART1 Registers (0x60000Fxx)</span> ===
-
-'''See Also:''' [[UART Register Details]]
-
-{| class="wikitable"
-! Address !! Register Name
-|-
-| 0x60000F00 || UART1_FIFO<ref name="uart_register.h"/>
-|-
-| 0x60000F04 || UART1_INT_RAW<ref name="uart_register.h"/>
-|-
-| 0x60000F08 || UART1_INT_ST<ref name="uart_register.h"/>
-|-
-| 0x60000F0C || UART1_INT_ENA<ref name="uart_register.h"/>
-|-
-| 0x60000F10 || UART1_INT_CLR<ref name="uart_register.h"/>
-|-
-| 0x60000F14 || UART1_CLKDIV<ref name="uart_register.h"/>
-|-
-| 0x60000F18 || UART1_AUTOBAUD<ref name="uart_register.h"/>
-|-
-| 0x60000F1C || UART1_STATUS<ref name="uart_register.h"/>
-|-
-| 0x60000F20 || UART1_CONF0<ref name="uart_register.h"/>
-|-
-| 0x60000F24 || UART1_CONF1<ref name="uart_register.h"/>
-|-
-| 0x60000F28 || UART1_LOWPULSE<ref name="uart_register.h"/>
-|-
-| 0x60000F2C || UART1_HIGHPULSE<ref name="uart_register.h"/>
-|-
-| 0x60000F30 || UART1_PULSE_NUM<ref name="uart_register.h"/>
-|-
-| 0x60000F78 || UART1_DATE<ref name="uart_register.h"/>
-|-
-| 0x60000F7C || UART1_ID<ref name="uart_register.h"/>
-|-
-|}
-
-== Sources/References ==
+<pre>31    24       16        8        0
+-------- -ffff--- -------- ud--UDEe
+          `- Function      ||  |||`- Output Enable
+                           ||  ||`- Output Enable during sleep
+                           ||  |`- Pull-down during sleep
+                           ||  `- Pull-up during sleep
+                           |`- Pull-down
+                           `- Pull-up</pre>
+== References ==
 
 * [http://www.esp8266.com/viewtopic.php?f=5&t=9&start=30#p274 Forum post Memory Layout, p274]
 * [http://www.esp8266.com/viewtopic.php?f=6&t=39&start=10#p263 Forum post Firmware Dump, p263]
@@ -991,6 +405,3 @@ After writing the block and (device) register address to an I2C register and zer
 * lx106-rc-2010.1/xtensa-elf/lib/xt2000-rt/memmap.xmm
 * esp_iot_sdk_v0.9.3/examples/IoT_Demo/ssl/app/espconn_ssl.c
 * [https://github.com/metalheart/esp8266/tree/master/ld ESP SDK linker scripts]
-
-=== References ===
-<references/>
