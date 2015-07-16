@@ -1,4 +1,4 @@
-SPI flash ("irom") is mapped at 40200000h when enabled. 1 megabyte of SPI flash can be mapped at a time (at any 1 megabyte aligned offset.)
+SPI flash ("irom") is mapped at 40200000h when enabled.
 
 This area is readable as data with aligned 4-byte reads.
 
@@ -7,10 +7,8 @@ This area is readable as data with aligned 4-byte reads.
 SPI flash mapping enabled/disabled via ROM functions [[Cache_Read_Enable]] / [[Cache_Read_Disable]].
 
 * Mapping uses bit 17 of SPI CTRL register (0x60000208): setting this bit maps the FLASH, clearing it unmaps it.
-* Other reigsters in dport0 space are also used (see above links, and [[Platform:Memory_Map#dport0_.283FF00000h.E2.80.93.29|dport0 map]]).
+* Other values in dport memory space are also used (see function pages).
 
 == SPI Flash IRAM cache ==
 
 Mapping hardware has 32KBytes cache, taken from IRAM (Unconfirmed). Non-cached code runs 12...13 times slower than code from IRAM. Cached code runs as fast as from IRAM.
-
-2 bits in dport0 control whether either of two 16KB IRAM segments are available as IRAM, or used transparently as flash cache. See [[Platform:Memory_Map#dport0_.283FF00000h.E2.80.93.29|dport0 map]]
