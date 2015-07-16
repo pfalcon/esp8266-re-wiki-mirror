@@ -8,6 +8,10 @@ There're handful of APIs named esf_*.
 
 ETS appears to be a name/abbreviation of simple RTOS included in BootROM. There're number of APIs named ets_*.
 
+=== IC ===
+
+"ic" is network interface structure (commonly used abbreviation in other projects is "if").
+
 === LMAC ===
 
 LMAC is surely some kind of MAC (low MAC? link MAC?). There're number of APIs named lmac_*.
