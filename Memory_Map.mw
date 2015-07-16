@@ -374,7 +374,7 @@ Most of them live in 60000000h.
 |iomux
 |The IO MUX config registers, see <code>include/eagle_soc.h</code>
 |-
-|60000d00h
+|60000D00h
 |&gt;=8
 |i2c
 |''Unconfirmed:'' Internal I2C controller registers, see ROM functions rom_i2c_readReg, rom_i2c_writeReg
