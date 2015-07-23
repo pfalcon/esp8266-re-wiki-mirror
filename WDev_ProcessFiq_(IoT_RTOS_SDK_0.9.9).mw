@@ -1,8 +1,6 @@
 =wDev_ProcessFiq=
 
-This is the interrupt handler routine called by the NMI Handler when the NMI triggers (see also [Watchdog Timer]).
-
-wDev_ProcessFiq is defined in wdev.o inside libpp.a.
+wDev_ProcessFiq is defined in wdev.o inside libpp.a. It is the interrupt handler for the NMI (see also [[Watchdog Timer]]).
 
 (FIQ = fast interrupt request, for the highest priority interrupt in the system.)
 
@@ -36,6 +34,6 @@ Handler may also call into:
 
 ==Guess at what's happening==
 
-[Watchdog Timer] describes this handler as on a timer, so I think this is the timeout handler triggering retransmission after a collision or following an RTS request...
+[[Watchdog Timer]] describes this handler as on a timer, so I think this is the timeout handler triggering retransmission after a collision or following an RTS request...
 
 It's possible that all transmissions get pushed into this code path via the NMI.
