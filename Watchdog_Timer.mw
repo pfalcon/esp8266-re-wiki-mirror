@@ -1,8 +1,18 @@
-'''NOTE: The following is apparently at least partially wrong (the ESP8266 ''does'' seem to have a hardware WDT, but the SDK doesn't use it).  This needs more investigation -- [[User:Foogod|Foogod]] ([[User talk:Foogod|talk]]) 15:19, 16 July 2015 (EDT)'''
+=non-MAC (hardware?) Watchdog Timer=
 
-The ESP8266 apparently does not have a hardware watchdog timer, however one is implemented in software by the SDK:
+The non-MAC watchdog timer is used by the IoT SDK (at least older versions), appears unused in RTOS SDK.
 
-(The following is based primarily on the [[IoT RTOS SDK 0.9.9]], but is believed to be similar for other versions of the SDK)
+Hardware includes MMIO region around 0x60000900, RTC nvram offset 28, ets_timer software timer framework _and_ IRQ #8.
+
+Pseudocode for WDT functions: http://esp8266.ru/forum/threads/dokumentacija-na-esp8266-na-nashem-sajte-popolnjaemyj-razdel.5/#post-1712
+
+Although RTOS SDK seems to use the MAC-based watchdog, it also writes an initialisation value "0x60000914 = 0x73" to watchdog space (to disable HW watchdog?).
+
+More investigation required!
+
+="MAC" (software?) Watchdog Timer=
+
+(The following is based primarily on the [[IoT RTOS SDK 0.9.9]], but is believed to be similar for other versions of the RTOS SDK and possibly IoT SDK).
 
 The wDev/MAC hardware in the ESP8266 apparently has two built in timers (MacTim and MacTim1) which can be configured to trigger an NMI after a certain number of internal clock cycles have elapsed.  The second timer (MacTim1) is used exclusively for watchdog functionality and is set up during system startup to trigger an NMI after 1600000 ticks (it is assumed that these ticks are equivalent to processor clocks, but this has not yet been tested):
 
