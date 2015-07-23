@@ -16,7 +16,7 @@ Incoming call trace goes something like
 
 * Waits for bit 0 in 0x3ff00000 to clear. (Behaviour seems odd - it writes to that address clearing all bits but 0x60, then reads back immediately to check bit 0 and repeats if it is set.)
 * Reads 0x3ff20c20 and checks for zero
-* Reads 0x3ff20c24 which seems to be a set of status bits. Depending on which bits are set it calls static handler routines, etc.
+* Reads status bits from 0x3ff20c24. Bits 26 & 27 are set by [[WDev_MacTimArm]] or [[WDev MacTim1Arm]], as applicable. Other bits are also checked (3 & 4, maybe others). Depending on which bits are set it calls static handler routines, etc.
 
 At various points the routine may panic, print "wdev.c -line number-" and abort in an infinite loop.
 
