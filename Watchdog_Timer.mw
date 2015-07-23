@@ -24,7 +24,9 @@ The wDev/MAC hardware in the ESP8266 apparently has two built in timers (MacTim 
 
 (Note that one needs to be careful that the low bits do not roll over between reading the top bits and the bottom bits of the counter)
 
-The NMI service routine checks bit 26 of [0x3ff20c20] to determine whether MacTim1 was the cause of the NMI, and if so, calls a watchdog check function.  This check function checks an internal boolean variable to determine whether the watchdog has been fed since the last time, and if not, calls the system reset routine.
+==Timeout/Feeding==
+
+The NMI service routine (WDev_ProcessFiq) checks bit 26 of [0x3ff20c20] to determine whether MacTim1 was the cause of the NMI, and if so, calls a watchdog check function.  This check function checks an internal boolean variable to determine whether the watchdog has been fed since the last time, and if not, calls the system reset routine.
 
 (to feed the dog, it is simply necessary to change the value of the internal variable to false at some point between calls to the NMI routine)
 
