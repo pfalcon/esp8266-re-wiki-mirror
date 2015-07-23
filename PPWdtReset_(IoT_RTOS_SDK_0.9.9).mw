@@ -1,0 +1,14 @@
+=PPWdtReset=
+
+Defined in libpp.a pp.o
+
+==Behaviour==
+
+Writes 0x73 to 0x60000914. I think this initialises the non-MAC watchdog timer hardware ([http://esp8266.ru/forum/threads/dokumentacija-na-esp8266-na-nashem-sajte-popolnjaemyj-razdel.5/#post-1712 reference for SDK wdt functions]).
+
+Calls wDev_MacTim1Arm(0x186a00) to arm the MAC watchdog timer with 0x186a00 counts.
+
+=See Also=
+
+[Watchdog Timer]
+[|wDev_MacTim1Arm]
