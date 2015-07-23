@@ -38,9 +38,10 @@ At various places handler calls out into:
 
 ==Guess at what's happening==
 
-[[Watchdog Timer]] describes this handler as on a timer, so I think this could be that the timeout handler from [[wDev_MacTim1Arm]] triggers retransmission after a collision or following an RTS request??
+Seems to be multi-purpose:
 
-It's possible that all transmissions get pushed into this code path via the NMI, or that the NMI is also triggered by the WiFi hardware DMA engine after a transmission?
+* MacTim1/MacTim2 seem to be general purpose timers.
+* lMAC-related functions all seem to be transmit. Also timeouts for collision timer, etc? Or maybe NMI is triggered when a transmit DMA buffer empties?
 
 =See Also=
 
