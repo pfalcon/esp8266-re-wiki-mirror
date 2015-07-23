@@ -28,3 +28,4 @@ This function sets the first timer built into the wDev/MAC hardware to fire afte
 
 * [[wDev_MacTimSetFunc (IoT RTOS SDK 0.9.9)|wDev_MacTimSetFunc]]
 * [[wDev_MacTim1Arm (IoT RTOS SDK 0.9.9)|wDev_MacTim1Arm]]
+* [[wDev_ProcessFiq (IoT RTOS SDK 0.9.9)|wDev_ProcessFiq]]
