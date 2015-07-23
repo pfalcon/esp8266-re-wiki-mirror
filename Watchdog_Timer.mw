@@ -29,3 +29,5 @@ The NMI service routine checks bit 26 of [0x3ff20c20] to determine whether MacTi
 (to feed the dog, it is simply necessary to change the value of the internal variable to false at some point between calls to the NMI routine)
 
 If all is well, the watchdog check function sets the check variable to true, sets up MacTim1 to fire after another 1600000 ticks, and returns.
+
+See also [[PPWdtReset_(IoT_RTOS_SDK_0.9.9)]], [[WDev_MacTim1Arm_(IoT_RTOS_SDK_0.9.9)]], [[WDev_ProcessFiq_(IoT_RTOS_SDK_0.9.9)]]
