@@ -16,7 +16,7 @@ More investigation required!
 
 The wDev/MAC hardware in the ESP8266 apparently has two built in timers (MacTim and MacTim1) which can be configured to trigger an NMI after a certain number of internal clock cycles have elapsed.  The second timer (MacTim1) is used exclusively for watchdog functionality and is set up during system startup to trigger an NMI after 1600000 ticks (it is assumed that these ticks are equivalent to processor clocks, but this has not yet been tested):
 
-To set MacTim1:
+==To set MacTim1==
 # Read the current 64 bit clock value from [0x3ff2104c] (high 32 bits) and [0x3ff21048] (low 32 bits)
 # Add the desired offset to the clock value
 # Write the result back to [0x3ff210d0] (high 32 bits) and [0x3ff210cc] (low 32 bits)
@@ -30,4 +30,7 @@ The NMI service routine checks bit 26 of [0x3ff20c20] to determine whether MacTi
 
 If all is well, the watchdog check function sets the check variable to true, sets up MacTim1 to fire after another 1600000 ticks, and returns.
 
-See also [[PPWdtReset_(IoT_RTOS_SDK_0.9.9)]], [[WDev_MacTim1Arm_(IoT_RTOS_SDK_0.9.9)]], [[WDev_ProcessFiq_(IoT_RTOS_SDK_0.9.9)]]
+==See also==
+* [[PPWdtReset_(IoT_RTOS_SDK_0.9.9)]]
+* [[WDev_MacTim1Arm_(IoT_RTOS_SDK_0.9.9)]]
+* [[WDev_ProcessFiq_(IoT_RTOS_SDK_0.9.9)]]
