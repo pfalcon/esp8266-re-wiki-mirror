@@ -324,7 +324,7 @@ This page contains a reference for all memory locations which are referenced in 
 [[wDev_Initialize (IoT RTOS SDK 0.9.9)|wDev_Initialize]]<br>
 [[wDev_ProcessFiq (IoT RTOS SDK 0.9.9)|wDev_ProcessFiq]]<br>
 [[wdev.text+0x1114 (IoT RTOS SDK 0.9.9)|wdev.text+0x1114]]<br>
-|
+|Interrupt status flags for NMI cause?
 |-
 | 0x3ff20c28 || 4 || || W ||
 [[wDev_SetBssid (IoT RTOS SDK 0.9.9)|wDev_SetBssid]]<br>
