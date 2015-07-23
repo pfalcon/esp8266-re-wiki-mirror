@@ -34,9 +34,9 @@ Handler may also call into:
 
 ==Guess at what's happening==
 
-[[Watchdog Timer]] describes this handler as on a timer, so I think this is the timeout handler triggering retransmission after a collision or following an RTS request...
+[[Watchdog Timer]] describes this handler as on a timer, so I think this could be that the timeout handler from [[wDev_MacTim1Arm]] triggers retransmission after a collision or following an RTS request??
 
-It's possible that all transmissions get pushed into this code path via the NMI.
+It's possible that all transmissions get pushed into this code path via the NMI, or that the NMI is also triggered by the WiFi hardware DMA engine after a transmission?
 
 =See Also=
 
