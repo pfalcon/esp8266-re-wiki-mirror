@@ -16,14 +16,15 @@ Incoming call trace goes something like
 
 * Waits for bit 0 in 0x3ff00000 to clear. (Behaviour seems odd - it writes to that address clearing all bits but 0x60, then reads back immediately to check bit 0 and repeats if it is set.)
 * Reads 0x3ff20c20 and checks for zero
-* Reads status bits from 0x3ff20c24 and calls various routines (mostly static).
-** Bit 26 indicates [[Watchdog Timer]]/[[WDev MacTim1Arm (IoT RTOS SDK 0.9.9)|WDev MacTim1Arm]] and calls routine to checks if watchdog has been fed since last timeout.
-** Bit 27 is set by [[WDev_MacTimArm (IoT RTOS SDK 0.9.9)|WDev_MacTimArm]]
-** Other bits are also checked (3 & 4, maybe others). Depending on which bits are set it calls static handler routines, etc.
+* Reads status bits from 0x3ff20c24 (are these irq flags?) and calls various routines (mostly static).
+** Panics if bit 28 is set
+** Bit 26 indicates [[Watchdog Timer]]/[[WDev MacTim1Arm (IoT RTOS SDK 0.9.9)|WDev MacTim1Arm]] and calls stored timer routine via memory pointer (addr?) which checks if watchdog has been fed since last timeout.
+** Bit 27 is set by [[WDev_MacTimArm (IoT RTOS SDK 0.9.9)|WDev_MacTimArm]] and also goes via memory pointer, address doesn't seem used?
+** Then checks bits 3,4,32,possibly others?
 
 At various points the routine may panic, print "wdev.c -line number-" and abort in an infinite loop.
 
-Handler may also call into:
+At various places handler calls out into:
 * lmacProcessRtsStart
 * lmacProcessTXStartData
 * lmacProcessCollisions
