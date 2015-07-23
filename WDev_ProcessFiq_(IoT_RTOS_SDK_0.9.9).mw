@@ -1,0 +1,41 @@
+=wDev_ProcessFiq=
+
+This is the interrupt handler routine called by the NMI Handler when the NMI triggers (see also [Watchdog Timer]).
+
+wDev_ProcessFiq is defined in wdev.o inside libpp.a.
+
+(FIQ = fast interrupt request, for the highest priority interrupt in the system.)
+
+==NMI Exception Vector==
+
+Incoming call trace goes something like
+
+* _NMIExceptionVector jumps to unnamed routine 0x001010c in xtensa_vectors.o
+* Routine saves register state ,calls wDev_ProcessFiq
+* After execution, restore register state, etc.
+
+==Behaviour==
+
+* Waits for bit 0 in 0x3ff00000 to clear. (Behaviour seems odd - it writes to that address clearing all bits but 0x60, then reads back immediately to check bit 0 and repeats if it is set.)
+* Reads 0x3ff20c20 and checks for zero
+* Reads 0x3ff20c24 which seems to be a set of status bits. Depending on which bits are set it calls static handler routines, etc.
+
+At various points the routine may panic, print "wdev.c -line number-" and abort in an infinite loop.
+
+Handler may also call into:
+* lmacProcessRtsStart
+* lmacProcessTXStartData
+* lmacProcessCollisions
+* lmacIsActive
+* lldesc_num2link
+* lmacProcessAckTimeout
+* lmacProcessTxSuccess
+* lmacProcessTxRtsError
+* lmacProcessCtsTimeout
+* lmacProcessTxError
+
+==Guess at what's happening==
+
+[Watchdog Timer] describes this handler as on a timer, so I think this is the timeout handler triggering retransmission after a collision or following an RTS request...
+
+It's possible that all transmissions get pushed into this code path via the NMI.
