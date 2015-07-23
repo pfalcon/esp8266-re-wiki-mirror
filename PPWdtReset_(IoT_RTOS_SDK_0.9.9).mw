@@ -10,5 +10,5 @@ Calls wDev_MacTim1Arm(0x186a00) to arm the MAC watchdog timer with 0x186a00 coun
 
 =See Also=
 
-* [[Watchdog Timer]]
-* [[wDev_MacTim1Arm (IoT RTOS SDK 0.9.9)|wDev_MacTim1Arm]]
+[Watchdog Timer]
+[|wDev_MacTim1Arm]
