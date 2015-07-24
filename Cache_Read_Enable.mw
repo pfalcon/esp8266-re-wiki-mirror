@@ -19,7 +19,7 @@ Assuming the megabyte boundary to map is 'mb' value 0-7.
 
 (More details on parameters in Richard Burton's blog post, linked below.)
 
-Implementation writes to two [[Platform:Memory_Map#dport0_.283FF00000h.E2.80.93.29|dport0 registers]] to configure page mapping.
+Implementation writes to two [[Memory_Map#dport0_.283FF00000h.E2.80.93.29|dport0 registers]] to configure page mapping.
 
 = See Also =
 * [[Cache_Read_Disable]]
