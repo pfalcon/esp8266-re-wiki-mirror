@@ -1,0 +1,11 @@
+This section is intended for research into the physical aspects of the ESP8266 chip and the modules built from it.
+
+{{todo|There's already various information around the net about the different ESP modules and their construction which could be added to this page}}
+
+== Things to Investigate ==
+
+* Attempt to determine the size and characteristics of the cache layer which backs the memory-mapping of the SPI Flash
+{{idea|It may be possible to determine the size by doing repeated reads of increasingly larger (flash) memory areas and timing the results}}
+
+* Determine whether GPIO inputs are in fact 5V tolerant or not (there has been lots of speculation on this, but as far as I can tell no actual testing.  Most assume it is not because it's a 3v3 chip otherwise and Espressif has not explicitly claimed 5V tolerance; however, the datasheet actually claims that the IO pins are protected by an overvoltage protection circuit at "typically about 6V", which suggests they may actually support 5V inputs just fine)
+{{idea|It should be possible to test this by applying a 5V input through a large (e.g. 1 MOhm) resistor and measuring the voltage at the input pin.  If it's fully 5V at the pin, then the input is 5V tolerant, if it's pulled down to a lower voltage, then it's not.}}
