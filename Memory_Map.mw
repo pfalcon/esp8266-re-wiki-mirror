@@ -1,356 +1,204 @@
+__NOTOC__
 This page describes the physical memory layout of the ESP8266 family.
 
-== Reset Vector ==
-
-The reset vector is 40000080h, which maps to internal ROM.
-
-== Memory Layout ==
-
 {| class="wikitable"
-!Address
-!Name
-!Size
-!Type
-!R/W
-!Alignment
-!Description
+! Start Address !! Size !! R/W !! Alignment !! Name / Description
 |-
-|00000000h
-|
-|
-|Exc
-|
-|?
-|Causes fault when reading.
+| 0x00000000 || 0x20000000 || W || 1 || [[#unk_0|Unknown Region 0]]
 |-
-|20000000h
-|
-|
-|No
-|
-|
-|Unmapped, repeated pattern of 00 80 00 00.
+| 0x20000000 || 0x1FF00000 || - || || Apparently unmapped (reads as 00 80 00 00)
 |-
-|3FF00000h
-|dport0
-|1000h
-|I/O
-|RW?
-|4
-|Memory-mapped I/O, repeated every 100h.
+| 0x3FF00000 || 0x10000 || R/W || 4 || [[#dport0|Dport0]]
 |-
-|3FF10000h
-|
-|
-|No
-|
-|
-|Unmapped, zeroes.
+| 0x3FF10000 || 0x10000 || - || || Apparently unmapped (reads as 00 00 00 00)
 |-
-|3FF20000h
-|?
-|
-|?
-|RW?
-|
-|Unidentified data.
+| 0x3FF20000 || 0x10000 || R/W || 4 || [[#wdev|WDev Control Registers]]
 |-
-|3FF30000h
-|
-|
-|No
-|
-|
-|Unmapped, zeroes.
+| 0x3FF30000 || 0x90000 || - || || Apparently unmapped (reads as 00 00 00 00)
 |-
-|3FFC0000h
-|?
-|20000h
-|?
-|RW?
-|
-|uint32 mapping to the address it is located at. What is this?
+| 0x3FFC0000 || 0x20000 || R? || ? || [[#unk_1|Unknown Region 1]]
 |-
-|3FFE0000h
-|
-|
-|No
-|
-|
-|Unmapped, zeroes.
+| 0x3FFE0000 || 0x8000 || - || || Apparently unmapped (reads as 00 00 00 00)
 |-
-|3FFE8000h
-|dram0
-|14000h
-|RAM
-|RW
-|1
-|User data RAM. Available to applications.
+| 0x3FFE8000 || 0x18000 || R/W || 1 || [[#dram|Data RAM]]
 |-
-|3FFFC000h
-|
-|4000h
-|RAM
-|
-|1?
-|ETS system data RAM.
+| 0x40000000 || 0x10000 || R || 4 || [[#brom|Boot ROM]]
 |-
-|40000000h
-|brom?
-|10000h
-|ROM
-|RW?
-|4?
-|Internal ROM. May be writable somehow, but details unknown.
+| 0x40010000 || 0xF0000 || - || || Apparently unmapped (reads as 00 00 00 00)
 |-
-|40010000h
-|
-|
-|No
-|
-|
-|Zeroes. Assumed to be unmapped.
+| 0x40100000 || 0x8000 || R/W || 4 || [[#iram|Instruction RAM]]
 |-
-|40100000h
-|iram1
-|8000h
-|RAM
-|RW
-|4
-|Instruction RAM. Used by bootloader to load SPI Flash &lt;40000h.
+| 0x40108000 || 0x8000 || R/W || 4 || [[#map_iram|Mappable Instruction RAM]]
 |-
-|40108000h
-|?
-|4000h
-|RAM
-|RW
-|4
-|Instruction RAM/FLASH cache ram. OTA bootloader uses it. Mapped here if bit 4 (bit mask 0x10) is clear in the dport0 register 0x3ff00024
+| 0x40110000 || 0x30000 || ? || ? || [[#unk_2|Unknown Region 2]]
 |-
-|4010C000h
-|?
-|4000h
-|RAM
-|RW
-|4
-|Instruction RAM/FLASH cache ram. Mapped here if bit 3 (bit mask 0x8) is clear in the dport0 register 0x3ff00024
+| 0x40140000 || 0xC0000 || - || || Apparently unmapped (reads as 59 31 d8 ec)
 |-
-|40110000h
-|
-|
-|?
-|
-|
-|Zeroes, possibly more IRAM.
+| 0x40200000 || 0x100000 || R || 4 || [[#flashcache|SPI Flash Cache]]
 |-
-|40140000h
-|
-|
-|?
-|
-|
-|Repeated pattern of 59 31 d8 ec.
+| 0x40300000 || 0x1FD00000 || - || || Apparently unmapped (reads as 00 80 00 00)
 |-
-|40200000h
-|
-|
-|100000h
-|RX
-|4
-|SPI Flash is mapped here when configured. See [[SPI_Flash_Mapping]]
+| 0x60000000 || 0x10000000 || R/W || 4 || [[#mmio|Memory-Mapped IO Ports]]
 |-
-|40300000h
-|
-|
-|?
-|
-|
-|Unmapped, repeated pattern of 00 80 00 00.
-|-
-|60000000h
-|?
-|1000h
-|I/O
-|RW?
-|4
-|Uncached I/O (see MMIO table below)
-|-
-|60001000h
-|?
-|800h
-|?
-|RW?
-|4
-|Uncached I/O (see MMIO table below)
-|-
-|60001800h
-|?
-|800h
-|?
-|RW?
-|
-|Uncached. Mapped to 60001000h?
-|-
-|60002000h
-|
-|
-|Exc
-|
-|
-|Causes fault when reading.
-|-
-|70000000h
-|
-|90000000h
-|No
-|
-|
-|Unmapped, repeated pattern of 00 80 00 00.
+| 0x70000000 || 0x90000000 || - || || Apparently unmapped (reads as 00 80 00 00)
 |}
 
-== Exception Vectors ==
+'''Note:''' The reset vector is 0x40000080, which is (predictably) located within the [[#Boot ROM|Boot ROM]] region.
 
-Hardware defaults to VECBASE at default 40000000h. ESP IoT SDK pre-1.1.0 use this vecbase.
+== <span id="unk_0">Unknown Region 0 (0x00000000 - 0x1FFFFFFF)</span> ==
 
-RTOS SDK & recent ESP IoT SDK move it to IRAM during initialisation (actual addresses can be seen in linker script).
+Causes fault when reading.  Portions of the SDK apparently do byte-writes to addresses 0x00000000 and 0x00000001, however.  May be a write-only MMIO region of some kind.
 
-{| class="wikitable"
-!Address
-!Name
-|-
-|40000010h
-|DebugException
-|-
-|40000020h
-|NMIException
-|-
-|40000030h
-|KernelException
-|-
-|40000050h
-|UserException
-|-
-|40000070h
-|DoubleException
-|-
-|40000080h
-|Reset
-|}
+== <span id="dport0">Dport0 Region (0x3FF00000 - 0x3FF0FFFF)</span> ==
 
-== Memmory-Mapped I/O Registers ==
+Memory-mapped I/O, apparently for functions related to the core Xtensa architecture (as opposed to peripherals). (Reportedly repeats every 0x100 bytes)
 
-Most of them live in 60000000h.
+This is referred to as "DPORT0" in the Espressif header files and linker scripts, but very little additional information about it is provided.
 
 {| class="wikitable"
-!Base Address
-!Size
-!Name
-!Description
+! Address !! Bits !! Description
 |-
-|60000000h
-|80h
-|uart0
-|The UART0 config registers, see <code>examples/IoT_Demo/include/drivers/uart_register.h</code>
+|rowspan=3| 0x3FF0000C || 9 || SPI ready/idle ([https://github.com/esp8266/Arduino/commit/a6e8697a#diff-b6122a2949eb3496b24d600e0b709e77R285 unconfirmed])
 |-
-|60000100h
-|100h
-|spi1
-|''Unconfirmed:'' The SPI controller registers, see examples/IoT_Demo/include/driver/spi_register.h
+| 16,17,18,24,25 || Set SPI flash mapping offset. see [[Cache_Read_Enable]].
 |-
-|60000200h
-|100h
-|spi0
-|''Unconfirmed:'' The SPI controller registers, see examples/IoT_Demo/include/driver/spi_register.h
+| 26 || May enable/disable SPI flash mapping (unconfirmed). See [[Cache_Read_Enable]]/[[Cache_Read_Disable]].
 |-
-|60000300h
-|74h
-|gpio
-|''Unconfirmed:'' The timer config registers, see <code>include/eagle_soc.h</code>
+
+| 0x3FF00014 || 0 || When clear CPU runs at 80MHz. When set CPU runs at 160 MHz. Note that you need to call <code>os_update_cpu_frequency(int freq_in_mhz)</code> when changing the bit. Probably to calibrate timers. The UART divisor is not updated automatically, so you also have to call <code>uart_div_modify(uart_no, clock_freq_in_hz / baud_rate_in_baud)</code>.
 |-
-|60000500h
-|>=E4h
-|?
-|Referenced by rom_iq_est_disable / rom_iq_est_enable / rom_dc_iq_est / rom_get_corr_power / rom_start_tx_tone / rom_pbus_force_test
+
+|rowspan=2| 0x3FF00024 || 3 || When clear IRAM is mapped at 40108000h..4010BFFFh. When set that region reads as 0.
 |-
-|60000600h
-|28h
-|timer
-|''Unconfirmed:'' The timer config registers, see <code>include/eagle_soc.h</code>
-|-
-|60000700h
-|A4h
-|rtc
-|''Unconfirmed:'' The RTC config registers, see <code>include/eagle_soc.h</code>
-|-
-|60000800h
-|44h
-|iomux
-|The IO MUX config registers, see <code>include/eagle_soc.h</code>
-|-
-|60000D00h
-|&gt;=8
-|i2c
-|''Unconfirmed:'' Internal I2C controller registers, see ROM functions rom_i2c_readReg, rom_i2c_writeReg
-|-
-|60000D00h
-|&gt;=5Ch
-|sar?
-|Referenced by rom_en_pwdet, rom_get_fm_sar_dout, readvdd33
-|-
-|60000F00h
-|80h
-|uart1
-|The UART1 config registers, see <code>examples/IoT_Demo/include/drivers/uart_register.h</code>
-|-
-|60001000h
-|100h
-|rtcb
-|RTC backup memory, see <code>rtc_mem_backup</code>
-|-
-|60001100h
-|100h
-|rtcs
-|RTC system memory, see <code>system_rtc_mem_write</code>
-|-
-|60001200h
-|200h
-|rtcu
-|RTC user memory
+| 4 || When clear IRAM is mapped at 4010C000h..4010FFFFh. When set that region reads as 0.
+
 |}
 
-=== dport0 (3FF00000h–) ===
+== <span id="wdev">Wdev Control Registers (0x3FF20000 - 0x3FF2FFFF)</span> ==
+
+This region appears to contain memory-mapped IO registers for interacting with the WiFi MAC module and related functions (which appear to be collectively referred to as "wdev" in the SDK)
+
+See also: [[Memory_Regions_(IoT_RTOS_SDK_0.9.9)#wdev]]
+
+== <span id="unk_1">Unknown Region 1 (0x3FFC0000 - 0x3FFDFFFF)</span> ==
+
+Reading from this region apparently just returns the memory address.  It's unclear whether this is for some purpose or not.
+
+{{Todo|Determine access/alignment requirements}}
+
+== <span id="dram">Data RAM (0x3FFE8000 - 0x3FFFFFFF)</span> ==
+
+This is standard RAM intended for storing application/system data.  Supports sub-word (byte, half-word) accesses.  Contents are lost on power-off or deep-sleep mode.
+
+When using the SDK, this region is further divided up as follows:
+
+* 0x3FFE8000 - 0x3FFFBFFF -- User data RAM (available to the application)
+* 0x3FFFC000 - 0x3FFFFFFF -- Reserved for the ETS/SDK system
+
+(Note that even when not using the SDK, some library routines in the boot ROM area may still assume this layout and attempt to use arbitrary memory in the 0x3FFFC000 portion if they are called (whether this is actually true is currently unclear))
+
+== <span id="brom">Boot ROM (0x40000000 - 0x4000FFFF)</span> ==
+
+Read-only memory containing instruction code programmed into the chip by Espressif which (as far as is known) cannot be reprogrammed.  This ROM contains both the initial boot code and first-stage boot loader, as well as a number of library routines which can be called from the application or SDK to perform basic functions.
+
+=== Exception Vectors ===
+
+The Xtensa exception vector base address defaults to 0x40000000 (the beginning of the boot ROM). ESP IoT SDK pre-1.1.0 use this as-is, but the RTOS SDK and recent ESP IoT SDK move it to IRAM during initialisation using the WSR.VECBASE instruction (actual addresses can be seen in linker script).  Default addresses are as follows:
 
 {| class="wikitable"
-!Address
-!Bits
-!Description
+! Address !! Name
 |-
-|3FF0000Ch
-|9
-|SPI ready/idle ([https://github.com/esp8266/Arduino/commit/a6e8697a#diff-b6122a2949eb3496b24d600e0b709e77R285 unconfirmed])
+| 0x40000010 || DebugException
 |-
-|
-|16,17,18,24,25
-|Set SPI flash mapping offset. see [[Cache_Read_Enable]].
+| 0x40000020 || NMIException
 |-
-|
-|26
-|May enable/disable SPI flash mapping (unconfirmed). See [[Cache_Read_Enable]]/[[Cache_Read_Disable]].
+| 0x40000030 || KernelException
 |-
-|3FF00014h
-|0
-|When clear CPU runs at 80MHz. When set CPU runs at 160 MHz. Note that you need to call <code>os_update_cpu_frequency(int freq_in_mhz)</code> when changing the bit. Probably to calibrate timers. The UART divisor is not updated automatically, so you also have to call <code>uart_div_modify(uart_no, clock_freq_in_hz / baud_rate_in_baud)</code>.
+| 0x40000050 || UserException
 |-
-|3FF00024h
-|3
-|When clear IRAM is mapped at 40108000h..4010BFFFh. When set that region reads as 0.
+| 0x40000070 || DoubleException
 |-
-|
-|4
-|When clear IRAM is mapped at 4010C000h..4010FFFFh. When set that region reads as 0.
+| 0x40000080 || Reset
 |}
+
+== <span id="iram">Instruction RAM (0x40100000 - 0x40107FFF)</span> ==
+
+General-purpose instruction RAM.  Contents are lost on power-off or deep-sleep mode.
+
+Code is loaded into this region by the boot loader from the SPI Flash prior to starting the user portion of the application.
+
+== <span id="map_iram">Mappable Instruction RAM (0x40108000 - 0x4010FFFF)</span> ==
+
+Instruction RAM/FLASH cache ram. OTA bootloader uses it.  Apparently mapped as two separate 16 KB blocks (0x4000):
+
+* 0x40108000 - 0x4010BFFF: Mapped if bit 4 (bit mask 0x10) is clear in the dport0 register 0x3ff00024
+* 0x4010C000 - 0x4010FFFF: Mapped if bit 3 (bit mask 0x8) is clear in the dport0 register 0x3ff00024
+
+{{todo|Is this related to the SPI Flash cache?  Why is it possible to unmap it?}}
+
+== <span id="unk_2">Unknown Region 2 (0x40110000 - 0x40140000)</span> ==
+
+Zeroes, possibly more IRAM.
+
+{{todo|Determine whether this is in fact RAM, access/alignment requirements, etc}}
+
+== <span id="flashcache">SPI Flash Cache (0x40200000 - 0x40300000)</span> ==
+
+A selectable portion of the external SPI Flash memory can be mapped to this address range (for example, to execute code directly from Flash).  The memory-mapping includes a cache to speed up frequently-accessed portions (the size and configuration of the cache layer is currently unclear).
+
+For more information on how this is configured, see [[SPI_Flash_Mapping]]
+
+== <span id="mmio">Memory-Mapped IO Ports (0x60000000 - 0x6FFFFFFF)</span> ==
+
+This region contains the interface ports for most of the peripheral devices inside the ESP8266.  Except for the PHY hardware interface at 0x60009824, the ports for each device appear to be mapped in distinct 0x100-byte address blocks, making them easy to identify and distinguish:
+
+{{inprogress|Will be fleshing this section out with info on individual ports (based on info from [[Memory_Regions_(IoT_RTOS_SDK_0.9.9)]]) soon|[[User:Foogod|Foogod]] ([[User talk:Foogod|talk]]) 01:54, 27 July 2015 (EDT)}}
+
+{| class="wikitable"
+! Base Address !! Size !! Name !! Description
+|-
+| 0x60000000 || 0x80 || uart0 || The UART0 config registers, see <code>examples/IoT_Demo/include/drivers/uart_register.h</code>
+|-
+| 0x60000100 || 0x100 || spi1 || ''Unconfirmed:'' The SPI controller registers, see examples/IoT_Demo/include/driver/spi_register.h
+|-
+| 0x60000200 || 0x100 || spi0 || ''Unconfirmed:'' The SPI controller registers, see examples/IoT_Demo/include/driver/spi_register.h
+|-
+| 0x60000300 || 0x74 || gpio || ''Unconfirmed:'' The GPIO configuration registers
+|-
+| 0x60000500 || 0x100 || ? || Apparently related to WiFi radio power control (unclear how this is distinct from other PHY-related registers)
+|-
+| 0x60000600 || 0x34 || timer || ''Unconfirmed:'' The timer config registers, see <code>include/eagle_soc.h</code>
+|-
+| 0x60000700 || 0xB8 || rtc || ''Unconfirmed:'' The RTC config registers, see <code>include/eagle_soc.h</code>
+|-
+| 0x60000800 || 0x44 || iomux || The IO MUX config registers, see <code>include/eagle_soc.h</code>
+|-
+| 0x60000900 || 0x18 || wdt || Watchdog timer
+|-
+| 0x60000A00 || 0x8 || ? || Possibly related to PHY and/or GPIO (referenced by phy_gpio_cfg)
+|-
+| 0x60000B00 || 0xC0 || slc || DMA control registers (see [https://github.com/espressif/esp8266_mp3_decoder/blob/master/mp3/include/slc_register.h esp8266_mp3_decoder/mp3/include/slc_register.h])
+|-
+| 0x60000C00 || ? || ? || (Unknown.  No known references to this address range)
+|-
+| 0x60000D00 || 0x5C || sar || Referred to as "sar" by some old header files.  Apparently referenced both by ROM I2C functions as well as ADC config/read functions.
+|-
+| 0x60000E00 || 0x30 || i2s || I2S Control registers (see [https://github.com/espressif/esp8266_mp3_decoder/blob/master/mp3/include/i2s_reg.h esp8266_mp3_decoder/mp3/include/i2s_reg.h])
+|-
+| 0x60000F00 || 0x80 || uart1 || The UART1 config registers, see <code>examples/IoT_Demo/include/drivers/uart_register.h</code>
+|-
+| 0x60001000 || 0x100 || rtcb || RTC backup memory, see <code>rtc_mem_backup</code>
+|-
+| 0x60001100 || 0x300 || rtcmem || RTC battery-backed memory, see <code>system_rtc_mem_write</code>
+|-
+| 0x60009824 || 0x550 || phy || ''Unconfirmed:'' PHY control registers
+|}
+
+It is unclear whether anything is mapped in this region beyond 0x60009d74.  Nothing in the SDK appears to reference it (but then the I2S and DMA regions were also previously unreferenced/unknown until the MP3 example code was released, so it's possible there's more here we just don't know about).  Further testing may be required.
 
 === iomux Pin Registers (60000804h–60000843h) ===
+
+{{todo|This bit should really be in a separate page about how to access the IOMUX registers}}
 
 <pre>31    24       16        8        0
 -------- -ffff--- -------- ud--UDEe
@@ -361,7 +209,8 @@ Most of them live in 60000000h.
                            |`- Pull-down
                            `- Pull-up</pre>
 
-== References ==
+
+== Sources ==
 
 * [http://www.esp8266.com/viewtopic.php?f=5&t=9&start=30#p274 Forum post Memory Layout, p274]
 * [http://www.esp8266.com/viewtopic.php?f=6&t=39&start=10#p263 Forum post Firmware Dump, p263]
