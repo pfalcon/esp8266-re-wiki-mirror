@@ -2,21 +2,10 @@ This section is intended for research into the physical aspects of the ESP8266 c
 
 {{todo|There's already various information around the net about the different ESP modules and their construction which could be added to this page}}
 
-== GPIO/IOMUX Details ==
-
-Confirmed by measurements:
-
-* Internal pull-up resistors are approximately 47K (68 uA current draw measured from 3.2 V supply)
-
-* Enabling the IOMUX "pull-down" bit for a port actually enables its pull-up resistor, the same as the "pull-up" bit does.  There do not appear to be any pull-down resistors on the normal (GPIO0-15) pins (this is consistent with the datasheet, which only claims pull-up, not pull-down for these pins).
-
-* GPIO pins are ''not'' 5V-tolerant.  Max voltage appears to be approximately 4.2 V.  (Tested by applying 5V to an input pin (with pullup disabled) through a 1M resistor and measuring the voltage at the pin)
-
-* Input gates appear to be always connected to the pin, even when the output driver is enabled.  This means that when open-drain output is configured but the pin is set high (i.e. not driven low), the actual pin voltage can be measured by reading from it, the same as in "input" mode.
-
 == Things to Investigate ==
 
 * Attempt to determine the size and characteristics of the cache layer which backs the memory-mapping of the SPI Flash
 {{idea|It may be possible to determine the size by doing repeated reads of increasingly larger (flash) memory areas and timing the results}}
 
-* All of the Espressif documentation seems to be adamant that the ADC can be used for measuring VDD or for measuring TOUT, but not both in the same application.  It is unclear whether this is a limitation of the hardware, or just the way the SDK routines are implemented.  Is it possible to switch back and forth between the two ADC modes without having to change the hardware design, and thus (for example), measure one value, then the other? (Specifically: What happens when you try to measure VDD but have TOUT connected to something?)
+* Determine whether GPIO inputs are in fact 5V tolerant or not (there has been lots of speculation on this, but as far as I can tell no actual testing.  Most assume it is not because it's a 3v3 chip otherwise and Espressif has not explicitly claimed 5V tolerance; however, the datasheet actually claims that the IO pins are protected by an overvoltage protection circuit at "typically about 6V", which suggests they may actually support 5V inputs just fine)
+{{idea|It should be possible to test this by applying a 5V input through a large (e.g. 1 MOhm) resistor and measuring the voltage at the input pin.  If it's fully 5V at the pin, then the input is 5V tolerant, if it's pulled down to a lower voltage, then it's not.}}
