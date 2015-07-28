@@ -5,7 +5,7 @@
 <code>void Cache_Read_Enable(uint32 odd_even, uint32 mb_count, uint32 no_idea)</code>
 
 = Location =
-'''Cache_Read_Enable''' is defined in the Boot ROM at memory address 0x40004678
+'''Cache_Read_Enable''' is defined in the [[Boot ROM]] at memory address 0x40004678
 
 = Description =
 
