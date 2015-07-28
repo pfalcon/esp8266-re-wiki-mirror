@@ -25,5 +25,5 @@ We also have a maillist for discussions related to reverse-engineering the ESP82
 
 * [[Hardware]] -- Reverse Engineering the physical chip/modules
 * [[Platform]] -- Information about the hardware, as seen by software running in it (memory address mappings, how to communicate with various parts of the hardware, etc)
-* [[OTP ROMs]] -- The initial code burned into each chip, which handles bootup, flashing, etc.
+* [[Boot ROM]] -- The initial code burned into each chip, which handles bootup, flashing, etc.
 * [[IoT SDK]] -- Reverse Engineering the proprietary binaries/libraries included with Espressif's IoT SDK
