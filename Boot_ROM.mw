@@ -2,7 +2,7 @@
 
 * [[SPI Flash Format]]
 
-= Functions Defined in the OTP ROM =
+= Functions Defined in the Boot ROM =
 
 (The following were extracted from the ld/eagle.rom.addr.v6.ld provided with the 1.1.2 SDK)
 
