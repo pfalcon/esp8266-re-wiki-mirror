@@ -22,7 +22,7 @@ This page describes the physical memory layout of the ESP8266 family.
 |-
 | 0x3FFE8000 || 0x18000 || R/W || 1 || [[#dram|Data RAM]]
 |-
-| 0x40000000 || 0x10000 || R || 4 || [[#brom|Boot ROM]]
+| 0x40000000 || 0x10000 || R || 4 || [[#bootrom|Boot ROM]]
 |-
 | 0x40010000 || 0xF0000 || - || || Apparently unmapped (reads as 00 00 00 00)
 |-
@@ -43,7 +43,7 @@ This page describes the physical memory layout of the ESP8266 family.
 | 0x70000000 || 0x90000000 || - || || Apparently unmapped (reads as 00 80 00 00)
 |}
 
-'''Note:''' The reset vector is 0x40000080, which is (predictably) located within the [[#Boot ROM|Boot ROM]] region.
+'''Note:''' The reset vector is 0x40000080, which is (predictably) located within the [[#bootrom|Boot ROM]] region.
 
 == <span id="unk_0">Unknown Region 0 (0x00000000 - 0x1FFFFFFF)</span> ==
 
@@ -97,7 +97,7 @@ When using the SDK, this region is further divided up as follows:
 
 (Note that even when not using the SDK, some library routines in the boot ROM area may still assume this layout and attempt to use arbitrary memory in the 0x3FFFC000 portion if they are called (whether this is actually true is currently unclear))
 
-== <span id="brom">Boot ROM (0x40000000 - 0x4000FFFF)</span> ==
+== <span id="bootrom">Boot ROM (0x40000000 - 0x4000FFFF)</span> ==
 
 Read-only memory containing instruction code programmed into the chip by Espressif which (as far as is known) cannot be reprogrammed.  This ROM contains both the initial boot code and first-stage boot loader, as well as a number of library routines which can be called from the application or SDK to perform basic functions.
 
