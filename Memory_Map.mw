@@ -114,7 +114,11 @@ The Xtensa exception vector base address defaults to 0x40000000 (the beginning o
 |-
 | 0x40000030 || KernelException
 |-
+| 0x40000040 || ''(apparently unused)''
+|-
 | 0x40000050 || UserException
+|-
+| 0x40000060 || ''(apparently unused)''
 |-
 | 0x40000070 || DoubleException
 |-
