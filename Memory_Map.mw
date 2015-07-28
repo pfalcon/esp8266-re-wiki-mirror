@@ -154,51 +154,440 @@ For more information on how this is configured, see [[SPI_Flash_Mapping]]
 
 This region contains the interface ports for most of the peripheral devices inside the ESP8266.  Except for the PHY hardware interface at 0x60009824, the ports for each device appear to be mapped in distinct 0x100-byte address blocks, making them easy to identify and distinguish:
 
-{{inprogress|Will be fleshing this section out with info on individual ports (based on info from [[Memory_Regions_(IoT_RTOS_SDK_0.9.9)]]) soon|[[User:Foogod|Foogod]] ([[User talk:Foogod|talk]]) 01:54, 27 July 2015 (EDT)}}
+{{inprogress|Working on adding source-references for a bunch of the registers and fleshing out the RTC memory region|[[User:Foogod|Foogod]] ([[User talk:Foogod|talk]]) 17:02, 28 July 2015 (EDT)}}
 
 {| class="wikitable"
 ! Base Address !! Size !! Name !! Description
 |-
-| 0x60000000 || 0x80 || uart0 || The UART0 config registers, see <code>examples/IoT_Demo/include/drivers/uart_register.h</code>
+| 0x60000000 || 0x80 || uart0 || [[#uart0_regs|UART0 Registers]]
 |-
-| 0x60000100 || 0x100 || spi1 || ''Unconfirmed:'' The SPI controller registers, see examples/IoT_Demo/include/driver/spi_register.h
+| 0x60000100 || 0x100 || spi1 || [[#spi1_regs|SPI1 Registers]]
 |-
-| 0x60000200 || 0x100 || spi0 || ''Unconfirmed:'' The SPI controller registers, see examples/IoT_Demo/include/driver/spi_register.h
+| 0x60000200 || 0x100 || spi0 || [[#spi0_regs|SPI0 Registers]]
 |-
-| 0x60000300 || 0x74 || gpio || ''Unconfirmed:'' The GPIO configuration registers
+| 0x60000300 || 0x74 || gpio || [[#gpio_regs|GPIO Registers]]
 |-
 | 0x60000500 || 0x100 || ? || Apparently related to WiFi radio power control (unclear how this is distinct from other PHY-related registers)
 |-
-| 0x60000600 || 0x34 || timer || ''Unconfirmed:'' The timer config registers, see <code>include/eagle_soc.h</code>
+| 0x60000600 || 0x34 || timer || [[#timer_regs|Timer Registers]]
 |-
-| 0x60000700 || 0xB8 || rtc || ''Unconfirmed:'' The RTC config registers, see <code>include/eagle_soc.h</code>
+| 0x60000700 || 0xB8 || rtc || [[#rtc_regs|Real Time Clock Registers]]
 |-
-| 0x60000800 || 0x44 || iomux || The IO MUX config registers, see <code>include/eagle_soc.h</code>
+| 0x60000800 || 0x44 || iomux || [[#iomux_regs|IOMUX Registers]]
 |-
-| 0x60000900 || 0x18 || wdt || Watchdog timer
+| 0x60000900 || 0x18 || wdt || [[#wdt_regs|Watchdog Timer Registers]]
 |-
 | 0x60000A00 || 0x8 || ? || Possibly related to PHY and/or GPIO (referenced by phy_gpio_cfg)
 |-
-| 0x60000B00 || 0xC0 || slc || DMA control registers (see [https://github.com/espressif/esp8266_mp3_decoder/blob/master/mp3/include/slc_register.h esp8266_mp3_decoder/mp3/include/slc_register.h])
+| 0x60000B00 || 0xC0 || slc || [[#slc_regs|DMA Control Registers]]
 |-
 | 0x60000C00 || ? || ? || (Unknown.  No known references to this address range)
 |-
 | 0x60000D00 || 0x5C || sar || Referred to as "sar" by some old header files.  Apparently referenced both by ROM I2C functions as well as ADC config/read functions.
 |-
-| 0x60000E00 || 0x30 || i2s || I2S Control registers (see [https://github.com/espressif/esp8266_mp3_decoder/blob/master/mp3/include/i2s_reg.h esp8266_mp3_decoder/mp3/include/i2s_reg.h])
+| 0x60000E00 || 0x30 || i2s || [[#i2s_regs|I2S registers]]
 |-
-| 0x60000F00 || 0x80 || uart1 || The UART1 config registers, see <code>examples/IoT_Demo/include/drivers/uart_register.h</code>
+| 0x60000F00 || 0x80 || uart1 || [[#uart1_regs|UART1 Registers]]
 |-
 | 0x60001000 || 0x100 || rtcb || RTC backup memory, see <code>rtc_mem_backup</code>
 |-
-| 0x60001100 || 0x300 || rtcmem || RTC battery-backed memory, see <code>system_rtc_mem_write</code>
+| 0x60001100 || 0x300 || rtcmem || RTC semi-persistent memory, see <code>system_rtc_mem_write</code>
 |-
 | 0x60009824 || 0x550 || phy || ''Unconfirmed:'' PHY control registers
 |}
 
 It is unclear whether anything is mapped in this region beyond 0x60009d74.  Nothing in the SDK appears to reference it (but then the I2S and DMA regions were also previously unreferenced/unknown until the MP3 example code was released, so it's possible there's more here we just don't know about).  Further testing may be required.
 
-=== iomux Pin Registers (60000804h–60000843h) ===
+=== <span id="uart0_regs">UART0 Registers (0x600000xx)</span> ===
+
+{| class="wikitable"
+! Address !! Register Name
+|-
+| 0x60000000 || UART0_FIFO
+|-
+| 0x60000004 || UART0_INT_RAW
+|-
+| 0x60000008 || UART0_INT_ST
+|-
+| 0x6000000C || UART0_INT_ENA
+|-
+| 0x60000010 || UART0_INT_CLR
+|-
+| 0x60000014 || UART0_CLKDIV
+|-
+| 0x60000018 || UART0_AUTOBAUD
+|-
+| 0x6000001C || UART0_STATUS
+|-
+| 0x60000020 || UART0_CONF0
+|-
+| 0x60000024 || UART0_CONF1
+|-
+| 0x60000028 || UART0_LOWPULSE
+|-
+| 0x6000002C || UART0_HIGHPULSE
+|-
+| 0x60000030 || UART0_PULSE_NUM
+|-
+| 0x60000078 || UART0_DATE
+|-
+| 0x6000007C || UART0_ID
+|-
+|}
+
+=== <span id="spi1_regs">SPI1 Registers (0x600001xx)</span> ===
+
+{| class="wikitable"
+! Address !! Register Name
+|-
+| 0x60000100 || SPI1_CMD
+|-
+| 0x60000104 || SPI1_ADDR
+|-
+| 0x60000108 || SPI1_CTRL
+|-
+| 0x6000010C || SPI1_CTRL1
+|-
+| 0x60000110 || SPI1_RD_STATUS
+|-
+| 0x60000114 || SPI1_CTRL2
+|-
+| 0x60000118 || SPI1_CLOCK
+|-
+| 0x6000011C || SPI1_USER
+|-
+| 0x60000120 || SPI1_USER1
+|-
+| 0x60000124 || SPI1_USER2
+|-
+| 0x60000128 || SPI1_WR_STATUS
+|-
+| 0x6000012C || SPI1_PIN
+|-
+| 0x60000130 || SPI1_SLAVE
+|-
+| 0x60000134 || SPI1_SLAVE1
+|-
+| 0x60000138 || SPI1_SLAVE2
+|-
+| 0x6000013C || SPI1_SLAVE3
+|-
+| 0x60000140 || SPI1_W0
+|-
+| 0x60000144 || SPI1_W1
+|-
+| 0x60000148 || SPI1_W2
+|-
+| 0x6000014C || SPI1_W3
+|-
+| 0x60000150 || SPI1_W4
+|-
+| 0x60000154 || SPI1_W5
+|-
+| 0x60000158 || SPI1_W6
+|-
+| 0x6000015C || SPI1_W7
+|-
+| 0x60000160 || SPI1_W8
+|-
+| 0x60000164 || SPI1_W9
+|-
+| 0x60000168 || SPI1_W10
+|-
+| 0x6000016C || SPI1_W11
+|-
+| 0x60000170 || SPI1_W12
+|-
+| 0x60000174 || SPI1_W13
+|-
+| 0x60000178 || SPI1_W14
+|-
+| 0x6000017C || SPI1_W15
+|-
+| 0x60000180<br> - 0x600001EC || ''(unknown)''
+|-
+| 0x600001F0 || SPI1_EXT0
+|-
+| 0x600001F4 || SPI1_EXT1
+|-
+| 0x600001F8 || SPI1_EXT2
+|-
+| 0x600001FC || SPI1_EXT3
+|-
+|}
+
+=== <span id="spi0_regs">SPI0 Registers (0x600002xx)</span> ===
+
+{| class="wikitable"
+! Address !! Register Name
+|-
+| 0x60000200 || SPI0_CMD
+|-
+| 0x60000204 || SPI0_ADDR
+|-
+| 0x60000208 || SPI0_CTRL
+|-
+| 0x6000020C || SPI0_CTRL1
+|-
+| 0x60000210 || SPI0_RD_STATUS
+|-
+| 0x60000214 || SPI0_CTRL2
+|-
+| 0x60000218 || SPI0_CLOCK
+|-
+| 0x6000021C || SPI0_USER
+|-
+| 0x60000220 || SPI0_USER1
+|-
+| 0x60000224 || SPI0_USER2
+|-
+| 0x60000228 || SPI0_WR_STATUS
+|-
+| 0x6000022C || SPI0_PIN
+|-
+| 0x60000230 || SPI0_SLAVE
+|-
+| 0x60000234 || SPI0_SLAVE1
+|-
+| 0x60000238 || SPI0_SLAVE2
+|-
+| 0x6000023C || SPI0_SLAVE3
+|-
+| 0x60000240 || SPI0_W0
+|-
+| 0x60000244 || SPI0_W1
+|-
+| 0x60000248 || SPI0_W2
+|-
+| 0x6000024C || SPI0_W3
+|-
+| 0x60000250 || SPI0_W4
+|-
+| 0x60000254 || SPI0_W5
+|-
+| 0x60000258 || SPI0_W6
+|-
+| 0x6000025C || SPI0_W7
+|-
+| 0x60000260 || SPI0_W8
+|-
+| 0x60000264 || SPI0_W9
+|-
+| 0x60000268 || SPI0_W10
+|-
+| 0x6000026C || SPI0_W11
+|-
+| 0x60000270 || SPI0_W12
+|-
+| 0x60000274 || SPI0_W13
+|-
+| 0x60000278 || SPI0_W14
+|-
+| 0x6000027C || SPI0_W15
+|-
+| 0x60000280<br> - 0x600002EC || ''(unknown)''
+|-
+| 0x600002F0 || SPI0_EXT0
+|-
+| 0x600002F4 || SPI0_EXT1
+|-
+| 0x600002F8 || SPI0_EXT2
+|-
+| 0x600002FC || SPI0_EXT3
+|-
+|}
+
+=== <span id="gpio_regs">GPIO Registers (0x600003xx)</span> ===
+
+{| class="wikitable"
+! Address !! Register Name
+|-
+| 0x60000300 || GPIO_OUT
+|-
+| 0x60000304 || GPIO_OUT_W1TS
+|-
+| 0x60000308 || GPIO_OUT_W1TC
+|-
+| 0x6000030C || GPIO_ENABLE
+|-
+| 0x60000310 || GPIO_ENABLE_W1TS
+|-
+| 0x60000314 || GPIO_ENABLE_W1TC
+|-
+| 0x60000318 || GPIO_IN
+|-
+| 0x6000031C || GPIO_STATUS
+|-
+| 0x60000320 || GPIO_STATUS_W1TS
+|-
+| 0x60000324 || GPIO_STATUS_W1TC
+|-
+| 0x60000328 || GPIO_PIN0
+|-
+| 0x6000032C || GPIO_PIN1
+|-
+| 0x60000330 || GPIO_PIN2
+|-
+| 0x60000334 || GPIO_PIN3
+|-
+| 0x60000338 || GPIO_PIN4
+|-
+| 0x6000033C || GPIO_PIN5
+|-
+| 0x60000340 || GPIO_PIN6
+|-
+| 0x60000344 || GPIO_PIN7
+|-
+| 0x60000348 || GPIO_PIN8
+|-
+| 0x6000034C || GPIO_PIN9
+|-
+| 0x60000350 || GPIO_PIN10
+|-
+| 0x60000354 || GPIO_PIN11
+|-
+| 0x60000358 || GPIO_PIN12
+|-
+| 0x6000035C || GPIO_PIN13
+|-
+| 0x60000360 || GPIO_PIN14
+|-
+| 0x60000364 || GPIO_PIN15
+|-
+| 0x60000368 || GPIO_SIGMA_DELTA
+|-
+| 0x6000036C || GPIO_RTC_CALIB_SYNC
+|-
+| 0x60000370 || GPIO_RTC_CALIB_VALUE
+|-
+|}
+
+=== <span id="timer_regs">Timer Registers (0x600006xx)</span> ===
+
+{| class="wikitable"
+! Address !! Register Name
+|-
+| 0x60000600 || TIMER_FRC1_LOAD
+|-
+| 0x60000604 || TIMER_FRC1_COUNT
+|-
+| 0x60000608 || TIMER_FRC1_CTRL
+|-
+| 0x6000060C || TIMER_FRC1_INT
+|-
+| 0x60000610<br> - 0x6000061F || ''(unknown)''
+|-
+| 0x60000620 || TIMER_FRC2_LOAD
+|-
+| 0x60000624 || TIMER_FRC2_COUNT
+|-
+| 0x60000628 || TIMER_FRC2_CTRL
+|-
+| 0x6000062C || TIMER_FRC2_INT
+|-
+| 0x60000630 || TIMER_FRC2_ALARM
+|-
+|}
+
+=== <span id="rtc_regs">Real Time Clock Registers (0x600007xx)</span> ===
+
+{| class="wikitable"
+! Address !! Register Name
+|-
+| 0x60000700 || ''(unknown)''
+|-
+| 0x60000704 || RTC_SLP_VAL
+|-
+| 0x60000708<br> - 0x60000718 || ''(unknown)''
+|-
+| 0x6000071C || RTC_SLP_CNT_VAL
+|-
+| 0x60000720 || RTC_INT_ST
+|-
+| 0x60000724 || RTC_INT_CLR
+|-
+| 0x60000728 || RTC_INT_ENA
+|-
+| 0x6000072C || ''(unknown)''
+|-
+| 0x60000730 || RTC_SCRATCH0
+|-
+| 0x60000734 || RTC_SCRATCH1
+|-
+| 0x60000738 || RTC_SCRATCH2
+|-
+| 0x6000073C || RTC_SCRATCH3
+|-
+| 0x60000740<br> - 0x60000764 || ''(unknown)''
+|-
+| 0x60000768 || RTC_GPIO_OUT
+|-
+| 0x6000076C<br> - 0x60000770 || ''(unknown)''
+|-
+| 0x60000774 || RTC_GPIO_ENABLE
+|-
+| 0x60000780<br> - 0x60000788 || ''(unknown)''
+|-
+| 0x6000078C || RTC_GPIO_IN_DATA
+|-
+| 0x60000790 || RTC_GPIO_CONF
+|-
+| 0x60000794 || RTC_GPIO0_CFG
+|-
+| 0x60000798 || RTC_GPIO1_CFG
+|-
+| 0x6000079C || RTC_GPIO2_CFG
+|-
+| 0x600007A0 || RTC_GPIO3_CFG / PAD_XPD_DCDC_CONF
+|-
+| 0x600007A4 || RTC_GPIO4_CFG
+|-
+| 0x600007A8 || RTC_GPIO5_CFG
+|-
+| 0x600007AC<br> - 0x600007B4 || ''(unknown)''
+|-
+|}
+
+=== <span id="iomux_regs">IOMUX Registers (0x600008xx)</span> ===
+
+{| class="wikitable"
+! Address !! Register Name
+|-
+| 0x60000800 || IOMUX_CONF
+|-
+| 0x60000804 || IOMUX_MTDI
+|-
+| 0x60000808 || IOMUX_MTCK
+|-
+| 0x6000080C || IOMUX_MTMS
+|-
+| 0x60000810 || IOMUX_MTDO
+|-
+| 0x60000814 || IOMUX_U0RXD
+|-
+| 0x60000818 || IOMUX_U0TXD
+|-
+| 0x6000081C || IOMUX_SD_CLK
+|-
+| 0x60000820 || IOMUX_SD_DATA0
+|-
+| 0x60000824 || IOMUX_SD_DATA1
+|-
+| 0x60000828 || IOMUX_SD_DATA2
+|-
+| 0x6000082C || IOMUX_SD_DATA3
+|-
+| 0x60000830 || IOMUX_SD_CMD
+|-
+| 0x60000834 || IOMUX_GPIO0
+|-
+| 0x60000838 || IOMUX_GPIO2
+|-
+| 0x6000083C || IOMUX_GPIO4
+|-
+| 0x60000840 || IOMUX_GPIO5
+|-
+|}
 
 {{todo|This bit should really be in a separate page about how to access the IOMUX registers}}
 
@@ -211,6 +600,195 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
                            |`- Pull-down
                            `- Pull-up</pre>
 
+=== <span id="wdt_regs">Watchdog Timer Registers (0x600009xx)</span> ===
+
+{| class="wikitable"
+! Address !! Register Name
+|-
+| 0x60000900 || WDT_CTRL
+|-
+| 0x60000904 || WDT_REG1
+|-
+| 0x60000908 || WDT_REG2
+|-
+| 0x6000090C || ''(unknown)''
+|-
+| 0x60000910 || ''(unknown)''
+|-
+| 0x60000914 || WDT_FEED
+|-
+|}
+
+=== <span id="slc_regs">DMA Control Registers (0x60000Bxx)</span> ===
+
+{| class="wikitable"
+! Address !! Register Name
+|-
+| 0x60000B00 || SLC_CONF0<ref name="slc_register.h">[https://github.com/espressif/esp8266_mp3_decoder/blob/master/mp3/include/slc_register.h esp8266_mp3_decoder:mp3/include/slc_register.h]</ref>
+|-
+| 0x60000B04 || SLC_INT_RAW<ref name="slc_register.h"/>
+|-
+| 0x60000B08 || SLC_INT_STATUS<ref name="slc_register.h"/>
+|-
+| 0x60000B0C || SLC_INT_ENA<ref name="slc_register.h"/>
+|-
+| 0x60000B10 || SLC_INT_CLR<ref name="slc_register.h"/>
+|-
+| 0x60000B14 || SLC_RX_STATUS<ref name="slc_register.h"/>
+|-
+| 0x60000B18 || SLC_RX_FIFO_PUSH<ref name="slc_register.h"/>
+|-
+| 0x60000B1C || SLC_TX_STATUS<ref name="slc_register.h"/>
+|-
+| 0x60000B20 || SLC_TX_FIFO_POP<ref name="slc_register.h"/>
+|-
+| 0x60000B24 || SLC_RX_LINK<ref name="slc_register.h"/>
+|-
+| 0x60000B28 || SLC_TX_LINK<ref name="slc_register.h"/>
+|-
+| 0x60000B2C || SLC_INTVEC_TOHOST<ref name="slc_register.h"/>
+|-
+| 0x60000B30 || SLC_TOKEN0<ref name="slc_register.h"/>
+|-
+| 0x60000B34 || SLC_TOKEN1<ref name="slc_register.h"/>
+|-
+| 0x60000B38 || SLC_CONF1<ref name="slc_register.h"/>
+|-
+| 0x60000B3C || SLC_STATE0<ref name="slc_register.h"/>
+|-
+| 0x60000B40 || SLC_STATE1<ref name="slc_register.h"/>
+|-
+| 0x60000B44 || SLC_BRIDGE_CONF<ref name="slc_register.h"/>
+|-
+| 0x60000B48 || SLC_RX_EOF_DES_ADDR<ref name="slc_register.h"/>
+|-
+| 0x60000B4C || SLC_TX_EOF_DES_ADDR<ref name="slc_register.h"/>
+|-
+| 0x60000B50 || SLC_RX_EOF_BFR_DES_ADDR<ref name="slc_register.h"/>
+|-
+| 0x60000B54 || SLC_AHB_TEST<ref name="slc_register.h"/>
+|-
+| 0x60000B58 || SLC_SDIO_ST<ref name="slc_register.h"/>
+|-
+| 0x60000B5C || SLC_RX_DSCR_CONF<ref name="slc_register.h"/>
+|-
+| 0x60000B60 || SLC_TXLINK_DSCR<ref name="slc_register.h"/>
+|-
+| 0x60000B64 || SLC_TXLINK_DSCR_BF0<ref name="slc_register.h"/>
+|-
+| 0x60000B68 || SLC_TXLINK_DSCR_BF1<ref name="slc_register.h"/>
+|-
+| 0x60000B6C || SLC_RXLINK_DSCR<ref name="slc_register.h"/>
+|-
+| 0x60000B70 || SLC_RXLINK_DSCR_BF0<ref name="slc_register.h"/>
+|-
+| 0x60000B74 || SLC_RXLINK_DSCR_BF1<ref name="slc_register.h"/>
+|-
+| 0x60000B78 || SLC_DATE<ref name="slc_register.h"/>
+|-
+| 0x60000B7C || SLC_ID<ref name="slc_register.h"/>
+|-
+| 0x60000B80 || ''(unknown)''
+|-
+| 0x60000B84 || ''(unknown)''
+|-
+| 0x60000B88 || SLC_HOST_INTR_RAW<ref name="slc_register.h"/>
+|-
+| 0x60000B8C || ''(unknown)''
+|-
+| 0x60000B90 || ''(unknown)''
+|-
+| 0x60000B94 || SLC_HOST_CONF_W0<ref name="slc_register.h"/>
+|-
+| 0x60000B98 || SLC_HOST_CONF_W1<ref name="slc_register.h"/>
+|-
+| 0x60000B9C || SLC_HOST_INTR_ST<ref name="slc_register.h"/>
+|-
+| 0x60000BA0 || SLC_HOST_CONF_W2<ref name="slc_register.h"/>
+|-
+| 0x60000BA4 || SLC_HOST_CONF_W3<ref name="slc_register.h"/>
+|-
+| 0x60000BA8 || SLC_HOST_CONF_W4<ref name="slc_register.h"/>
+|-
+| 0x60000BAC || ''(unknown)''
+|-
+| 0x60000BB0 || SLC_HOST_INTR_CLR<ref name="slc_register.h"/>
+|-
+| 0x60000BB4 || SLC_HOST_INTR_ENA<ref name="slc_register.h"/>
+|-
+| 0x60000BB8 || ''(unknown)''
+|-
+| 0x60000BBC || SLC_HOST_CONF_W5<ref name="slc_register.h"/>
+|-
+|}
+
+=== <span id="i2s_regs">I2S Registers (0x60000Exx)</span> ===
+
+{| class="wikitable"
+! Address !! Register Name
+|-
+| 0x60000E00 || I2S_TXFIFO<ref name="i2s_register.h">[https://github.com/espressif/esp8266_mp3_decoder/blob/master/mp3/include/i2s_register.h esp8266_mp3_decoder:mp3/include/i2s_register.h]</ref>
+|-
+| 0x60000E04 || I2S_RXFIFO<ref name="i2s_register.h"/>
+|-
+| 0x60000E08 || I2S_CONF<ref name="i2s_register.h"/>
+|-
+| 0x60000E0C || I2S_INT_RAW<ref name="i2s_register.h"/>
+|-
+| 0x60000E10 || I2S_INT_ST<ref name="i2s_register.h"/>
+|-
+| 0x60000E14 || I2S_INT_ENA<ref name="i2s_register.h"/>
+|-
+| 0x60000E18 || I2S_INT_CLR<ref name="i2s_register.h"/>
+|-
+| 0x60000E1C || I2S_TIMING<ref name="i2s_register.h"/>
+|-
+| 0x60000E20 || I2S_FIFO_CONF<ref name="i2s_register.h"/>
+|-
+| 0x60000E24 || I2S_RXEOF_NUM<ref name="i2s_register.h"/>
+|-
+| 0x60000E28 || I2S_CONF_SIGLE_DATA<ref name="i2s_register.h"/>
+|-
+| 0x60000E2C || I2S_CONF_CHAN<ref name="i2s_register.h"/>
+|-
+|}
+
+=== <span id="uart1_regs">UART1 Registers (0x60000Fxx)</span> ===
+
+{| class="wikitable"
+! Address !! Register Name
+|-
+| 0x60000F00 || UART1_FIFO
+|-
+| 0x60000F04 || UART1_INT_RAW
+|-
+| 0x60000F08 || UART1_INT_ST
+|-
+| 0x60000F0C || UART1_INT_ENA
+|-
+| 0x60000F10 || UART1_INT_CLR
+|-
+| 0x60000F14 || UART1_CLKDIV
+|-
+| 0x60000F18 || UART1_AUTOBAUD
+|-
+| 0x60000F1C || UART1_STATUS
+|-
+| 0x60000F20 || UART1_CONF0
+|-
+| 0x60000F24 || UART1_CONF1
+|-
+| 0x60000F28 || UART1_LOWPULSE
+|-
+| 0x60000F2C || UART1_HIGHPULSE
+|-
+| 0x60000F30 || UART1_PULSE_NUM
+|-
+| 0x60000F78 || UART1_DATE
+|-
+| 0x60000F7C || UART1_ID
+|-
+|}
 
 == Sources ==
 
