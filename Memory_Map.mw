@@ -78,7 +78,7 @@ This is referred to as "DPORT0" in the Espressif header files and linker scripts
 
 This region appears to contain memory-mapped IO registers for interacting with the WiFi MAC module and related functions (which appear to be collectively referred to as "wdev" in the SDK)
 
-See also: [[Memory_Regions_(IoT_RTOS_SDK_0.9.9)#wdev]]
+See also: [[Memory Accesses (IoT RTOS SDK 0.9.9)#wdev]]
 
 == <span id="unk_1">Unknown Region 1 (0x3FFC0000 - 0x3FFDFFFF)</span> ==
 
