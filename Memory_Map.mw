@@ -790,7 +790,7 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 |-
 |}
 
-== Sources ==
+== Sources/References ==
 
 * [http://www.esp8266.com/viewtopic.php?f=5&t=9&start=30#p274 Forum post Memory Layout, p274]
 * [http://www.esp8266.com/viewtopic.php?f=6&t=39&start=10#p263 Forum post Firmware Dump, p263]
@@ -799,3 +799,6 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 * lx106-rc-2010.1/xtensa-elf/lib/xt2000-rt/memmap.xmm
 * esp_iot_sdk_v0.9.3/examples/IoT_Demo/ssl/app/espconn_ssl.c
 * [https://github.com/metalheart/esp8266/tree/master/ld ESP SDK linker scripts]
+
+=== References ===
+<references/>
