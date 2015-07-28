@@ -1,8 +1,4 @@
 = General Info =
 
-* [[Watchdog Timer]]
 * [[Memory Map]]
-
-= See Also =
-
-* [[Memory Regions (IoT RTOS SDK 0.9.9)]]
+* [[Watchdog Timer]]
