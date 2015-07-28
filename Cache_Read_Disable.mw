@@ -5,7 +5,7 @@
 <code>void Cache_Read_Disable(void)</code>
 
 = Location =
-'''Cache_Read_Disable''' is defined in the OTP ROM at memory address 0x400047f0
+'''Cache_Read_Disable''' is defined in the [[Boot ROM]] at memory address 0x400047f0
 
 = Description =
 
