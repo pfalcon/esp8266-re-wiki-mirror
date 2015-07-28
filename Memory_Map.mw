@@ -134,7 +134,9 @@ Instruction RAM/FLASH cache ram. OTA bootloader uses it.  Apparently mapped as t
 * 0x40108000 - 0x4010BFFF: Mapped if bit 4 (bit mask 0x10) is clear in the dport0 register 0x3ff00024
 * 0x4010C000 - 0x4010FFFF: Mapped if bit 3 (bit mask 0x8) is clear in the dport0 register 0x3ff00024
 
-{{todo|Is this related to the SPI Flash cache?  Why is it possible to unmap it?}}
+{{question|How is this related to the SPI Flash cache?  Why is it possible to unmap it?}}
+{{hypothesis|This may be the same physical RAM as is used for the SPI Flash cache, and these bits just switch it between being used for cache vs. for general-purpose IRAM.  If so, this implies it may be possible to pick between using 16 KB vs 32 KB cache size (and use the rest for IRAM)}}
+{{question|Assuming the above, does this have anything to do with the mysterious third parameter to [[cache_read_enable]]?}}
 
 == <span id="unk_2">Unknown Region 2 (0x40110000 - 0x40140000)</span> ==
 
