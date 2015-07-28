@@ -136,7 +136,7 @@ Instruction RAM/FLASH cache ram. OTA bootloader uses it.  Apparently mapped as t
 
 {{question|How is this related to the SPI Flash cache?  Why is it possible to unmap it?}}
 {{hypothesis|This may be the same physical RAM as is used for the SPI Flash cache, and these bits just switch it between being used for cache vs. for general-purpose IRAM.  If so, this implies it may be possible to pick between using 16 KB vs 32 KB cache size (and use the rest for IRAM)}}
-{{question|Assuming the above, does this have anything to do with the mysterious third parameter to [[cache_read_enable]]?}}
+{{question|Assuming the above, does this have anything to do with the mysterious third parameter to [[Cache_Read_Enable]]?}}
 
 == <span id="unk_2">Unknown Region 2 (0x40110000 - 0x40140000)</span> ==
 
