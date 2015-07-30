@@ -17,3 +17,9 @@ ScratchABit is intended to be cross-platform, and uses a simple text (vt100/xter
 Xtobjdis is an ELF object file disassembler for the Xtensa ISA.  It is intended primarily for disassembling object (.o) files, such as those contained in the IoT SDK libraries, fully exploiting all symbol, relocation, and compiler annotation information provided (though non-ELF binaries can be converted to work with it as well, with somewhat less information available).
 
 Xtobjdis also provides tools for generating function call graphs from the disassembly as well.
+
+= Miscellaneous =
+
+=== [https://bitbucket.org/foogod/esp8266-re-tools Foogod's ESP8266-RE Tools] ===
+
+A collection of miscellaneous scripts/tools (mostly based on xtobjdis) which have been useful for some of the reverse engineering efforts to date.
