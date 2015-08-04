@@ -556,39 +556,39 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 {| class="wikitable"
 ! Address !! Register Name
 |-
-| 0x60000800 || IOMUX_CONF
+| 0x60000800 || IOMUX_CONF<ref name="pin_mux_register.h">[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/pin_mux_register.h include/espressif/esp8266/pin_mux_register.h]</ref>
 |-
-| 0x60000804 || IOMUX_MTDI
+| 0x60000804 || IOMUX_MTDI<ref name="pin_mux_register.h"/>
 |-
-| 0x60000808 || IOMUX_MTCK
+| 0x60000808 || IOMUX_MTCK<ref name="pin_mux_register.h"/>
 |-
-| 0x6000080C || IOMUX_MTMS
+| 0x6000080C || IOMUX_MTMS<ref name="pin_mux_register.h"/>
 |-
-| 0x60000810 || IOMUX_MTDO
+| 0x60000810 || IOMUX_MTDO<ref name="pin_mux_register.h"/>
 |-
-| 0x60000814 || IOMUX_U0RXD
+| 0x60000814 || IOMUX_U0RXD<ref name="pin_mux_register.h"/>
 |-
-| 0x60000818 || IOMUX_U0TXD
+| 0x60000818 || IOMUX_U0TXD<ref name="pin_mux_register.h"/>
 |-
-| 0x6000081C || IOMUX_SD_CLK
+| 0x6000081C || IOMUX_SD_CLK<ref name="pin_mux_register.h"/>
 |-
-| 0x60000820 || IOMUX_SD_DATA0
+| 0x60000820 || IOMUX_SD_DATA0<ref name="pin_mux_register.h"/>
 |-
-| 0x60000824 || IOMUX_SD_DATA1
+| 0x60000824 || IOMUX_SD_DATA1<ref name="pin_mux_register.h"/>
 |-
-| 0x60000828 || IOMUX_SD_DATA2
+| 0x60000828 || IOMUX_SD_DATA2<ref name="pin_mux_register.h"/>
 |-
-| 0x6000082C || IOMUX_SD_DATA3
+| 0x6000082C || IOMUX_SD_DATA3<ref name="pin_mux_register.h"/>
 |-
-| 0x60000830 || IOMUX_SD_CMD
+| 0x60000830 || IOMUX_SD_CMD<ref name="pin_mux_register.h"/>
 |-
-| 0x60000834 || IOMUX_GPIO0
+| 0x60000834 || IOMUX_GPIO0<ref name="pin_mux_register.h"/>
 |-
-| 0x60000838 || IOMUX_GPIO2
+| 0x60000838 || IOMUX_GPIO2<ref name="pin_mux_register.h"/>
 |-
-| 0x6000083C || IOMUX_GPIO4
+| 0x6000083C || IOMUX_GPIO4<ref name="pin_mux_register.h"/>
 |-
-| 0x60000840 || IOMUX_GPIO5
+| 0x60000840 || IOMUX_GPIO5<ref name="pin_mux_register.h"/>
 |-
 |}
 
