@@ -608,17 +608,17 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 {| class="wikitable"
 ! Address !! Register Name
 |-
-| 0x60000900 || WDT_CTRL
+| 0x60000900 || WDT_CTRL<ref name="pvvx:esp8266.h"/>
 |-
-| 0x60000904 || WDT_REG1
+| 0x60000904 || WDT_REG1<ref name="pvvx:esp8266.h"/>
 |-
-| 0x60000908 || WDT_REG2
+| 0x60000908 || WDT_REG2<ref name="pvvx:esp8266.h"/>
 |-
 | 0x6000090C || ''(unknown)''
 |-
 | 0x60000910 || ''(unknown)''
 |-
-| 0x60000914 || WDT_FEED
+| 0x60000914 || WDT_FEED<ref name="pvvx:esp8266.h"/>
 |-
 |}
 
