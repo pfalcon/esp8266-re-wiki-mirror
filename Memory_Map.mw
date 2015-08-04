@@ -499,53 +499,53 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 |-
 | 0x60000700 || ''(unknown)''
 |-
-| 0x60000704 || RTC_SLP_VAL
+| 0x60000704 || RTC_SLP_VAL<ref name="eagle_soc.h">[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/eagle_soc.h include/espressif/esp8266/eagle_soc.h]</ref>
 |-
 | 0x60000708<br> - 0x60000718 || ''(unknown)''
 |-
-| 0x6000071C || RTC_SLP_CNT_VAL
+| 0x6000071C || RTC_SLP_CNT_VAL<ref name="eagle_soc.h"/>
 |-
-| 0x60000720 || RTC_INT_ST
+| 0x60000720 || RTC_INT_ST<ref name="pvvx:esp8266.h">[https://github.com/pvvx/mp3_decode/blob/master/include/hw/esp8266.h mp3_decode:/include/hw/esp8266.h]</ref>
 |-
-| 0x60000724 || RTC_INT_CLR
+| 0x60000724 || RTC_INT_CLR<ref name="pvvx:esp8266.h"/>
 |-
-| 0x60000728 || RTC_INT_ENA
+| 0x60000728 || RTC_INT_ENA<ref name="pvvx:esp8266.h"/>
 |-
 | 0x6000072C || ''(unknown)''
 |-
-| 0x60000730 || RTC_SCRATCH0
+| 0x60000730 || RTC_SCRATCH0<ref name="eagle_soc.h"/>
 |-
-| 0x60000734 || RTC_SCRATCH1
+| 0x60000734 || RTC_SCRATCH1<ref name="eagle_soc.h"/>
 |-
-| 0x60000738 || RTC_SCRATCH2
+| 0x60000738 || RTC_SCRATCH2<ref name="eagle_soc.h"/>
 |-
-| 0x6000073C || RTC_SCRATCH3
+| 0x6000073C || RTC_SCRATCH3<ref name="eagle_soc.h"/>
 |-
 | 0x60000740<br> - 0x60000764 || ''(unknown)''
 |-
-| 0x60000768 || RTC_GPIO_OUT
+| 0x60000768 || RTC_GPIO_OUT<ref name="eagle_soc.h"/>
 |-
 | 0x6000076C<br> - 0x60000770 || ''(unknown)''
 |-
-| 0x60000774 || RTC_GPIO_ENABLE
+| 0x60000774 || RTC_GPIO_ENABLE<ref name="eagle_soc.h"/>
 |-
 | 0x60000780<br> - 0x60000788 || ''(unknown)''
 |-
-| 0x6000078C || RTC_GPIO_IN_DATA
+| 0x6000078C || RTC_GPIO_IN_DATA<ref name="eagle_soc.h"/>
 |-
-| 0x60000790 || RTC_GPIO_CONF
+| 0x60000790 || RTC_GPIO_CONF<ref name="eagle_soc.h"/>
 |-
-| 0x60000794 || RTC_GPIO0_CFG
+| 0x60000794 || RTC_GPIO0_CFG<ref name="pvvx:esp8266.h"/>
 |-
-| 0x60000798 || RTC_GPIO1_CFG
+| 0x60000798 || RTC_GPIO1_CFG<ref name="pvvx:esp8266.h"/>
 |-
-| 0x6000079C || RTC_GPIO2_CFG
+| 0x6000079C || RTC_GPIO2_CFG<ref name="pvvx:esp8266.h"/>
 |-
-| 0x600007A0 || RTC_GPIO3_CFG / PAD_XPD_DCDC_CONF
+| 0x600007A0 || RTC_GPIO3_CFG<ref name="pvvx:esp8266.h"/> / PAD_XPD_DCDC_CONF<ref name="eagle_soc.h"/>
 |-
-| 0x600007A4 || RTC_GPIO4_CFG
+| 0x600007A4 || RTC_GPIO4_CFG<ref name="pvvx:esp8266.h"/>
 |-
-| 0x600007A8 || RTC_GPIO5_CFG
+| 0x600007A8 || RTC_GPIO5_CFG<ref name="pvvx:esp8266.h"/>
 |-
 | 0x600007AC<br> - 0x600007B4 || ''(unknown)''
 |-
