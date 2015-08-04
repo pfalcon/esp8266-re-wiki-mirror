@@ -2,7 +2,7 @@ __NOTOC__
 This page describes the physical memory layout of the ESP8266 family.
 
 {| class="wikitable"
-! Start Address !! Size !! R/W !! Alignment !! Name / Description
+! Start Address !! Size !! R/W !! Access<br>Width !! Name / Description
 |-
 | 0x00000000 || 0x20000000 || W || 1 || [[#unk_0|Unknown Region 0]]
 |-
