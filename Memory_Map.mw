@@ -158,8 +158,6 @@ For more information on how this is configured, see [[SPI_Flash_Mapping]]
 
 This region contains the interface ports for most of the peripheral devices inside the ESP8266.  Except for the PHY hardware interface at 0x60009824, the ports for each device appear to be mapped in distinct 0x100-byte address blocks, making them easy to identify and distinguish:
 
-{{inprogress|Working on adding source-references for a bunch of the registers and fleshing out the RTC memory region|[[User:Foogod|Foogod]] ([[User talk:Foogod|talk]]) 17:02, 28 July 2015 (EDT)}}
-
 {| class="wikitable"
 ! Base Address !! Size !! Name !! Description
 |-
@@ -204,6 +202,8 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 
 === <span id="uart0_regs">UART0 Registers (0x600000xx)</span> ===
 
+'''See Also:''' [[UART Register Details]]
+
 {| class="wikitable"
 ! Address !! Register Name
 |-
@@ -240,6 +240,8 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 |}
 
 === <span id="spi1_regs">SPI1 Registers (0x600001xx)</span> ===
+
+'''See Also:''' [[SPI Register Details]]
 
 {| class="wikitable"
 ! Address !! Register Name
@@ -320,6 +322,8 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 |-
 |}
 === <span id="spi0_regs">SPI0 Registers (0x600002xx)</span> ===
+
+'''See Also:''' [[SPI Register Details]]
 
 {| class="wikitable"
 ! Address !! Register Name
@@ -402,6 +406,8 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 
 === <span id="gpio_regs">GPIO Registers (0x600003xx)</span> ===
 
+'''See Also:''' [[GPIO Register Details]]
+
 {| class="wikitable"
 ! Address !! Register Name
 |-
@@ -467,6 +473,8 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 
 === <span id="timer_regs">Timer Registers (0x600006xx)</span> ===
 
+'''See Also:''' [[Timer Register Details]]
+
 {| class="wikitable"
 ! Address !! Register Name
 |-
@@ -493,6 +501,8 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 |}
 
 === <span id="rtc_regs">Real Time Clock Registers (0x600007xx)</span> ===
+
+'''See Also:''' [[RTC Register Details]]
 
 {| class="wikitable"
 ! Address !! Register Name
@@ -553,6 +563,8 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 
 === <span id="iomux_regs">IOMUX Registers (0x600008xx)</span> ===
 
+'''See Also:''' [[IOMUX Register Details]]
+
 {| class="wikitable"
 ! Address !! Register Name
 |-
@@ -592,18 +604,9 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 |-
 |}
 
-{{todo|This bit should really be in a separate page about how to access the IOMUX registers}}
-
-<pre>31    24       16        8        0
--------- -ffff--- -------- ud--UDEe
-          `- Function      ||  |||`- Output Enable
-                           ||  ||`- Output Enable during sleep
-                           ||  |`- Pull-down during sleep
-                           ||  `- Pull-up during sleep
-                           |`- Pull-down
-                           `- Pull-up</pre>
-
 === <span id="wdt_regs">Watchdog Timer Registers (0x600009xx)</span> ===
+
+'''See Also:''' [[Watchdog Timer Register Details]]
 
 {| class="wikitable"
 ! Address !! Register Name
@@ -623,6 +626,8 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 |}
 
 === <span id="slc_regs">DMA Control Registers (0x60000Bxx)</span> ===
+
+'''See Also:''' [[DMA Register Details]]
 
 {| class="wikitable"
 ! Address !! Register Name
@@ -727,6 +732,8 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 
 === <span id="i2s_regs">I2S Registers (0x60000Exx)</span> ===
 
+'''See Also:''' [[I2S Register Details]]
+
 {| class="wikitable"
 ! Address !! Register Name
 |-
@@ -757,6 +764,8 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 |}
 
 === <span id="uart1_regs">UART1 Registers (0x60000Fxx)</span> ===
+
+'''See Also:''' [[UART Register Details]]
 
 {| class="wikitable"
 ! Address !! Register Name
