@@ -730,7 +730,7 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 {| class="wikitable"
 ! Address !! Register Name
 |-
-| 0x60000E00 || I2S_TXFIFO<ref name="i2s_register.h">[https://github.com/espressif/esp8266_mp3_decoder/blob/master/mp3/include/i2s_register.h esp8266_mp3_decoder:mp3/include/i2s_register.h]</ref>
+| 0x60000E00 || I2S_TXFIFO<ref name="i2s_register.h">[https://github.com/espressif/esp8266_mp3_decoder/blob/master/mp3/include/i2s_reg.h esp8266_mp3_decoder:mp3/include/i2s_reg.h]</ref>
 |-
 | 0x60000E04 || I2S_RXFIFO<ref name="i2s_register.h"/>
 |-
