@@ -207,35 +207,35 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 {| class="wikitable"
 ! Address !! Register Name
 |-
-| 0x60000000 || UART0_FIFO
+| 0x60000000 || UART0_FIFO<ref name="uart_register.h">[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/uart_register.h include/espressif/esp8266/uart_register.h]</ref>
 |-
-| 0x60000004 || UART0_INT_RAW
+| 0x60000004 || UART0_INT_RAW<ref name="uart_register.h"/>
 |-
-| 0x60000008 || UART0_INT_ST
+| 0x60000008 || UART0_INT_ST<ref name="uart_register.h"/>
 |-
-| 0x6000000C || UART0_INT_ENA
+| 0x6000000C || UART0_INT_ENA<ref name="uart_register.h"/>
 |-
-| 0x60000010 || UART0_INT_CLR
+| 0x60000010 || UART0_INT_CLR<ref name="uart_register.h"/>
 |-
-| 0x60000014 || UART0_CLKDIV
+| 0x60000014 || UART0_CLKDIV<ref name="uart_register.h"/>
 |-
-| 0x60000018 || UART0_AUTOBAUD
+| 0x60000018 || UART0_AUTOBAUD<ref name="uart_register.h"/>
 |-
-| 0x6000001C || UART0_STATUS
+| 0x6000001C || UART0_STATUS<ref name="uart_register.h"/>
 |-
-| 0x60000020 || UART0_CONF0
+| 0x60000020 || UART0_CONF0<ref name="uart_register.h"/>
 |-
-| 0x60000024 || UART0_CONF1
+| 0x60000024 || UART0_CONF1<ref name="uart_register.h"/>
 |-
-| 0x60000028 || UART0_LOWPULSE
+| 0x60000028 || UART0_LOWPULSE<ref name="uart_register.h"/>
 |-
-| 0x6000002C || UART0_HIGHPULSE
+| 0x6000002C || UART0_HIGHPULSE<ref name="uart_register.h"/>
 |-
-| 0x60000030 || UART0_PULSE_NUM
+| 0x60000030 || UART0_PULSE_NUM<ref name="uart_register.h"/>
 |-
-| 0x60000078 || UART0_DATE
+| 0x60000078 || UART0_DATE<ref name="uart_register.h"/>
 |-
-| 0x6000007C || UART0_ID
+| 0x6000007C || UART0_ID<ref name="uart_register.h"/>
 |-
 |}
 
@@ -244,69 +244,69 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 {| class="wikitable"
 ! Address !! Register Name
 |-
-| 0x60000100 || SPI1_CMD
+| 0x60000100 || SPI1_CMD<ref name="spi_register.h">[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/spi_register.h include/espressif/esp8266/spi_register.h]</ref>
 |-
-| 0x60000104 || SPI1_ADDR
+| 0x60000104 || SPI1_ADDR<ref name="spi_register.h"/>
 |-
-| 0x60000108 || SPI1_CTRL
+| 0x60000108 || SPI1_CTRL<ref name="spi_register.h"/>
 |-
 | 0x6000010C || SPI1_CTRL1
 |-
-| 0x60000110 || SPI1_RD_STATUS
+| 0x60000110 || SPI1_RD_STATUS<ref name="spi_register.h"/>
 |-
-| 0x60000114 || SPI1_CTRL2
+| 0x60000114 || SPI1_CTRL2<ref name="spi_register.h"/>
 |-
-| 0x60000118 || SPI1_CLOCK
+| 0x60000118 || SPI1_CLOCK<ref name="spi_register.h"/>
 |-
-| 0x6000011C || SPI1_USER
+| 0x6000011C || SPI1_USER<ref name="spi_register.h"/>
 |-
-| 0x60000120 || SPI1_USER1
+| 0x60000120 || SPI1_USER1<ref name="spi_register.h"/>
 |-
-| 0x60000124 || SPI1_USER2
+| 0x60000124 || SPI1_USER2<ref name="spi_register.h"/>
 |-
-| 0x60000128 || SPI1_WR_STATUS
+| 0x60000128 || SPI1_WR_STATUS<ref name="spi_register.h"/>
 |-
-| 0x6000012C || SPI1_PIN
+| 0x6000012C || SPI1_PIN<ref name="spi_register.h"/>
 |-
-| 0x60000130 || SPI1_SLAVE
+| 0x60000130 || SPI1_SLAVE<ref name="spi_register.h"/>
 |-
-| 0x60000134 || SPI1_SLAVE1
+| 0x60000134 || SPI1_SLAVE1<ref name="spi_register.h"/>
 |-
-| 0x60000138 || SPI1_SLAVE2
+| 0x60000138 || SPI1_SLAVE2<ref name="spi_register.h"/>
 |-
-| 0x6000013C || SPI1_SLAVE3
+| 0x6000013C || SPI1_SLAVE3<ref name="spi_register.h"/>
 |-
-| 0x60000140 || SPI1_W0
+| 0x60000140 || SPI1_W0<ref name="spi_register.h"/>
 |-
-| 0x60000144 || SPI1_W1
+| 0x60000144 || SPI1_W1<ref name="spi_register.h"/>
 |-
-| 0x60000148 || SPI1_W2
+| 0x60000148 || SPI1_W2<ref name="spi_register.h"/>
 |-
-| 0x6000014C || SPI1_W3
+| 0x6000014C || SPI1_W3<ref name="spi_register.h"/>
 |-
-| 0x60000150 || SPI1_W4
+| 0x60000150 || SPI1_W4<ref name="spi_register.h"/>
 |-
-| 0x60000154 || SPI1_W5
+| 0x60000154 || SPI1_W5<ref name="spi_register.h"/>
 |-
-| 0x60000158 || SPI1_W6
+| 0x60000158 || SPI1_W6<ref name="spi_register.h"/>
 |-
-| 0x6000015C || SPI1_W7
+| 0x6000015C || SPI1_W7<ref name="spi_register.h"/>
 |-
-| 0x60000160 || SPI1_W8
+| 0x60000160 || SPI1_W8<ref name="spi_register.h"/>
 |-
-| 0x60000164 || SPI1_W9
+| 0x60000164 || SPI1_W9<ref name="spi_register.h"/>
 |-
-| 0x60000168 || SPI1_W10
+| 0x60000168 || SPI1_W10<ref name="spi_register.h"/>
 |-
-| 0x6000016C || SPI1_W11
+| 0x6000016C || SPI1_W11<ref name="spi_register.h"/>
 |-
-| 0x60000170 || SPI1_W12
+| 0x60000170 || SPI1_W12<ref name="spi_register.h"/>
 |-
-| 0x60000174 || SPI1_W13
+| 0x60000174 || SPI1_W13<ref name="spi_register.h"/>
 |-
-| 0x60000178 || SPI1_W14
+| 0x60000178 || SPI1_W14<ref name="spi_register.h"/>
 |-
-| 0x6000017C || SPI1_W15
+| 0x6000017C || SPI1_W15<ref name="spi_register.h"/>
 |-
 | 0x60000180<br> - 0x600001EC || ''(unknown)''
 |-
@@ -316,78 +316,77 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 |-
 | 0x600001F8 || SPI1_EXT2
 |-
-| 0x600001FC || SPI1_EXT3
+| 0x600001FC || SPI1_EXT3<ref name="spi_register.h"/>
 |-
 |}
-
 === <span id="spi0_regs">SPI0 Registers (0x600002xx)</span> ===
 
 {| class="wikitable"
 ! Address !! Register Name
 |-
-| 0x60000200 || SPI0_CMD
+| 0x60000200 || SPI0_CMD<ref name="spi_register.h"/>
 |-
-| 0x60000204 || SPI0_ADDR
+| 0x60000204 || SPI0_ADDR<ref name="spi_register.h"/>
 |-
-| 0x60000208 || SPI0_CTRL
+| 0x60000208 || SPI0_CTRL<ref name="spi_register.h"/>
 |-
 | 0x6000020C || SPI0_CTRL1
 |-
-| 0x60000210 || SPI0_RD_STATUS
+| 0x60000210 || SPI0_RD_STATUS<ref name="spi_register.h"/>
 |-
-| 0x60000214 || SPI0_CTRL2
+| 0x60000214 || SPI0_CTRL2<ref name="spi_register.h"/>
 |-
-| 0x60000218 || SPI0_CLOCK
+| 0x60000218 || SPI0_CLOCK<ref name="spi_register.h"/>
 |-
-| 0x6000021C || SPI0_USER
+| 0x6000021C || SPI0_USER<ref name="spi_register.h"/>
 |-
-| 0x60000220 || SPI0_USER1
+| 0x60000220 || SPI0_USER1<ref name="spi_register.h"/>
 |-
-| 0x60000224 || SPI0_USER2
+| 0x60000224 || SPI0_USER2<ref name="spi_register.h"/>
 |-
-| 0x60000228 || SPI0_WR_STATUS
+| 0x60000228 || SPI0_WR_STATUS<ref name="spi_register.h"/>
 |-
-| 0x6000022C || SPI0_PIN
+| 0x6000022C || SPI0_PIN<ref name="spi_register.h"/>
 |-
-| 0x60000230 || SPI0_SLAVE
+| 0x60000230 || SPI0_SLAVE<ref name="spi_register.h"/>
 |-
-| 0x60000234 || SPI0_SLAVE1
+| 0x60000234 || SPI0_SLAVE1<ref name="spi_register.h"/>
 |-
-| 0x60000238 || SPI0_SLAVE2
+| 0x60000238 || SPI0_SLAVE2<ref name="spi_register.h"/>
 |-
-| 0x6000023C || SPI0_SLAVE3
+| 0x6000023C || SPI0_SLAVE3<ref name="spi_register.h"/>
 |-
-| 0x60000240 || SPI0_W0
+| 0x60000240 || SPI0_W0<ref name="spi_register.h"/>
 |-
-| 0x60000244 || SPI0_W1
+| 0x60000244 || SPI0_W1<ref name="spi_register.h"/>
 |-
-| 0x60000248 || SPI0_W2
+| 0x60000248 || SPI0_W2<ref name="spi_register.h"/>
 |-
-| 0x6000024C || SPI0_W3
+| 0x6000024C || SPI0_W3<ref name="spi_register.h"/>
 |-
-| 0x60000250 || SPI0_W4
+| 0x60000250 || SPI0_W4<ref name="spi_register.h"/>
 |-
-| 0x60000254 || SPI0_W5
+| 0x60000254 || SPI0_W5<ref name="spi_register.h"/>
 |-
-| 0x60000258 || SPI0_W6
+| 0x60000258 || SPI0_W6<ref name="spi_register.h"/>
 |-
-| 0x6000025C || SPI0_W7
+| 0x6000025C || SPI0_W7<ref name="spi_register.h"/>
 |-
-| 0x60000260 || SPI0_W8
+| 0x60000260 || SPI0_W8<ref name="spi_register.h"/>
 |-
-| 0x60000264 || SPI0_W9
+| 0x60000264 || SPI0_W9<ref name="spi_register.h"/>
 |-
-| 0x60000268 || SPI0_W10
+| 0x60000268 || SPI0_W10<ref name="spi_register.h"/>
 |-
-| 0x6000026C || SPI0_W11
+| 0x6000026C || SPI0_W11<ref name="spi_register.h"/>
 |-
-| 0x60000270 || SPI0_W12
+| 0x60000270 || SPI0_W12<ref name="spi_register.h"/>
 |-
-| 0x60000274 || SPI0_W13
+| 0x60000274 || SPI0_W13<ref name="spi_register.h"/>
 |-
-| 0x60000278 || SPI0_W14
+| 0x60000278 || SPI0_W14<ref name="spi_register.h"/>
 |-
-| 0x6000027C || SPI0_W15
+| 0x6000027C || SPI0_W15<ref name="spi_register.h"/>
 |-
 | 0x60000280<br> - 0x600002EC || ''(unknown)''
 |-
@@ -397,7 +396,7 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 |-
 | 0x600002F8 || SPI0_EXT2
 |-
-| 0x600002FC || SPI0_EXT3
+| 0x600002FC || SPI0_EXT3<ref name="spi_register.h"/>
 |-
 |}
 
@@ -406,63 +405,63 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 {| class="wikitable"
 ! Address !! Register Name
 |-
-| 0x60000300 || GPIO_OUT
+| 0x60000300 || GPIO_OUT<ref name="gpio_register.h">[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/gpio_register.h include/espressif/esp8266/gpio_register.h]</ref>
 |-
-| 0x60000304 || GPIO_OUT_W1TS
+| 0x60000304 || GPIO_OUT_W1TS<ref name="gpio_register.h"/>
 |-
-| 0x60000308 || GPIO_OUT_W1TC
+| 0x60000308 || GPIO_OUT_W1TC<ref name="gpio_register.h"/>
 |-
-| 0x6000030C || GPIO_ENABLE
+| 0x6000030C || GPIO_ENABLE<ref name="gpio_register.h"/>
 |-
-| 0x60000310 || GPIO_ENABLE_W1TS
+| 0x60000310 || GPIO_ENABLE_W1TS<ref name="gpio_register.h"/>
 |-
-| 0x60000314 || GPIO_ENABLE_W1TC
+| 0x60000314 || GPIO_ENABLE_W1TC<ref name="gpio_register.h"/>
 |-
-| 0x60000318 || GPIO_IN
+| 0x60000318 || GPIO_IN<ref name="gpio_register.h"/>
 |-
-| 0x6000031C || GPIO_STATUS
+| 0x6000031C || GPIO_STATUS<ref name="gpio_register.h"/>
 |-
-| 0x60000320 || GPIO_STATUS_W1TS
+| 0x60000320 || GPIO_STATUS_W1TS<ref name="gpio_register.h"/>
 |-
-| 0x60000324 || GPIO_STATUS_W1TC
+| 0x60000324 || GPIO_STATUS_W1TC<ref name="gpio_register.h"/>
 |-
-| 0x60000328 || GPIO_PIN0
+| 0x60000328 || GPIO_PIN0<ref name="gpio_register.h"/>
 |-
-| 0x6000032C || GPIO_PIN1
+| 0x6000032C || GPIO_PIN1<ref name="gpio_register.h"/>
 |-
-| 0x60000330 || GPIO_PIN2
+| 0x60000330 || GPIO_PIN2<ref name="gpio_register.h"/>
 |-
-| 0x60000334 || GPIO_PIN3
+| 0x60000334 || GPIO_PIN3<ref name="gpio_register.h"/>
 |-
-| 0x60000338 || GPIO_PIN4
+| 0x60000338 || GPIO_PIN4<ref name="gpio_register.h"/>
 |-
-| 0x6000033C || GPIO_PIN5
+| 0x6000033C || GPIO_PIN5<ref name="gpio_register.h"/>
 |-
-| 0x60000340 || GPIO_PIN6
+| 0x60000340 || GPIO_PIN6<ref name="gpio_register.h"/>
 |-
-| 0x60000344 || GPIO_PIN7
+| 0x60000344 || GPIO_PIN7<ref name="gpio_register.h"/>
 |-
-| 0x60000348 || GPIO_PIN8
+| 0x60000348 || GPIO_PIN8<ref name="gpio_register.h"/>
 |-
-| 0x6000034C || GPIO_PIN9
+| 0x6000034C || GPIO_PIN9<ref name="gpio_register.h"/>
 |-
-| 0x60000350 || GPIO_PIN10
+| 0x60000350 || GPIO_PIN10<ref name="gpio_register.h"/>
 |-
-| 0x60000354 || GPIO_PIN11
+| 0x60000354 || GPIO_PIN11<ref name="gpio_register.h"/>
 |-
-| 0x60000358 || GPIO_PIN12
+| 0x60000358 || GPIO_PIN12<ref name="gpio_register.h"/>
 |-
-| 0x6000035C || GPIO_PIN13
+| 0x6000035C || GPIO_PIN13<ref name="gpio_register.h"/>
 |-
-| 0x60000360 || GPIO_PIN14
+| 0x60000360 || GPIO_PIN14<ref name="gpio_register.h"/>
 |-
-| 0x60000364 || GPIO_PIN15
+| 0x60000364 || GPIO_PIN15<ref name="gpio_register.h"/>
 |-
-| 0x60000368 || GPIO_SIGMA_DELTA
+| 0x60000368 || GPIO_SIGMA_DELTA<ref name="gpio_register.h"/>
 |-
-| 0x6000036C || GPIO_RTC_CALIB_SYNC
+| 0x6000036C || GPIO_RTC_CALIB_SYNC<ref name="gpio_register.h"/>
 |-
-| 0x60000370 || GPIO_RTC_CALIB_VALUE
+| 0x60000370 || GPIO_RTC_CALIB_VALUE<ref name="gpio_register.h"/>
 |-
 |}
 
@@ -762,35 +761,35 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 {| class="wikitable"
 ! Address !! Register Name
 |-
-| 0x60000F00 || UART1_FIFO
+| 0x60000F00 || UART1_FIFO<ref name="uart_register.h"/>
 |-
-| 0x60000F04 || UART1_INT_RAW
+| 0x60000F04 || UART1_INT_RAW<ref name="uart_register.h"/>
 |-
-| 0x60000F08 || UART1_INT_ST
+| 0x60000F08 || UART1_INT_ST<ref name="uart_register.h"/>
 |-
-| 0x60000F0C || UART1_INT_ENA
+| 0x60000F0C || UART1_INT_ENA<ref name="uart_register.h"/>
 |-
-| 0x60000F10 || UART1_INT_CLR
+| 0x60000F10 || UART1_INT_CLR<ref name="uart_register.h"/>
 |-
-| 0x60000F14 || UART1_CLKDIV
+| 0x60000F14 || UART1_CLKDIV<ref name="uart_register.h"/>
 |-
-| 0x60000F18 || UART1_AUTOBAUD
+| 0x60000F18 || UART1_AUTOBAUD<ref name="uart_register.h"/>
 |-
-| 0x60000F1C || UART1_STATUS
+| 0x60000F1C || UART1_STATUS<ref name="uart_register.h"/>
 |-
-| 0x60000F20 || UART1_CONF0
+| 0x60000F20 || UART1_CONF0<ref name="uart_register.h"/>
 |-
-| 0x60000F24 || UART1_CONF1
+| 0x60000F24 || UART1_CONF1<ref name="uart_register.h"/>
 |-
-| 0x60000F28 || UART1_LOWPULSE
+| 0x60000F28 || UART1_LOWPULSE<ref name="uart_register.h"/>
 |-
-| 0x60000F2C || UART1_HIGHPULSE
+| 0x60000F2C || UART1_HIGHPULSE<ref name="uart_register.h"/>
 |-
-| 0x60000F30 || UART1_PULSE_NUM
+| 0x60000F30 || UART1_PULSE_NUM<ref name="uart_register.h"/>
 |-
-| 0x60000F78 || UART1_DATE
+| 0x60000F78 || UART1_DATE<ref name="uart_register.h"/>
 |-
-| 0x60000F7C || UART1_ID
+| 0x60000F7C || UART1_ID<ref name="uart_register.h"/>
 |-
 |}
 
