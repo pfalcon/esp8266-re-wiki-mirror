@@ -470,25 +470,25 @@ It is unclear whether anything is mapped in this region beyond 0x60009d74.  Noth
 {| class="wikitable"
 ! Address !! Register Name
 |-
-| 0x60000600 || TIMER_FRC1_LOAD
+| 0x60000600 || TIMER_FRC1_LOAD<ref name="timer_register.h">[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/timer_register.h include/espressif/esp8266/timer_register.h]</ref>
 |-
-| 0x60000604 || TIMER_FRC1_COUNT
+| 0x60000604 || TIMER_FRC1_COUNT<ref name="timer_register.h"/>
 |-
-| 0x60000608 || TIMER_FRC1_CTRL
+| 0x60000608 || TIMER_FRC1_CTRL<ref name="timer_register.h"/>
 |-
-| 0x6000060C || TIMER_FRC1_INT
+| 0x6000060C || TIMER_FRC1_INT<ref name="timer_register.h"/>
 |-
 | 0x60000610<br> - 0x6000061F || ''(unknown)''
 |-
-| 0x60000620 || TIMER_FRC2_LOAD
+| 0x60000620 || TIMER_FRC2_LOAD<ref name="timer_register.h"/>
 |-
-| 0x60000624 || TIMER_FRC2_COUNT
+| 0x60000624 || TIMER_FRC2_COUNT<ref name="timer_register.h"/>
 |-
-| 0x60000628 || TIMER_FRC2_CTRL
+| 0x60000628 || TIMER_FRC2_CTRL<ref name="timer_register.h"/>
 |-
-| 0x6000062C || TIMER_FRC2_INT
+| 0x6000062C || TIMER_FRC2_INT<ref name="timer_register.h"/>
 |-
-| 0x60000630 || TIMER_FRC2_ALARM
+| 0x60000630 || TIMER_FRC2_ALARM<ref name="timer_register.h"/>
 |-
 |}
 
