@@ -1,0 +1,10 @@
+{{todo|Flesh this page out with more details from pin_mux_register.h}}
+
+<pre>31    24       16        8        0
+-------- -ffff--- -------- ud--UDEe
+          `- Function      ||  |||`- Output Enable
+                           ||  ||`- Output Enable during sleep
+                           ||  |`- Pull-down during sleep
+                           ||  `- Pull-up during sleep
+                           |`- Pull-down
+                           `- Pull-up</pre>
