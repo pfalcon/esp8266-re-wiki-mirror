@@ -2,7 +2,7 @@ This page contains a reference for all memory locations which are referenced in 
 
 '''Note:''' The initial data for this table came from static analysis of disassembly outputs looking for absolute address accesses, and thus may have missed some cases involving computed addresses, etc.  Additional cases will be added as they're found.. -- [[User:Foogod|Foogod]] ([[User talk:Foogod|talk]]) 12:58, 3 July 2015 (EDT)
 
-= Low Memory (0x00000000 - 0x00000001) =
+= <span id="unk_0">Low Memory (0x00000000 - 0x00000001)</span> =
 
 {| class="wikitable"
 ! Address !! Size !! Name !! Access !! Referenced by !! Notes
