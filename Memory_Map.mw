@@ -4,7 +4,7 @@ This page describes the physical memory layout of the ESP8266 family.
 {| class="wikitable"
 ! Start Address !! Size !! R/W !! Access<br>Width !! Name / Description
 |-
-| 0x00000000 || 0x20000000 || W || 1 || [[#unk_0|Unknown Region 0]]
+| 0x00000000 || 0x20000000 || W || 1 || [[#prot|Protected Region]]
 |-
 | 0x20000000 || 0x1FF00000 || - || || Apparently unmapped (reads as 00 80 00 00)
 |-
