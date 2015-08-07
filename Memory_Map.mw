@@ -45,11 +45,13 @@ This page describes the physical memory layout of the ESP8266 family.
 
 '''Note:''' The reset vector is 0x40000080, which is (predictably) located within the [[#bootrom|Boot ROM]] region.
 
-== <span id="unk_0">Unknown Region 0 (0x00000000 - 0x1FFFFFFF)</span> ==
+== <span id="prot">Protected Region (0x00000000 - 0x1FFFFFFF)</span> ==
 
 This region is normally protected against both reads and writes using Xtensa's Region Protection Option.
 
 One bit of the SDK apparently also does do byte-writes to addresses 0x00000000 and 0x00000001 (see [[Memory Accesses (IoT RTOS SDK 0.9.9)#unk_0]]).
+
+{{hypothesis|This region may be set protected just to guard against uncaught null-pointer accesses in user code.  The two accesses in [[ieee80211_output.irom0.text+0x6dc (IoT RTOS SDK 0.9.9)]] may actually just be a code bug or an unused code path.}}
 
 == <span id="dport0">Dport0 Region (0x3FF00000 - 0x3FF0FFFF)</span> ==
 
