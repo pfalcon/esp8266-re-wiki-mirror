@@ -47,7 +47,11 @@ This page describes the physical memory layout of the ESP8266 family.
 
 == <span id="unk_0">Unknown Region 0 (0x00000000 - 0x1FFFFFFF)</span> ==
 
-Causes fault when reading.  Portions of the SDK apparently do byte-writes to addresses 0x00000000 and 0x00000001, however.  May be a write-only MMIO region of some kind.
+This region is normally protected against both reads and writes using Xtensa's Region Protection Option.
+
+The Boot ROM writes 0x00000000 to address 0x00000000 very early after reset, but does not otherwise appear to access this region.
+
+One bit of the SDK apparently also does do byte-writes to addresses 0x00000000 and 0x00000001 (see [[Memory Accesses (IoT RTOS SDK 0.9.9)#unk_0]]).
 
 == <span id="dport0">Dport0 Region (0x3FF00000 - 0x3FF0FFFF)</span> ==
 
