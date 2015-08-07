@@ -9,11 +9,11 @@ This page contains a reference for all memory locations which are referenced in 
 |-
 | 0x00000000 || 1 || || W ||
 [[ieee80211_output.irom0.text+0x6dc (IoT RTOS SDK 0.9.9)|ieee80211_output.irom0.text+0x6dc]]<br>
-| (apparently write-only)
+| (normally read/write protected region)
 |-
 | 0x00000001 || 1 || || W ||
 [[ieee80211_output.irom0.text+0x6dc (IoT RTOS SDK 0.9.9)|ieee80211_output.irom0.text+0x6dc]]<br>
-| (apparently write-only)
+| (normally read/write protected region)
 |-
 |}
 
