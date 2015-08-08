@@ -2,45 +2,47 @@ __NOTOC__
 This page describes the physical memory layout of the ESP8266 family.
 
 {| class="wikitable"
-! Start Address !! Size !! R/W !! Access<br>Width !! Name / Description
+! Start Address !! Size !! R/W !! Access Width<br>(bits) !! Name / Description
 |-
-| 0x00000000 || 0x20000000 || W || 1 || [[#prot|Protected Region]]
+| 0x00000000 || 0x20000000 || N/A || N/A || [[#prot|Protected Region]]
 |-
-| 0x20000000 || 0x1FF00000 || - || || Apparently unmapped (reads as 00 80 00 00)
+| 0x20000000 || 0x1FF00000 || R   || 8/16/32|| Apparently unmapped (reads as 00 80 00 00)
 |-
-| 0x3FF00000 || 0x10000 || R/W || 4 || [[#dport0|Dport0]]
+| 0x3FF00000 || 0x10000    || R/W || 8/16/32 || [[#dport0|Dport0]]
 |-
-| 0x3FF10000 || 0x10000 || - || || Apparently unmapped (reads as 00 00 00 00)
+| 0x3FF10000 || 0x10000    || R   || 8/16/32 || Apparently unmapped (reads as 00 00 00 00)
 |-
-| 0x3FF20000 || 0x10000 || R/W || 4 || [[#wdev|WDev Control Registers]]
+| 0x3FF20000 || 0x10000    || R/W || 8/16/32 || [[#wdev|WDev Control Registers]]
 |-
-| 0x3FF30000 || 0x90000 || - || || Apparently unmapped (reads as 00 00 00 00)
+| 0x3FF30000 || 0x90000    || R   || 8/16/32 || Apparently unmapped (reads as 00 00 00 00)
 |-
-| 0x3FFC0000 || 0x20000 || R? || ? || [[#unk_1|Unknown Region 1]]
+| 0x3FFC0000 || 0x20000    || R?  || 8/16/32 || [[#unk_1|Unknown Region 1]]
 |-
-| 0x3FFE0000 || 0x8000 || - || || Apparently unmapped (reads as 00 00 00 00)
+| 0x3FFE0000 || 0x8000     || R   || 8/16/32 || Apparently unmapped (reads as 00 00 00 00)
 |-
-| 0x3FFE8000 || 0x18000 || R/W || 1 || [[#dram|Data RAM]]
+| 0x3FFE8000 || 0x18000    || R/W || 8/16/32 || [[#dram|Data RAM]]
 |-
-| 0x40000000 || 0x10000 || R || 4 || [[#bootrom|Boot ROM]]
+| 0x40000000 || 0x10000    || R   || 32      || [[#bootrom|Boot ROM]]
 |-
-| 0x40010000 || 0xF0000 || - || || Apparently unmapped (reads as 00 00 00 00)
+| 0x40010000 || 0x10000    || R   || 32      || [[#bootrom|Boot ROM]] (repeated)
 |-
-| 0x40100000 || 0x8000 || R/W || 4 || [[#iram|Instruction RAM]]
+| 0x40020000 || 0xD0000    || R   || 32      || Apparently unmapped (reads as 00 00 00 00)
 |-
-| 0x40108000 || 0x8000 || R/W || 4 || [[#map_iram|Mappable Instruction RAM]]
+| 0x40100000 || 0x8000     || R/W || 32      || [[#iram|Instruction RAM]]
 |-
-| 0x40110000 || 0x30000 || ? || ? || [[#unk_2|Unknown Region 2]]
+| 0x40108000 || 0x8000     || R/W || 32      || [[#map_iram|Mappable Instruction RAM]]
 |-
-| 0x40140000 || 0xC0000 || - || || Apparently unmapped (reads as 59 31 d8 ec)
+| 0x40110000 || 0x30000    || R   || 32      || [[#unk_2|Unknown Region 2]]
 |-
-| 0x40200000 || 0x100000 || R || 4 || [[#flashcache|SPI Flash Cache]]
+| 0x40140000 || 0xC0000    || R   || 32      || Apparently unmapped (reads as 59 31 d8 ec)
 |-
-| 0x40300000 || 0x1FD00000 || - || || Apparently unmapped (reads as 00 80 00 00)
+| 0x40200000 || 0x100000   || R   || 32      || [[#flashcache|SPI Flash Cache]]
 |-
-| 0x60000000 || 0x10000000 || R/W || 4 || [[#mmio|Memory-Mapped IO Ports]]
+| 0x40300000 || 0x1FD00000 || R   || 8/16/32 || Apparently unmapped (reads as 00 80 00 00)
 |-
-| 0x70000000 || 0x90000000 || - || || Apparently unmapped (reads as 00 80 00 00)
+| 0x60000000 || 0x10000000 || R/W || 8/16/32 || [[#mmio|Memory-Mapped IO Ports]]
+|-
+| 0x70000000 || 0x90000000 || R   || 8/16/32 || Apparently unmapped (reads as 00 00 00 00)
 |}
 
 '''Note:''' The reset vector is 0x40000080, which is (predictably) located within the [[#bootrom|Boot ROM]] region.
@@ -88,7 +90,7 @@ See also: [[Memory Accesses (IoT RTOS SDK 0.9.9)#wdev]]
 
 Reading from this region apparently just returns the memory address.  It's unclear whether this is for some purpose or not.
 
-{{Todo|Determine access/alignment requirements}}
+{{Todo|Determine write behavior}}
 
 == <span id="dram">Data RAM (0x3FFE8000 - 0x3FFFFFFF)</span> ==
 
@@ -150,7 +152,7 @@ Instruction RAM/FLASH cache ram. OTA bootloader uses it.  Apparently mapped as t
 
 Zeroes, possibly more IRAM.
 
-{{todo|Determine whether this is in fact RAM, access/alignment requirements, etc}}
+{{todo|Determine whether this is in fact RAM}}
 
 == <span id="flashcache">SPI Flash Cache (0x40200000 - 0x40300000)</span> ==
 
