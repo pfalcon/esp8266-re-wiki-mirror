@@ -171,7 +171,7 @@ This region contains the interface ports for most of the peripheral devices insi
 |-
 | 0x60000300 || 0x74 || gpio || [[#gpio_regs|GPIO Registers]]
 |-
-| 0x60000400 || ? || ? || (Unknown.  No known references to this address range)
+| 0x60000400 || ? || ? || (Reads as zeroes.  No known references to this address range)
 |-
 | 0x60000500 || 0x100 || ? || Apparently related to WiFi radio power control (unclear how this is distinct from other PHY-related registers)
 |-
@@ -187,7 +187,7 @@ This region contains the interface ports for most of the peripheral devices insi
 |-
 | 0x60000B00 || 0xC0 || slc || [[#slc_regs|DMA Control Registers]]
 |-
-| 0x60000C00 || ? || ? || (Unknown.  No known references to this address range)
+| 0x60000C00 || ? || ? || (Reads as zeroes.  No known references to this address range)
 |-
 | 0x60000D00 || 0x5C || sar || Referred to as "sar" by some old header files.  Apparently referenced both by ROM I2C functions as well as ADC config/read functions.
 |-
@@ -199,10 +199,23 @@ This region contains the interface ports for most of the peripheral devices insi
 |-
 | 0x60001100 || 0x300 || rtcmem || RTC semi-persistent memory, see <code>system_rtc_mem_write</code>
 |-
-| 0x60009824 || 0x550 || phy || ''Unconfirmed:'' PHY control registers
+| 0x60001400 || 0x400 || ? || (Same data repeated every 0x100 bytes.  May be unused)
+|-
+| 0x60001800 || 0x400 || ? || Appears to be something here (No known references to this address range)
+|-
+| 0x60001C00 || 0x400 || ? || (Same data repeated every 0x100 bytes.  May be unused)
+|-
+| 0x60002000 || 0x6000 ||  || (Reads from this region cause ESP8266 to lock up)
+|-
+| 0x60008000 || 0x1800 ||  || Apparently unmapped (Reads as AA 55 5A F0)
+|-
+| 0x60009800 || 0x57C || phy || ''Unconfirmed:'' PHY control registers
+|-
+| 0x60009D7C || 0x6284 ||  || Apparently unmapped (Reads as AA 55 5A F0)
+|-
+| 0x60010000 || 0xFFF0000 ||  || (Reads from this region cause ESP8266 to lock up)
+|-
 |}
-
-It is unclear whether anything is mapped in this region beyond 0x60009d74.  Nothing in the SDK appears to reference it (but then the I2S and DMA regions were also previously unreferenced/unknown until the MP3 example code was released, so it's possible there's more here we just don't know about).  Further testing may be required.
 
 === <span id="uart0_regs">UART0 Registers (0x600000xx)</span> ===
 
