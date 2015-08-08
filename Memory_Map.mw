@@ -107,6 +107,8 @@ When using the SDK, this region is further divided up as follows:
 
 Read-only memory containing instruction code programmed into the chip by Espressif which (as far as is known) cannot be reprogrammed.  This ROM contains both the initial boot code and first-stage boot loader, as well as a number of library routines which can be called from the application or SDK to perform basic functions.
 
+'''Note:''' The Boot ROM is 64 KiB and can be found at 0x40000000.  The same 64 KiB Boot ROM image is also mapped to 0x40010000 (but it does not appear that anything references it via that address range).
+
 === Exception Vectors ===
 
 The Xtensa exception vector base address defaults to 0x40000000 (the beginning of the boot ROM). ESP IoT SDK pre-1.1.0 use this as-is, but the RTOS SDK and recent ESP IoT SDK move it to IRAM during initialisation using the WSR.VECBASE instruction (actual addresses can be seen in linker script).  Default addresses are as follows:
