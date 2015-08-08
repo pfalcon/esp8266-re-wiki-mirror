@@ -171,6 +171,8 @@ This region contains the interface ports for most of the peripheral devices insi
 |-
 | 0x60000300 || 0x74 || gpio || [[#gpio_regs|GPIO Registers]]
 |-
+| 0x60000400 || ? || ? || (Unknown.  No known references to this address range)
+|-
 | 0x60000500 || 0x100 || ? || Apparently related to WiFi radio power control (unclear how this is distinct from other PHY-related registers)
 |-
 | 0x60000600 || 0x34 || timer || [[#timer_regs|Timer Registers]]
