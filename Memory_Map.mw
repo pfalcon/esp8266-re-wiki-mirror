@@ -32,7 +32,7 @@ This page describes the physical memory layout of the ESP8266 family.
 |-
 | 0x40108000 || 0x8000     || R/W || 32      || [[#map_iram|Mappable Instruction RAM]]
 |-
-| 0x40110000 || 0x30000    || R   || 32      || [[#unk_2|Unknown Region 2]]
+| 0x40110000 || 0x30000    || R   || 32      || Apparently unmapped (reads as 00 00 00 00)
 |-
 | 0x40140000 || 0xC0000    || R   || 32      || Apparently unmapped (reads as 59 31 d8 ec)
 |-
@@ -147,12 +147,6 @@ Instruction RAM/FLASH cache ram. OTA bootloader uses it.  Apparently mapped as t
 {{question|How is this related to the SPI Flash cache?  Why is it possible to unmap it?}}
 {{hypothesis|This may be the same physical RAM as is used for the SPI Flash cache, and these bits just switch it between being used for cache vs. for general-purpose IRAM.  If so, this implies it may be possible to pick between using 16 KB vs 32 KB cache size (and use the rest for IRAM)}}
 {{question|Assuming the above, does this have anything to do with the mysterious third parameter to [[Cache_Read_Enable]]?}}
-
-== <span id="unk_2">Unknown Region 2 (0x40110000 - 0x40140000)</span> ==
-
-Zeroes, possibly more IRAM.
-
-{{todo|Determine whether this is in fact RAM}}
 
 == <span id="flashcache">SPI Flash Cache (0x40200000 - 0x40300000)</span> ==
 
