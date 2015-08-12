@@ -1,0 +1,24 @@
+= Signature =
+
+<code>void ''set_spi0_divisor''(uint32 divisor)</code>
+
+= Called From =
+
+* [[user_start (IoT RTOS SDK 0.9.9)|user_start]]
+
+= Description =
+
+This (non-exported) function is used by [[user_start (IoT RTOS SDK 0.9.9)|user_start]] to configure the speed parameters needed to talk to the SPI flash chip, based on the speed divisor provided (80 MHz = 1, 40 MHz = 2, etc):
+
+* if ''divisor'' < 2:
+*# Set bit 12 (0x1000) of SPI0_CTRL
+*# Clear bits 0-11 of SPI0_CTRL
+*# Set bit 8 (0x100) of IOMUX_CONF
+* else (''divisor'' >= 2):
+*# Calculate ''ctrl_bits'' from divisor:
+*#* x = ''divisor'' - 1
+*#* y = (''divisor'' / 2) - 1
+*#* ''ctrl_bits'' = x<<8 + y<<4 + x
+*# Clear bit 12 (0x1000) of SPI0_CTRL
+*# Clear bit 8 (0x100) of IOMUX_CONF
+*# Set bits 0-11 of SPI0_CTRL = ''ctrl_bits''
