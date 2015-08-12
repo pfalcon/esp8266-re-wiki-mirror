@@ -1,5 +1,4 @@
 {{todo|Fill in register bit-mapping info from header files}}
-{{todo|Include info from [https://github.com/MetalPhreak/ESP8266_SPI_Driver] and [http://d.av.id.au/blog/]}}
 
 == SPI_CTRL ==
 
@@ -21,9 +20,3 @@ Based on the values being set, it does seem likely that these function similarly
 |}
 
 (NOTE: H/L may be swapped.  None of this has been tested, and is only conjecture at this point)
-
-{{hypothesis|These may be the same or related to the SPI_CLOCK bits, just exposed on a different register as well.  (It would probably be worth seeing if one changes in any way when setting the other/etc)  It's also possible this is some sort of "alternate clock" setting which can be used instead of the normal one in some cases}}
-
-== SPI Bus Sharing ==
-
-See also: [http://bbs.espressif.com/viewtopic.php?t=56 Espressif BBS post demonstrating HSPI Port Overlap mode]
