@@ -1,0 +1,22 @@
+{{todo|Fill in register bit-mapping info from header files}}
+
+== SPI_CTRL ==
+
+Bits 0-12 of SPI_CTRL are not identified in any headers, but are set by [[app_main.text+0xa0  (IoT RTOS SDK 0.9.9)]] for SPI0 on startup.  As these are being set based on the "speed" setting associated with the flash chip, they presumably have to do with setting the speed at which the SPI port runs; however, there are already other documented bits in the SPI_CLOCK register which appear to serve that purpose, so it's unclear what the difference is or why these are being used by that function instead of the other ones.
+
+Based on the values being set, it does seem likely that these function similarly to the SPI_CLKCNT_* fields of the SPI_CLOCK register, specifically:
+
+{| class="wikitable"
+! Bits !! Description
+|-
+| 12 || Disable custom clock division function (all other bits should be zero)
+|-
+| 8-11 || N -- clock is divided into N+1 intervals
+|-
+| 4-7 || H -- interval number on which signal should go high
+|-
+| 0-3 || L -- interval number on which signal should go low
+|-
+|}
+
+(NOTE: H/L may be swapped.  None of this has been tested, and is only conjecture at this point)
