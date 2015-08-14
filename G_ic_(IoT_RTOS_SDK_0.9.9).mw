@@ -54,6 +54,7 @@ The portion from offset 0x1d8 to 0x547 (0x370 bytes) is loaded from SPI flash on
 [[user_init_task (IoT RTOS SDK 0.9.9)|user_init_task]]<br>
 [[user_interface.irom0.text+0xc48 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0xc48]]<br>
 [[user_interface.irom0.text+0xdb4 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0xdb4]]<br>
+[[wifi_mode_set (IoT RTOS SDK 0.9.9)|wifi_mode_set]]<br>
 [[wifi_softap_start (IoT RTOS SDK 0.9.9)|wifi_softap_start]]<br>
 [[wifi_station_connect (IoT RTOS SDK 0.9.9)|wifi_station_connect]]<br>
 [[wifi_station_disconnect (IoT RTOS SDK 0.9.9)|wifi_station_disconnect]]<br>
@@ -85,6 +86,7 @@ The portion from offset 0x1d8 to 0x547 (0x370 bytes) is loaded from SPI flash on
 [[user_interface.irom0.text+0x1b88 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0x1b88]]<br>
 [[user_interface.irom0.text+0xc48 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0xc48]]<br>
 [[user_interface.irom0.text+0xdb4 (IoT RTOS SDK 0.9.9)|user_interface.irom0.text+0xdb4]]<br>
+[[wifi_mode_set (IoT RTOS SDK 0.9.9)|wifi_mode_set]]<br>
 [[wifi_softap_deauth (IoT RTOS SDK 0.9.9)|wifi_softap_deauth]]<br>
 [[wifi_softap_get_station_info (IoT RTOS SDK 0.9.9)|wifi_softap_get_station_info]]<br>
 [[wifi_softap_set_station_info (IoT RTOS SDK 0.9.9)|wifi_softap_set_station_info]]<br>
