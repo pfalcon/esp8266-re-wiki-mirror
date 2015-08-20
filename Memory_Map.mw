@@ -86,7 +86,7 @@ This is referred to as "DPORT0" in the Espressif header files and linker scripts
 |-
 | 0x3FF00028 || HOST_INF_SEL || Allows swapping the pins allocated to certain peripherals
 |-
-| 0x3FF0002c || SLC_TX_DESC_DEBUG<ref name="pvvx:esp8266.h"/> || Apparently related to DMA controller (SLC).  Exact function unknown.
+| 0x3FF0002C || SLC_TX_DESC_DEBUG<ref name="pvvx:esp8266.h"/> || Apparently related to DMA controller (SLC).  Exact function unknown.
 |-
 | 0x3FF00030<br>- 0x3FF0004C || || ''(unknown function)''
 |-
