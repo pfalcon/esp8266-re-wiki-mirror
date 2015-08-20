@@ -70,7 +70,7 @@ This is referred to as "DPORT0" in the Espressif header files and linker scripts
 |-
 | 0x3FF00008 || || ''(unknown function)''
 |-
-| 0x3FF0000C || SPI_READY<ref name="pvvx:esp8266.h"/> || Signals ready/idle indicator.  Also apparently controls SPI memory-mapped caching.
+| 0x3FF0000C || SPI_READY<ref name="pvvx:esp8266.h"/> || SPI ready/idle indicator.  Also apparently controls SPI memory-mapped caching.
 |-
 | 0x3FF00010 || || ''(unknown function)''
 |-
@@ -96,7 +96,7 @@ This is referred to as "DPORT0" in the Espressif header files and linker scripts
 |-
 | 0x3FF00058 || OTP_CHIPID<ref name="pvvx:esp8266.h"/> || OTP Memory (Apparently contains info about chip model/version)
 |-
-| 0x3FF00058 || OTP_MAC3 || OTP Memory (Contains vendor portion (bytes 1-3) of MAC address)
+| 0x3FF0005C || OTP_MAC3 || OTP Memory (Contains vendor portion (bytes 1-3) of MAC address)
 |-
 |}
 
