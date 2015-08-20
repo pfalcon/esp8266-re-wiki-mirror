@@ -62,22 +62,125 @@ Memory-mapped I/O, apparently for functions related to the core Xtensa architect
 This is referred to as "DPORT0" in the Espressif header files and linker scripts, but very little additional information about it is provided.
 
 {| class="wikitable"
-! Address !! Bits !! Description
+! Address !! Register Name !! Description
 |-
-|rowspan=3| 0x3FF0000C || 9 || SPI ready/idle ([https://github.com/esp8266/Arduino/commit/a6e8697a#diff-b6122a2949eb3496b24d600e0b709e77R285 unconfirmed])
+| 0x3FF00000 || || ''(unknown function)''
+|-
+| 0x3FF00004 || INTC_EDGE_EN<ref name="pvvx:esp8266.h">[https://github.com/pvvx/mp3_decode/blob/master/include/hw/esp8266.h mp3_decode:/include/hw/esp8266.h]</ref> || Controls which interrupts are enabled by the Xtensa interrupt controller.
+|-
+| 0x3FF00008 || || ''(unknown function)''
+|-
+| 0x3FF0000C || SPI_READY<ref name="pvvx:esp8266.h"/> || Signals ready/idle indicator.  Also apparently controls SPI memory-mapped caching.
+|-
+| 0x3FF00010 || || ''(unknown function)''
+|-
+| 0x3FF00014 || CLK_PRE_PORT<ref name="pvvx:esp8266.h"/> || System clock prescaler (allows doubling CPU clock frequency)
+|-
+| 0x3FF00018 || ? || Identified as "clock gate watchdog" in some headers.  Exact function unknown.
+|-
+| 0x3FF0001C || || ''(unknown function)''
+|-
+| 0x3FF00020 || SPI_ISR<ref name="pvvx:esp8266.h"/> || Interrupt Status Register for SPI and I2S peripherals
+|-
+| 0x3FF00024 || ? || Controls bank mapping between SPI cache and IRAM
+|-
+| 0x3FF00028 || HOST_INF_SEL || Allows swapping the pins allocated to certain peripherals
+|-
+| 0x3FF0002c || SLC_TX_DESC_DEBUG<ref name="pvvx:esp8266.h"/> || Apparently related to DMA controller (SLC).  Exact function unknown.
+|-
+| 0x3FF00030<br>- 0x3FF0004C || || ''(unknown function)''
+|-
+| 0x3FF00050 || OTP_MAC0<ref name="pvvx:esp8266.h"/> || OTP Memory (Contains byte 6 of MAC address at 0x3FF00053)
+|-
+| 0x3FF00054 || OTP_MAC1<ref name="pvvx:esp8266.h"/> || OTP Memory (Contains bytes 4-5 of MAC address at 0x3FF00055, 0x3FF00054)
+|-
+| 0x3FF00058 || OTP_CHIPID<ref name="pvvx:esp8266.h"/> || OTP Memory (Apparently contains info about chip model/version)
+|-
+| 0x3FF00058 || OTP_MAC3 || OTP Memory (Contains vendor portion (bytes 1-3) of MAC address)
+|-
+|}
+
+=== INTC_EDGE_EN (0x3FF00004) ===
+
+Controls which peripheral interrupts are actually passed through to the CPU by the interrupt controller.
+
+{| class="wikitable"
+! Bits !! Description
+|-
+| 0 || Enable watchdog timer interrupt
+|-
+| 1 || Enable TIMER_FRC1 interrupt
+|-
+| 2 || Enable TIMER_FRC2 interrupt
+|-
+|}
+
+=== SPI_READY (0x3FF0000C) ===
+
+{| class="wikitable"
+! Bits !! Description
+|-
+| 9 || SPI ready/idle ([https://github.com/esp8266/Arduino/commit/a6e8697a#diff-b6122a2949eb3496b24d600e0b709e77R285 unconfirmed])
 |-
 | 16,17,18,24,25 || Set SPI flash mapping offset. see [[Cache_Read_Enable]].
 |-
 | 26 || May enable/disable SPI flash mapping (unconfirmed). See [[Cache_Read_Enable]]/[[Cache_Read_Disable]].
 |-
+|}
 
-| 0x3FF00014 || 0 || When clear CPU runs at 80MHz. When set CPU runs at 160 MHz. Note that you need to call <code>os_update_cpu_frequency(int freq_in_mhz)</code> when changing the bit. Probably to calibrate timers. The UART divisor is not updated automatically, so you also have to call <code>uart_div_modify(uart_no, clock_freq_in_hz / baud_rate_in_baud)</code>.
+=== CLK_PRE_PORT (0x3FF00014) ===
+
+{| class="wikitable"
+! Bits !! Description
 |-
-
-|rowspan=2| 0x3FF00024 || 3 || When clear IRAM is mapped at 40108000h..4010BFFFh. When set that region reads as 0.
+| 0 || When clear CPU runs at 80MHz. When set CPU runs at 160 MHz. Note that you need to call <code>os_update_cpu_frequency(int freq_in_mhz)</code> when changing the bit. Probably to calibrate timers. The UART divisor is not updated automatically, so you also have to call <code>uart_div_modify(uart_no, clock_freq_in_hz / baud_rate_in_baud)</code>.
 |-
-| 4 || When clear IRAM is mapped at 4010C000h..4010FFFFh. When set that region reads as 0.
+|}
 
+=== SPI_ISR (0x3FF00020) ===
+{| class="wikitable"
+! Bits !! Description
+|-
+| 4 || SPI0 interrupt occurred
+|-
+| 7 || SPI1 (HSPI) interrupt occurred
+|-
+| 9 || I2S interrupt occurred
+|-
+|}
+
+=== SPI cache bank control (0x3FF00024) ===
+
+{| class="wikitable"
+! Bits !! Description
+|-
+| 3 || When clear IRAM is mapped at 4010C000h..4010FFFFh. When set that region reads as 0.
+|-
+| 4 || When clear IRAM is mapped at 40108000h..4010BFFFh. When set that region reads as 0.
+|-
+|}
+
+=== HOST_INF_SEL (0x3FF00028) ===
+
+{{todo|All of these are unconfirmed.  Should be easy to double-check most of them.}}
+
+{| class="wikitable"
+! Bits !! Description
+|-
+| 0 || Swap UART0 and UART1
+|-
+| 1 || Swap SPI0 and SPI1
+|-
+| 2 || Swap UART0 pins (RX <-> CTS, TX <-> RTS)
+|-
+| 3 || Swap UART1 pins (RX <-> CTS, TX <-> RTS)
+|-
+| 5 || "hspi is with the higher prior" ''(unclear what this means)''
+|-
+| 6 || SPI0 and SPI1 both share HSPI (SPI1) pins
+|-
+| 7 || SPI0 and SPI1 both share SPI (SPI0) pins
+|-
 |}
 
 == <span id="wdev">Wdev Control Registers (0x3FF20000 - 0x3FF2FFFF)</span> ==
