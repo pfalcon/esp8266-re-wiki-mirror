@@ -20,3 +20,7 @@ Based on the values being set, it does seem likely that these function similarly
 |}
 
 (NOTE: H/L may be swapped.  None of this has been tested, and is only conjecture at this point)
+
+== SPI Bus Sharing ==
+
+See also: [http://bbs.espressif.com/viewtopic.php?t=56 Espressif BBS post demonstrating HSPI Port Overlap mode]
