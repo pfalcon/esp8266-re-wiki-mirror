@@ -160,6 +160,15 @@ Controls which peripheral interrupts are actually passed through to the CPU by t
 |-
 |}
 
+'''Note:''' According to <ref name="pvvx:esp8266.h"/>:
+
+<pre>
+ bit7 16k IRAM base 0x40108000 = SPI cache flash  
+ bit8 16k IRAM base 0x4010C000 = SPI cache flash
+</pre>
+
+{{todo|Confirm which set of bits actually control this, and if possible what the other ones do}}
+
 === HOST_INF_SEL (0x3FF00028) ===
 
 {{todo|All of these are unconfirmed.  Should be easy to double-check most of them.}}
