@@ -412,7 +412,7 @@ The portion from offset 0x1d8 to 0x547 (0x370 bytes) is loaded from SPI flash on
 [[wifi_softap_set_default_ssid (IoT RTOS SDK 0.9.9)|wifi_softap_set_default_ssid]]<br>
 |
 |-
-| 0x290 || 28 ||colspan=4 align=center| ''(apparently unused by SDK)''
+| 0x28d || 31 ||colspan=4 align=center| ''(apparently unused by SDK)''
 |-
 | 0x2ac || 64 || || ||
 [[app_main.irom0.text+0x148 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x148]]
