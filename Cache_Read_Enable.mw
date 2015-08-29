@@ -1,3 +1,4 @@
+{{DISPLAYTITLE:Cache_Read_Enable()}}
 '''Cache_Read_Enable''' (contrary to its somewhat deceptive name) is the function responsible for enabling & configuring memory-mapped access to the SPI flash IROM region (it is unclear whether it also performs other functions as well).
 
 = Prototype =
