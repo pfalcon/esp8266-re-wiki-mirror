@@ -198,6 +198,18 @@ This region appears to contain memory-mapped IO registers for interacting with t
 
 See also: [[Memory Accesses (IoT RTOS SDK 0.9.9)#wdev]]
 
+=== Random generator? (0x3FF20E44) ===
+{| class="wikitable"
+! Bits !! Description
+|-
+| 0-31 || Random value
+|-
+|}
+
+Details of this register are sparse, but it appears to produce a new (high-quality) random value every time it is read.
+
+See [[Random Number Generator]] for more info.
+
 == <span id="unk_1">Unknown Region 1 (0x3FFC0000 - 0x3FFDFFFF)</span> ==
 
 Reading from this region apparently just returns the memory address.  It's unclear whether this is for some purpose or not.
