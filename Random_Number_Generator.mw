@@ -8,6 +8,7 @@ Notes:
 * No bias or skew is apparent.
 * All bits from 0 to 31 appear to have equivalent distribution.
 * No apparent correlations of data, even after repeated cold (power-off) resets. (it appears fully random and different on every start up)
+* Initial tests suggest that writing to this port has no effect.
 
 It is possible that this is, in fact, designed to be a hardware random number generator.  Given its speed and it's apparently perfect (unbiased) distribution, it seems likely that this is not simply a pure hardware entropy source, but may also involve some hardware pseudorandom scrambling of some sort (possibly something along the lines of [http://www.ipcores.com/True_Random_Generator_TRNG_IP_core.htm this cipher-based TRNG core]).  It is therefore unclear how much actual hardware entropy is involved, or whether there is any way to determine this.
 
