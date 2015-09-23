@@ -1,10 +1,14 @@
 
 It appears that the ESP8266 may actually have a high-quality hardware random number source.
 
-It has been discovered that the 32-bit value at 0x3FF20E44 produces a different, apparently random, number every time it is read.
+It has been discovered that the 32-bit value at '''0x3FF20E44''' produces a different, apparently random, number every time it is read. Initial tests of data produced from this suggest that the results are statistically indistinguishable from an unbiased, full-entropy random bit source (data passes the NIST Statistical Test Suite for randomness (FIPS-140-2) as well as TestU01's Rabbit and Alphabit suites with no failures).
 
-Initial tests of data produced from this suggest that the results are statistically indistinguishable from an unbiased, full-entropy random bit source (data passes the NIST Statistical Test Suite for randomness (FIPS-140-2) as well as TestU01's Rabbit and Alphabit suites with no failures).
+Notes:
+* It appears to be capable of producing data as fast as it can be read (which with an 80MHz clock is in the hundreds of millions of bits per second), without any loss in apparent randomness.
+* No bias or skew is apparent.
+* All bits from 0 to 31 appear to have equivalent distribution.
+* No apparent correlations of data, even after repeated cold (power-off) resets. (it appears fully random and different on every start up)
 
-It is possible that this is, in fact, designed to be a hardware random number generator.  It appears to be capable of producing data as fast as it can be read (which with an 80MHz clock is in the hundreds of millions of bits per second), without any loss in apparent randomness.  Given this and it's apparently perfect (unbiased) distribution, it seems likely that this is not simply a pure hardware entropy source, but may also involve some hardware pseudorandom scrambling of some sort.  It is therefore unclear how much actual hardware entropy is involved, but so far no statistical correlations have been found between runs even on first (cold) startup.
+It is possible that this is, in fact, designed to be a hardware random number generator.  Given its speed and it's apparently perfect (unbiased) distribution, it seems likely that this is not simply a pure hardware entropy source, but may also involve some hardware pseudorandom scrambling of some sort (possibly something along the lines of [http://www.ipcores.com/True_Random_Generator_TRNG_IP_core.htm this cipher-based TRNG core]).  It is therefore unclear how much actual hardware entropy is involved, or whether there is any way to determine this.
 
 {{todo|More testing required to determine whether this is in fact random enough to be used for cryptographic purposes, etc}}
