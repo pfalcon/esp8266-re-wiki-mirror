@@ -1,0 +1,28 @@
+ESP8266 has two asynchronous serial UARTs (UART0 & UART1). They have default TX, RX output pins as well as flow control pins, plus the pins can be remapped to an "alternate" set of pins via the IOMUX registers.
+
+UART0 is used by the BootROM serial bootloader, and for outputting BootROM status information. It is also the default UART for Espressif SDK printf(), getchar(), etc.
+
+=Baud Rate Setting=
+
+Baud rate on both UARTs is divided from "APB"[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/eagle_soc.h#L58] peripheral clock.
+
+== Default Baud Rate ===
+
+During normal boot, the BootROM outputs information about the bootloading process at a nominal 74880bps (estimated actual 74927bps, see below).
+
+When control is handed over to the user program loaded from flash, the UART0 divider is 694. 80MHz / 694 == 115273.
+
+During very early startup (nominally before any serial data is output) the Espressif SDK startup changes the divider to 1068. 80MHz / 1068 = 74906.
+
+<blockquote>
+Speculation about what's going on here:
+
+Someone on esp8266.com forums pointed out that 74880 = 115200 * 26 / 40, and ESP8266 datasheet mentions 26MHz and 40MHz crystals (datasheet actually says any crystal in range 26-52MHz).
+
+40MHz * 2 / 694 = 115273
+26MHz * 2 / 694 = 74927
+
+The BootROM may have been designed with 40MHz crystals in mind, then somehow changes the PLL to support a 26MHz crystal. Further deciphering of the BootROM may show how it actually does this (flash configuration sector, automatic detection, or just a hardcoded switch?)
+
+[[User:Projectgus|Projectgus]] ([[User talk:Projectgus|talk]])
+</blockquote>
