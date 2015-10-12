@@ -30,6 +30,6 @@ Open questions:
 
 The serial flashing BootROM "program" allows flash and memory access via the UART. It supports the UART auto-baud feature so the uploading tool can configure any baud rate it likes (1Mbps upload rate is possible with the right hardware).
 
-When the program is done it sends a "flash finish" command which optionally "reboots" and starts the default "normal" BootROM bootloader. This "reboot" process doesn't reset the UART divider, so the bootloader keeps whatever UART divider and baud rate was set earlier.
+When the program is done it sends a "flash finish" command which optionally "reboots" and starts the default "normal" BootROM bootloader. This "reboot" process doesn't reset the UART divider, so the bootloader keeps whatever UART divider and baud rate was set earlier, instead of defaulting to 694.
 
 The serial bootloader appears to run at the same default 2xXTAL APB clock, same as post-reset BootROM bootloader - so for 24MHz & 26MHz crystals it will also change the PLL (and therefore the baud rate) just before it hands off to user code.
