@@ -6,41 +6,29 @@ UART0 is used by the BootROM serial bootloader, and for outputting BootROM statu
 
 Baud rate on both UARTs is divided from "APB"[https://github.com/espressif/esp_iot_rtos_sdk/blob/master/include/espressif/esp8266/eagle_soc.h#L58] peripheral clock.
 
-=== Default Baud Rate ===
+The nominal default baud rate for ESP8266 is 74880bps (the actual baud rates appear to be 74927bps & 74906bps.)
 
-During normal boot, the BootROM outputs information about the bootloading process at a nominal 74880bps (estimated actual 74927bps, see below).
+=== Baud rates during normal program reset ===
 
-When control is handed over to the user program loaded from flash, the UART0 divider is 694. 80MHz / 694 == 115273.
-
-During very early startup (nominally before any serial data is output) the Espressif SDK startup changes the divider to 1068. 80MHz / 1068 = 74906.
-
-<blockquote>
-Speculation about what's going on here:
-
-Someone on esp8266.com forums pointed out that 74880 = 115200 * 26 / 40, and ESP8266 documentation mentions 26MHz and 40MHz crystals (datasheet actually says any crystal in range 26-52MHz).
-
-* 40MHz * 2 / 694 = 115273
-* 26MHz * 2 / 694 = 74927
-
-So the relevant parts of the boot process seems to be something like:
-
-* Device resets with main frequency = double crystal frequency, with 694 UART divider
-**  ie 40MHz XTAL = 80MHz APB & ~115200bps UART
-**  26MHz XTAL = 52MHz APB & ~74900bps UART
-* Most of the bootloader activity happens at APB = 2xXTAL frequency.
-* Towards end, BootROM bootloader detects 26MHz crystal and changes PLL for 80MHz main frequency
+* Device resets with APB frequency = double crystal frequency, and UART divider = 694
+**  So 40MHz XTAL = 80MHz APB & 115273bps UART
+**  Or 26MHz XTAL = 52MHz APB & 74927bps UART
+**  Or 24MHz XTAL = 48MHz APB & 69164bps UART
+**  (Some early versions of datasheet suggest any crystal in range 20-52MHz is supported, later edition hardware manual suggests these 3 discrete values only[[http://www.esp8266.com/viewtopic.php?p=18544#p18544]].)
+* Most of the bootloader activity (running from ROM, setting up hardware and loading sections from flash) happens at this APB frequency & UART speed.
+* Towards end, BootROM bootloader loads crystal frequency from flash config sector[[http://bbs.espressif.com/viewtopic.php?t=831]] and sets PLL for an 80MHz APB frequency
 * BootROM calls into user entry point loaded from flash.
-* BootROM bootloader hasn't changed UART divider from 694 (meaning brief period at ~115200bps), but default SDK behaviour changes it to 1068 for consistency (~74900bps)
+* BootROM bootloader hasn't changed UART divider from 694 (meaning brief period of guaranteed ~115200bps regardless of crystal), but default SDK behaviour changes it to 1068 (guaranteed 74902bps regardless of crystal).
 
-Open questions: How does the PLL work? Are the APB frequency and the CPU frequency the same? How does the BootROM know which crystal is in use? Is it actually confirmed possible to use ESP8266 with other crystal values?
+Open questions:
+* How does the PLL work?
+* What are the actual exact PLL multiplier values?
+* Are the APB frequency and the CPU frequency the same?
 
-[[User:Projectgus|Projectgus]] ([[User talk:Projectgus|talk]])
-</blockquote>
+=== Baud rates during serial bootloader ===
 
-=== Serial Bootloader Baud Rate ===
-
-The serial bootloader allows flash and memory access via the UART. It supports the UART auto-baud feature so the uploading tool can configure any baud rate it likes (1Mbps upload rate is possible with the right hardware).
+The serial bootloader program allows flash and memory access via the UART. It supports the UART auto-baud feature so the uploading tool can configure any baud rate it likes (1Mbps upload rate is possible with the right hardware).
 
 When the serial bootloader is done it sends a "flash finish" command which optionally "reboots" starts the default BootROM bootloader. This "reboot" process doesn't reset the UART divider, so the bootloader keeps whatever UART divider and baud rate was set during autobauding.
 
-The serial bootloader appears to run at 52MHz CPU clock, same as BootROM - so on a 26MHz crystal it will also change baud rates just as it hands off to user code.
+The serial bootloader appears to run at the same default 2xXTAL clock, same as standard bootloader - so for 24MHz & 26MHz crystals it will also change the PLL (and therefore the baud rate) just as it hands off to user code.
