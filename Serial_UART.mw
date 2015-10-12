@@ -18,7 +18,7 @@ The nominal default baud rate for ESP8266 is 74880bps (the actual baud rates app
 * Most of the bootloader activity (running from ROM, setting up hardware and loading sections from flash) happens at this APB frequency & UART speed.
 * Towards end, BootROM bootloader loads crystal frequency from flash config sector[[http://bbs.espressif.com/viewtopic.php?t=831]] and sets PLL for an 80MHz APB frequency
 * BootROM calls into user entry point loaded from flash.
-* BootROM bootloader hasn't changed UART divider from 694 (meaning brief period of guaranteed ~115273bps regardless of crystal), but default SDK behaviour changes it to 1068 during early execution (guaranteed 74902bps regardless of crystal).
+* BootROM bootloader hasn't changed UART divider from 694 (meaning brief period of guaranteed ~115273bps regardless of crystal), but default SDK behaviour changes it to 1068 during early execution (guaranteed ~74906bps regardless of crystal).
 
 Open questions:
 * How does the PLL work?
