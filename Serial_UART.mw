@@ -24,6 +24,7 @@ Open questions:
 * How does the PLL work?
 * What are the actual exact PLL multiplier values?
 * Are the APB frequency and the CPU frequency the same?
+* How does this interact with the register known to "double CPU frequency"?
 
 === Baud rates used for serial flashing ===
 
