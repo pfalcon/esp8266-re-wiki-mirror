@@ -25,14 +25,14 @@ Someone on esp8266.com forums pointed out that 74880 = 115200 * 26 / 40, and ESP
 So the relevant parts of the boot process seems to be something like:
 
 * Device resets with main frequency = double crystal frequency, with 694 UART divider
-**  ie 40MHz XTAL = 80MHz CPU & ~115200bps UART
-**  26MHz XTAL = 52MHz CPU & ~74900bps UART
-* Most of the bootloader activity happens at this CPU frequency.
+**  ie 40MHz XTAL = 80MHz APB & ~115200bps UART
+**  26MHz XTAL = 52MHz APB & ~74900bps UART
+* Most of the bootloader activity happens at APB = 2xXTAL frequency.
 * Towards end, BootROM bootloader detects 26MHz crystal and changes PLL for 80MHz main frequency
 * BootROM calls into user entry point loaded from flash.
 * BootROM bootloader hasn't changed UART divider from 694 (meaning brief period at ~115200bps), but default SDK behaviour changes it to 1068 for consistency (~74900bps)
 
-Open questions: How does the PLL work? How does the BootROM know which crystal is in use? Is it actually confirmed possible to use ESP8266 with other crystal values?
+Open questions: How does the PLL work? Are the APB frequency and the CPU frequency the same? How does the BootROM know which crystal is in use? Is it actually confirmed possible to use ESP8266 with other crystal values?
 
 [[User:Projectgus|Projectgus]] ([[User talk:Projectgus|talk]])
 </blockquote>
