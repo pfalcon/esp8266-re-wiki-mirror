@@ -11,9 +11,9 @@ The nominal default baud rate for ESP8266 is 74880bps (the actual baud rates app
 === Baud rates during normal program reset ===
 
 * Device resets with APB frequency = double crystal frequency, and UART divider = 694
-**  So 40MHz XTAL = 80MHz APB & 115273bps UART
-**  Or 26MHz XTAL = 52MHz APB & 74927bps UART
-**  Or 24MHz XTAL = 48MHz APB & 69164bps UART
+**  So 40MHz XTAL = 80MHz APB & 115273bps UART (nominal 115200)
+**  Or 26MHz XTAL = 52MHz APB & 74927bps UART (nominal 74880)
+**  Or 24MHz XTAL = 48MHz APB & 69164bps UART (nominal ???)
 **  (Some early versions of datasheet suggest any crystal in range 20-52MHz is supported, later edition hardware manual suggests these 3 discrete values only[[http://www.esp8266.com/viewtopic.php?p=18544#p18544]].)
 * Most of the bootloader activity (running from ROM, setting up hardware and loading sections from flash) happens at this APB frequency & UART speed.
 * Towards end, BootROM bootloader loads crystal frequency from flash config sector[[http://bbs.espressif.com/viewtopic.php?t=831]] and sets PLL for an 80MHz APB frequency
