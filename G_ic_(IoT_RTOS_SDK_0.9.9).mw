@@ -270,6 +270,7 @@ The portion from offset 0x1d8 to 0x547 (0x370 bytes) is loaded from SPI flash on
 [[system_upgrade_userbin_check (IoT RTOS SDK 0.9.9)|system_upgrade_userbin_check]]<br>
 [[system_upgrade_userbin_set (IoT RTOS SDK 0.9.9)|system_upgrade_userbin_set]]<br>
 |
+* bit 2 = active userbin (user0 or user1)
 |-
 | 0x1d9 || 1 || uint8 || boot_info ||
 [[system_get_boot_mode (IoT RTOS SDK 0.9.9)|system_get_boot_mode]]<br>
