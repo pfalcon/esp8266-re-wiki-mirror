@@ -16,6 +16,6 @@ It is possible that this is, in fact, designed to be a hardware random number ge
 
 = Usage =
 
-* Starting with IoT SDK V1.1.0, Espressif uses this register as an entropy source. Libphy function phy_get_rand() (which is called by the general random number function os_get_random()) XORs the value of this register with a value `adc_rand_noise`, which is updated in the internal function pm_wakeup_init with the result of the function get_adc_rand()
+* Starting with IoT SDK V1.1.0, Espressif uses this register as an entropy source. Libphy function phy_get_rand() (which is called by the general random number function os_get_random()) XORs the value of this register with a value from RAM, adc_rand_noise. adc_rand_noise is updated in the internal function pm_wakeup_init, it gets set to the result of the function get_adc_rand().
 
-* esp-open-rtos uses this register to seed mbedTLS entropy.
+* esp-open-rtos uses this register as the mbedTLS entropy source.
