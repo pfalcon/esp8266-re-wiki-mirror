@@ -13,3 +13,9 @@ Notes:
 It is possible that this is, in fact, designed to be a hardware random number generator.  Given its speed and it's apparently perfect (unbiased) distribution, it seems likely that this is not simply a pure hardware entropy source, but may also involve some hardware pseudorandom scrambling of some sort (possibly something along the lines of [http://www.ipcores.com/True_Random_Generator_TRNG_IP_core.htm this cipher-based TRNG core]).  It is therefore unclear how much actual hardware entropy is involved, or whether there is any way to determine this.
 
 {{todo|More testing required to determine whether this is in fact random enough to be used for cryptographic purposes, etc}}
+
+= Usage =
+
+* Starting with IoT SDK V1.1.0, Espressif uses this register as an entropy source. Libphy function phy_get_rand() (which is called by the general random number function os_get_random()) XORs the value of this register with a value `adc_rand_noise`, which is updated in the internal function pm_wakeup_init with the result of the function get_adc_rand()
+
+* esp-open-rtos uses this register to seed mbedTLS entropy.
