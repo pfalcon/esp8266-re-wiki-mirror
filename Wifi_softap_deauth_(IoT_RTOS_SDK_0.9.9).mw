@@ -9,9 +9,7 @@
 = Description =
 
 Deauths (forcibly removes) a client from the ESP access point by sending a corresponding IEEE802.11 management packet (first) and removing the client from it's data structures (afterwards).
-If no no mac is specified, it uses FF:FF:FF:FF:FF:FF.
-
-The IEEE802.11 reason code used is 2 for "Previous authentication no longer valid".
+If no no mac is specified, it uses FF:FF:FF:FF:FF:FF. The IEEE802.11 reason code used is 2 for "Previous authentication no longer valid".
 
 # Returns true unless called while the ESP is in an invalid wifi opmode
 
