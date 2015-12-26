@@ -1,0 +1,18 @@
+= Prototype =
+
+<code>bool wifi_softap_deauth(uint8_t mac[6] = nullptr)</code>
+
+= Called From =
+
+(Not called by any SDK library routines)
+
+= Description =
+
+Deauths (forcibly removes) a client from the ESP access point by sending a corresponding IEEE802.11 management packet (first) and removing the client from it's data structures (afterwards).
+If no no mac is specified, it uses FF:FF:FF:FF:FF:FF. The IEEE802.11 reason code used is 2 for "Previous authentication no longer valid".
+
+# Returns true unless called while the ESP is in an invalid wifi opmode
+
+= See Also =
+
+* [[G_ic_(IoT_RTOS_SDK_0.9.9)|g_ic.softap_netif_info]] -- Accessed to find and remove client after deauth packet is sent
