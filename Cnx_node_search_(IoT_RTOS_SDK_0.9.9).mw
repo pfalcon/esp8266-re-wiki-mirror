@@ -5,21 +5,15 @@
 = Called From =
 
 [[hostap_handle_timer (IoT RTOS SDK 0.9.9)|hostap_handle_timer]]
-
 [[hostap_input (IoT RTOS SDK 0.9.9)|hostap_input]]
-
 [[ieee80211_hostap.irom0.text+0x964 (IoT RTOS SDK 0.9.9)|ieee80211_hostap.irom0.text+0x964]]
-
 [[ieee80211_output_pbuf (IoT RTOS SDK 0.9.9)|ieee80211_output_pbuf]]
-
 [[cnx_node_remove (IoT RTOS SDK 0.9.9)|cnx_node_remove]]
-
 [[wpa_auth.text+0x0 (IoT RTOS SDK 0.9.9)|wpa_auth.text+0x0]]
-
 [[wpa_auth.irom0.text+0x3c (IoT RTOS SDK 0.9.9)|wpa_auth.irom0.text+0x3c]]
 
 = Description =
 
-Searches for the first cnx_node with matching mac starting at [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].station_netif_info+0x90.
+Searches for the first cnx_node with matching mac starting at [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].station_netif_info+0x94.
 
 # Returns nullptr on failure or a pointer to the cnx_node
