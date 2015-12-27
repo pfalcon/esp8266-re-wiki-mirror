@@ -20,6 +20,6 @@
 
 = Description =
 
-Searches for the first cnx_node with matching mac starting at [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].station_netif_info+0x94.
+Searches for the first cnx_node with matching mac starting at [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].station_netif_info+0x90.
 
 # Returns nullptr on failure or a pointer to the cnx_node
