@@ -8,7 +8,7 @@
 
 = Description =
 
-Frees nodes allocated by [[cnx_node_alloc (IoT_RTOS_SDK_0.9.9)|cnx_node_alloc]].
+Frees nodes allocated by [[Cnx_node_alloc_(IoT_RTOS_SDK_0.9.9)]].
 
 # Iterate through the nodes array at [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].station_netif_info+0x94 to find index for node
 #* If not found, return without freeing
