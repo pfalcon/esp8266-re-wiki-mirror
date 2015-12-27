@@ -1,0 +1,19 @@
+= Prototype =
+
+<code>void cnx_node_remove(cnx_node* node)</code>
+
+= Called From =
+
+[[cnx_node_leave (IoT RTOS SDK 0.9.9)|cnx_node_leave]]
+
+= Description =
+
+Frees nodes allocated by [[Cnx_node_alloc_(IoT_RTOS_SDK_0.9.9)]].
+
+# Iterate through the nodes array at [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].station_netif_info+0x94 to find index for node
+#* If not found, return without freeing
+# wpa_auth_sta_deinit([node+0xe4])
+# free([g_ic + [node+0xe8]*4 + 0x190])
+# [g_ic + [node+0xe8]*4 + 0x190] = nullptr
+# free(node)
+# Set entry in nodes array to nullptr
