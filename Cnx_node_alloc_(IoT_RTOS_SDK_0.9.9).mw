@@ -9,4 +9,6 @@
 = Description =
 
 This function allocates and initializes a new [[cnx_node (IoT RTOS SDK 0.9.9)]]. The new node is inserted into the first free spot in the nodes array starting at [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]].station_netif_info+0x94.
-Passed in mac is copied to the newly created node structure. Returns 0 on failure or the index of the new node in the nodes array.
+Passed in mac is copied to the newly created node structure. 
+
+# Returns 0 on failure or the index of the new node in the nodes array.
