@@ -6,6 +6,12 @@ The current de-facto standard for low-level ESP8266 development is esp-open-sdk,
 
 = Disassemblers / Inspection Tools =
 
+=== [https://github.com/radare/radare2 radare2] ===
+
+radare2 is a cross-platform unix-like reverse engineering framework with a commandline tool suite.
+
+radare2 has recently added xtensa support, allowing it to draw jump/branch lines next to the disassembled code.
+
 === [https://github.com/pfalcon/ScratchABit ScratchABit] ===
 
 ScratchABit is an interactive incremental disassembler with data/control flow analysis capabilities.
