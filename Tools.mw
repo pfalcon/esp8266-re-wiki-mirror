@@ -29,3 +29,7 @@ radare2 has recently added xtensa support, allowing it to draw jump/branch lines
 === [https://bitbucket.org/foogod/esp8266-re-tools Foogod's ESP8266-RE Tools] ===
 
 A collection of miscellaneous scripts/tools (mostly based on xtobjdis) which have been useful for some of the reverse engineering efforts to date.
+
+== [https://github.com/pfalcon/esp-sdk-tools pfalcon's RE helpers] ==
+
+Some helper scripts to help analyze ESP8266 SDK.
