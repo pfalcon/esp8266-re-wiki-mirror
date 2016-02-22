@@ -6,7 +6,7 @@ This section is intended for research into the physical aspects of the ESP8266 c
 
 Confirmed by measurements:
 
-* Internal pull-up resistors are approximately 47K (68 uA current draw from 3.2 V supply)
+* Internal pull-up resistors are approximately 47K (68 uA current draw measured from 3.2 V supply)
 
 * Enabling the IOMUX "pull-down" bit for a port actually enables its pull-up resistor, the same as the "pull-up" bit does.  There do not appear to be any pull-down resistors on the normal (GPIO0-15) pins (this is consistent with the datasheet, which only claims pull-up, not pull-down for these pins).
 
