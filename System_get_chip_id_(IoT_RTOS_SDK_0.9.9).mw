@@ -14,6 +14,12 @@ The chip ID is located in the dport0 region in bytes 0x3ff00053..0x3ff00056.  No
 
 # Returns ([0x3ff00050] >> 24) | ([0x3ff00054] << 8)
 
+= Chip ID =
+
+* Bottom 24 bits of the chip ID are used for default MAC address.
+
+* Top 8 bits appear to be zero on some (all?) chips (sampled chips with MAC address OUIs 5c:cf:7f, 18:fe:34)
+
 = See Also =
 
 * [[app_main.text+0x14 (IoT RTOS SDK 0.9.9)|app_main.text+0x14]] -- Called on boot to use the low 24 bits of the chip ID to produce the default MAC address.
