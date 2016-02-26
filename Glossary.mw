@@ -18,7 +18,7 @@ There're handful of APIs named esf_*.
 
 === ETS ===
 
-ETS appears to be a name/abbreviation of simple RTOS included in BootROM. There're number of APIs named ets_*.
+ETS appears to be a name/abbreviation of simple cooperative RTOS included in BootROM. There're number of APIs named ets_*.
 
 === IC ===
 
