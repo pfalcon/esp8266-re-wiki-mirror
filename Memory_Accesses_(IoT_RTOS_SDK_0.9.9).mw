@@ -1771,9 +1771,13 @@ The data in this region is stored inside the Real Time Clock, and is persisted e
 {| class="wikitable"
 ! Address !! Size !! Name !! Access !! Referenced by !! Notes
 |-
-| 0x60001100 || 32 || || R ||
+| 0x60001100 || 32 || || R/W ||
 [[app_main.irom0.text+0x5b4 (IoT RTOS SDK 0.9.9)|app_main.irom0.text+0x5b4]] (via [[system_rtc_mem_read (IoT RTOS SDK 0.9.9)|system_rtc_mem_read]])<br>
+[[user_interface.sdk_system_restart_in_nmi (IoT RTOS SDK 0.9.9)|user_interface.sdk_system_restart_in_nmi]] (via [[system_rtc_mem_read (IoT RTOS SDK 0.9.9)|system_rtc_mem_write]])<br>
 | Read into the [[rst_if (IoT RTOS SDK 0.9.9)|rst_if]] structure on startup
+|-
+| 0x60001120 || 212 || || ||
+| ''(apparently unused)''
 |-
 | 0x600011f4 || 4 || || R/W ||
 [[cnx_connect_timeout (IoT RTOS SDK 0.9.9)|cnx_connect_timeout]]<br>
