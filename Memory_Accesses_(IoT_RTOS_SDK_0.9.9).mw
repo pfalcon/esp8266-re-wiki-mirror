@@ -17,7 +17,7 @@ This page contains a reference for all memory locations which are referenced in 
 |-
 |}
 
-= dport0 Region (0x3ff00000 - 0x3ff0005c) =
+= <span id="dport0">dport0 Region (0x3ff00000 - 0x3ff0005c)</span> =
 
 {| class="wikitable"
 ! Address !! Size !! Name !! Access !! Referenced by !! Notes
@@ -568,7 +568,7 @@ This page contains a reference for all memory locations which are referenced in 
 |-
 |}
 
-= MMIO Region (0x60000000 - 0x60009d70) =
+= <span id="mmio">MMIO Region (0x60000000 - 0x60009d70)</span> =
 
 {| class="wikitable"
 ! Address !! Size !! Name !! Access !! Referenced by !! Notes
@@ -1764,7 +1764,7 @@ This page contains a reference for all memory locations which are referenced in 
 |-
 |}
 
-== RTC Mem Region Detail (0x60001100 - 0x600013ff) ==
+== <span id="rtcmem">RTC Mem Region Detail (0x60001100 - 0x600013ff)</span> ==
 
 The data in this region is stored inside the Real Time Clock, and is persisted even during deep sleep modes when other RAM is lost.  According to the Espressif docs, the first 256 bytes of this region are reserved for system use, and the remaining 512 bytes are available for user programs.
 
