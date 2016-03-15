@@ -1,0 +1,20 @@
+=phy_info=
+
+The phy_info data structure holds some persistent data about the system & WiFi configuration.
+
+It is stored at the end of the flash size (as determined by [[Flashchip_(IoT_RTOS_SDK_0.9.9)|flashchip]] data structure), minus 0x4000 (16KB).
+
+It holds information about the WiFi, radio configuration, crystal size, etc.
+
+=Initial image=
+
+An initial image "esp_init_data_default.bin" is included with recent Espressif SDKs.
+
+The "[http://www.electrodragon.com/w/Category:ESP8266_Firmware_and_SDK#Updating_Firmware_Flash_Guide Espressif Flash Download Tool]" is able to tweak some of the parameters at flashing time (other parameters are used to seed the 'flashchip' structure linked above.)
+
+If no valid image is found (the first byte at the phy_info offset is not zero) then an initial phy_info structure is loaded from flash as part of the [[App_main.irom0.text%2B0x5b4_(IoT_RTOS_SDK_0.9.9)|app_main initialisation sequence]].
+
+=Fields=
+
+The Arduino team have documented many of the phy_info fields:
+https://github.com/esp8266/Arduino/blob/master/cores/esp8266/core_esp8266_phy.c#L29
