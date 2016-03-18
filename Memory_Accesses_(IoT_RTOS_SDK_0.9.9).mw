@@ -271,7 +271,7 @@ This page contains a reference for all memory locations which are referenced in 
 [[wDev_remove_KeyEntry (IoT RTOS SDK 0.9.9)|wDev_remove_KeyEntry]]<br>
 |
 |-
-| 0x3ff20c00 || 4 || || R ||
+| 0x3ff20c00 || 4 || WDEV_NOW || R ||
 [[do_noisefloor (IoT RTOS SDK 0.9.9)|do_noisefloor]]<br>
 [[dpd_init (IoT RTOS SDK 0.9.9)|dpd_init]]<br>
 [[ieee80211_beacon_alloc (IoT RTOS SDK 0.9.9)|ieee80211_beacon_alloc]]<br>
@@ -298,7 +298,7 @@ This page contains a reference for all memory locations which are referenced in 
 [[vApplicationIdleHook (IoT RTOS SDK 0.9.9)|vApplicationIdleHook]]<br>
 [[vApplicationTickHook (IoT RTOS SDK 0.9.9)|vApplicationTickHook]]<br>
 [[wdev.text+0x1114 (IoT RTOS SDK 0.9.9)|wdev.text+0x1114]]<br>
-|
+|Number of microseconds since boot. (source: 2C-ESP8266-SDK__API\ Guide__EN_V1.5.2_20160316.pdf)
 |-
 | 0x3ff20c14 || 4 || || R/W ||
 [[pm_set_sleep_mode (IoT RTOS SDK 0.9.9)|pm_set_sleep_mode]]<br>
