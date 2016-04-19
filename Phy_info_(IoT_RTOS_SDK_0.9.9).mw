@@ -6,7 +6,7 @@ It is stored 0x4000 bytes (16KB) before the end of the flash size (as determined
 
 =Initial image=
 
-An initial image file "esp_init_data_default.bin" is included with recent Espressif SDKs.
+A default image file "esp_init_data_default.bin" is included with recent Espressif SDKs.
 
 The "[http://www.electrodragon.com/w/Category:ESP8266_Firmware_and_SDK#Updating_Firmware_Flash_Guide Espressif Flash Download Tool]" is able to tweak some of the parameters at flashing time (other parameters are used to seed the 'flashchip' structure linked above.)
 
@@ -14,5 +14,9 @@ If no valid image is found (the first byte at the phy_info offset is not zero) t
 
 =Fields=
 
-The Arduino team have documented many of the phy_info fields:
+==Spreadsheet==
+
+The [http://bbs.espressif.com/viewtopic.php?t=25#p70 Espressif Flash Download Tool] zip file includes an Excel file in the "init_data" subdirectory that documents many of the phy_info fields can be used to generate a new data file for flashing. 
+
+The Arduino team have also extracted a lot of the field documentation from the spreadsheet (plus some notes) into code comments:
 * https://github.com/esp8266/Arduino/blob/master/cores/esp8266/core_esp8266_phy.c#L29
