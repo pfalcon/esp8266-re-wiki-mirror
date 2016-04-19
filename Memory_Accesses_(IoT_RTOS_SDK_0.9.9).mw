@@ -492,6 +492,24 @@ This page contains a reference for all memory locations which are referenced in 
 [[pm_unmask_bt (IoT RTOS SDK 0.9.9)|pm_unmask_bt]]<br>
 [[rom_tx_mac_disable (IoT RTOS SDK 0.9.9)|rom_tx_mac_disable]]<br>
 [[rom_tx_mac_enable (IoT RTOS SDK 0.9.9)|rom_tx_mac_enable]]<br>
+|| Related to BT coexistence feature, the register value depends on the bt_protocol field (52) in the phy_info data.
+
+{| class="wikitable"
+! bt_protocol !! meaning !! register value
+|-
+| 0 || WiFi only (no coexistence) || 0
+|-
+| 1 || BT only (no WiFi) || 0x00003333
+|-
+| 2 || BT_ACTIVE, independent ant || 0x40001110
+|-
+| 3 || BT_ACTIVE/BT_PRIORITY, independent ant || 0x40001550
+|-
+| 4 || BT_ACTIVE, shared ant || 0x40005330
+|-
+| 5 || BT_ACTIVE/BT_PRIORITY, shared ant || 0x40003660
+|}    
+
 |
 |-
 | 0x3ff20e04 || 4 || || R ||
