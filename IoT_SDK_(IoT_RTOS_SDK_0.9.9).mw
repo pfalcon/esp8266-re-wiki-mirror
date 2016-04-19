@@ -16,6 +16,7 @@ Note that the last (git checkout) line is very important.  To double-check that 
 * [[flashchip (IoT RTOS SDK 0.9.9)|flashchip]]
 * [[g_ic (IoT RTOS SDK 0.9.9)|g_ic]]
 * [[phy_info (IoT RTOS SDK 0.9.9)|phy_info]]
+* [[G_phyFuns_(IoT_RTOS_SDK_0.9.9)|g_phyFuns]]
 
 = Individual Routines =
 
