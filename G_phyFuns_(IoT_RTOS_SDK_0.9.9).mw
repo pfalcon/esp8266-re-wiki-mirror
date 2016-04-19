@@ -1,0 +1,157 @@
+The internal PHY management code (libphy, and one function in libpp) makes use of a function table structure called g_phyFuns which holds pointers to device-specific PHY functions.
+
+g_phyFuns appears it may be different for "v5" vs "v6" 'chip' version (all known ESP8266s are v6), and some fields may be configured differently based on runtime configuration (unconfirmed).
+
+It's possible under the non-RTOS SDK a lot of these functions are in ROM, but under the RTOS SDK they are all in SPI flash (despite the rom_ prefix on the names.)
+
+= Structure Members =
+
+g_phyFuns is a pointer to g_phyFuns_instance, which is the actual structure of pointers. In libphy the instance is positioned immediately after the g_phyFuns pointer (ie the pointer resolves to its own address plus 4.)
+
+Usage in the SDK code double dereferences the g_phyFuns pointer. In xtobjdis, this looks like <nowiki>[[g_phyFuns]+0xb0]</nowiki> where the offset (0xb0) matches the offsets given below.
+
+This table is based on dumping g_phyFuns in a running RTOS SDK 0.9.9, in Station mode (unknown if the functions are different in other modes.)
+
+{| class="wikitable"
+! Offset !! Points To !! Initialised !! Referenced by !! Notes
+|-
+| 0x0000 || rom_abs_temp || || ||
+|-
+| 0x0004 || rom_chip_v5_disable_cca || || ||
+|-
+| 0x0008 || rom_chip_v5_enable_cca || || ||
+|-
+| 0x000c || rom_chip_v5_sense_backoff || || ||
+|-
+| 0x0010 || rom_dc_iq_est || || ||
+|-
+| 0x0014 || NULL || || ||
+|-
+| 0x0018 || rom_en_pwdet || || ||
+|-
+| 0x001c || rom_get_bb_atten || || ||
+|-
+| 0x0020 || rom_get_corr_power || || ||
+|-
+| 0x0024 || ram_get_fm_sar_dout || register_chip_v6_phy || ||
+|-
+| 0x0028 || ram_get_noisefloor || register_chip_v6_phy || ||
+|-
+| 0x002c || rom_get_power_db || || ||
+|-
+| 0x0030 || rom_iq_est_disable || || ||
+|-
+| 0x0034 || rom_iq_est_enable || || ||
+|-
+| 0x0038 || rom_linear_to_db || || ||
+|-
+| 0x003c || rom_set_txclk_en || || ||
+|-
+| 0x0040 || rom_set_rxclk_en || || ||
+|-
+| 0x0044 || rom_mhz2ieee || || ||
+|-
+| 0x0048 || ram_rxiq_get_mis || register_chip_v6_phy || ||
+|-
+| 0x004c || rom_sar_init || || ||
+|-
+| 0x0050 || rom_set_ana_inf_tx_scale || || ||
+|-
+| 0x0054 || rom_set_loopback_gain || || ||
+|-
+| 0x0058 || ram_set_noise_floor || register_chip_v6_phy || ||
+|-
+| 0x005c || NULL || || ||
+|-
+| 0x0060 || NULL || || ||
+|-
+| 0x0064 || ram_start_noisefloor || register_chip_v6_phy || ||
+|-
+| 0x0068 || rom_start_tx_tone || || ||
+|-
+| 0x006c || rom_stop_tx_tone || || ||
+|-
+| 0x0070 || rom_txtone_linear_pwr || || ||
+|-
+| 0x0074 || ram_tx_mac_disable || register_chip_v6_phy || ||
+|-
+| 0x0078 || ram_tx_mac_enable || register_chip_v6_phy || ||
+|-
+| 0x007c || rom_ana_inf_gating_en || || ||
+|-
+| 0x0080 || rom_set_channel_freq || || ||
+|-
+| 0x0084 || rom_chip_50_set_channel || || ||
+|-
+| 0x0088 || ram_chip_v6_rx_init || register_chip_v6_phy || ||
+|-
+| 0x008c || rom_chip_v5_tx_init || || ||
+|-
+| 0x0090 || rom_i2c_readReg || || ||
+|-
+| 0x0094 || rom_i2c_readReg_Mask || || ||
+|-
+| 0x0098 || rom_i2c_writeReg || || ||
+|-
+| 0x009c || rom_i2c_writeReg_Mask || || ||
+|-
+| 0x00a0 || ram_pbus_debugmode || register_chip_v6_phy || ||
+|-
+| 0x00a4 || rom_pbus_enter_debugmode || || ||
+|-
+| 0x00a8 || rom_pbus_exit_debugmode || || ||
+|-
+| 0x00ac || rom_pbus_force_test || || ||
+|-
+| 0x00b0 || rom_pbus_rd || || ||
+|-
+| 0x00b4 || rom_pbus_set_rxgain || || ||
+|-
+| 0x00b8 || rom_pbus_set_txgain || || ||
+|-
+| 0x00bc || rom_pbus_workmode || || ||
+|-
+| 0x00c0 || rom_pbus_xpd_rx_off || || ||
+|-
+| 0x00c4 || rom_pbus_xpd_rx_on || || ||
+|-
+| 0x00c8 || rom_pbus_xpd_tx_off || || ||
+|-
+| 0x00cc || rom_pbus_xpd_tx_on || || ||
+|-
+| 0x00d0 || rom_pbus_xpd_tx_on__low_gain || || ||
+|-
+| 0x00d4 || rom_phy_reset_req || || ||
+|-
+| 0x00d8 || ram_restart_cal || register_chip_v6_phy || ||
+|-
+| 0x00dc || rom_rfpll_reset || || ||
+|-
+| 0x00e0 || rom_write_rfpll_sdm || || ||
+|-
+| 0x00e4 || rom_rfpll_set_freq || || ||
+|-
+| 0x00e8 || ram_cal_tos_v60 || register_chip_v6_phy || ||
+|-
+| 0x00ec || rom_pbus_dco___SA2 || || ||
+|-
+| 0x00f0 || rom_rfcal_pwrctrl || || ||
+|-
+| 0x00f4 || rom_rfcal_rxiq || || ||
+|-
+| 0x00f8 || rom_rfcal_rxiq_set_reg || || ||
+|-
+| 0x00fc || rom_rfcal_txcap || || ||
+|-
+| 0x0100 || rom_rfcal_txiq || || ||
+|-
+| 0x0104 || rom_rfcal_txiq_cover || || ||
+|-
+| 0x0108 || rom_rfcal_txiq_set_reg || || ||
+|-
+| 0x010c || ram_rxiq_cover_mg_mp || register_chip_v6_phy || ||
+|-
+| 0x0110 || rom_set_txbb_atten || || ||
+|-
+| 0x0114 || rom_set_txiq_cal || || ||
+|}
