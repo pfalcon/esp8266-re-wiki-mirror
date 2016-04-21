@@ -70,7 +70,7 @@ This is referred to as "DPORT0" in the Espressif header files and linker scripts
 |-
 | 0x3FF00008 || || ''(unknown function)''
 |-
-| 0x3FF0000C || SPI_READY<ref name="pvvx:esp8266.h"/> || SPI ready/idle indicator.  Also apparently controls SPI memory-mapped caching.
+| 0x3FF0000C || SPI_READY<ref name="pvvx:esp8266.h"/> || SPI ready/idle indicator. Controls SPI memory-mapped caching 
 |-
 | 0x3FF00010 || || ''(unknown function)''
 |-
@@ -119,6 +119,10 @@ Controls which peripheral interrupts are actually passed through to the CPU by t
 
 {| class="wikitable"
 ! Bits !! Description
+|-
+| 0 || Cache flush start bit. SDK 1.5.3 driver_lib/driver/spi.c
+|-
+| 1 || Cache is empty bit. SDK 1.5.3 driver_lib/driver/spi.c
 |-
 | 9 || SPI ready/idle ([https://github.com/esp8266/Arduino/commit/a6e8697a#diff-b6122a2949eb3496b24d600e0b709e77R285 unconfirmed])
 |-
