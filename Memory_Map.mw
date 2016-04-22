@@ -64,7 +64,7 @@ This is referred to as "DPORT0" in the Espressif header files and linker scripts
 {| class="wikitable"
 ! Address !! Register Name !! Description
 |-
-| 0x3FF00000 || || ''(unknown function)''
+| 0x3FF00000 || || Apparently related to NMI, accessed in NmiTimSetFunc and NMI_Handler
 |-
 | 0x3FF00004 || INTC_EDGE_EN<ref name="pvvx:esp8266.h">[https://github.com/pvvx/mp3_decode/blob/master/include/hw/esp8266.h mp3_decode:/include/hw/esp8266.h]</ref> || Controls which interrupts are enabled by the Xtensa interrupt controller.
 |-
