@@ -18,7 +18,7 @@ It is possible that this is, in fact, designed to be a hardware random number ge
 
 This register doesn't produce fully random numbers following a hard reset. Before the the PHY layer is initialised (in the RTOS SDK this is in the register_chipv6_phy() function), the sequence is pseudo-random and identical following each reset event (however a new pseudorandom sequence appears if power is cycled). After the register_chipv6_phy() function has run, the sequence appears to become fully random.
 
-(Speculate that there is a hardware PRNG that's being fed by some entropy source in the PHY, maybe the 2.4GHz PLL jitter or maybe something else. [[User:Projectgus|Projectgus]] ([[User talk:Projectgus|talk]]))
+(Speculate that either there is a hardware PRNG that's being fed by some entropy source in the PHY, maybe the 2.4GHz PLL jitter or maybe something else. Or possibly just a PRNG that is being stepped at high speed via the PHY clock, whereas before the clock starts it is only stepping manually [[User:Projectgus|Projectgus]] ([[User talk:Projectgus|talk]]))
 
 = Usage =
 
