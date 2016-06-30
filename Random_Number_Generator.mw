@@ -14,6 +14,12 @@ It is possible that this is, in fact, designed to be a hardware random number ge
 
 {{todo|More testing required to determine whether this is in fact random enough to be used for cryptographic purposes, etc}}
 
+= Initialisation =
+
+This register doesn't produce fully random numbers following a hard reset. Before the the PHY layer is initialised (in the RTOS SDK this is in the register_chipv6_phy() function), the sequence is pseudo-random and identical following each reset event (however a new pseudorandom sequence appears if power is cycled). After the register_chipv6_phy() function has run, the sequence appears to become fully random.
+
+(Speculate that there is a hardware PRNG that's being fed by some entropy source in the PHY, maybe the 2.4GHz PLL jitter or maybe something else. [[User:Projectgus|Projectgus]] ([[User talk:Projectgus|talk]]))
+
 = Usage =
 
 * Starting with IoT SDK V1.1.0, Espressif uses this register as an entropy source. Libphy function phy_get_rand() (which is called by the general random number function os_get_random()) XORs the value of this register with a value from RAM, adc_rand_noise. adc_rand_noise is updated in the internal function pm_wakeup_init, it gets set to the result of the function get_adc_rand().
