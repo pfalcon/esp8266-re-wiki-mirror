@@ -318,7 +318,7 @@ This page contains a reference for all memory locations which are referenced in 
 |-
 | 0x3ff20c20 || 4 || || R ||
 [[wDev_ProcessFiq (IoT RTOS SDK 0.9.9)|wDev_ProcessFiq]]<br>
-|Seems to be flags for type of message.  0x00000100 appears to be RX (pretty sure). 0x00010000 is another interesting bit, not sure what problem sending?  0x00020000 and 0x00040000 looks like TX Complete?  0x0008000? Not sure.
+|Seems to be flags for type of message.  0x00000100 appears to be RX (pretty sure). 0x00010000 is another interesting bit, not sure what problem sending?  0x00020000 and 0x00040000 looks like TX Complete?  0x0008000? Not sure.  Only tested with user interrupts.
 |-
 | 0x3ff20c24 || 4 || || W ||
 [[wDev_Initialize (IoT RTOS SDK 0.9.9)|wDev_Initialize]]<br>
