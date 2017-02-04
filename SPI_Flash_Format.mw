@@ -97,6 +97,24 @@ In "boot mode 1" images, this is the first header in the image.  For "boot mode 
 |-
 | 4 || 4096 KB (32 Mbit)
 |}
+**For boot mode 2 images the size values have extended meaning. These values are supported by boot loaders version 1.4+.
+:::{| class="wikitable"
+!Value || Meaning
+|-
+| 0 || 512 KB (4 Mbit, 256+256 layout)
+|-
+| 1 || 256 KB (2 Mbit)
+|-
+| 2 || 1024 KB (8 Mbit, 512+512 layout)
+|-
+| 3 || 2048 KB (16 Mbit, 512+512 layout)
+|-
+| 4 || 4096 KB (32 Mbit, 512+512 layout)
+|-
+| 5 || 2048 KB (16 Mbit, 1024+1024 layout)
+|-
+| 6 || 4096 KB (32 Mbit, 1024+1024 layout)
+|}
 ** Low nybble (0x0f) -- flash speed:
 :::{| class="wikitable"
 !Value || Meaning
@@ -159,7 +177,8 @@ This header is only present for "boot mode 2" images (produced with newer versio
 | 4 || 4 || uint32 || entry_addr ||
 |}
 
-* Note: ''flash_mode'', ''flash_size_speed'', and ''entry_addr'' are all the same as in the 0xe9 header.
+* Note: ''flash_mode'', ''flash_size_speed'', and ''entry_addr'' are all the same as in the boot mode 1 0xe9 header.
+* Note 2: ''flash_size_speed'' have different meaning at least in latest versions of firmware: it has value 1 for first ROM image and value 2 for second ROM image. Needs to be verified for older versions.
 
 == .irom0.text segment (boot mode 2) ==
 
