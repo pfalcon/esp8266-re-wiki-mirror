@@ -317,7 +317,7 @@ This region contains the interface ports for most of the peripheral devices insi
 |-
 | 0x60000C00 || ? || ? || (Reads as zeroes.  No known references to this address range)
 |-
-| 0x60000D00 || 0x5C || sar || Referred to as "sar" by some old header files.  Apparently referenced both by ROM I2C functions as well as ADC config/read functions.
+| 0x60000D00 || 0x5C || i2c || [[#i2c_regs|internal I2C communication registers]]
 |-
 | 0x60000E00 || 0x30 || i2s || [[#i2s_regs|I2S registers]]
 |-
@@ -872,6 +872,39 @@ This region contains the interface ports for most of the peripheral devices insi
 | 0x60000BB8 || ''(unknown)''
 |-
 | 0x60000BBC || SLC_HOST_CONF_W5<ref name="slc_register.h"/>
+|-
+|}
+
+=== <span id="i2c_regs">I2C Registers (0x60000Dxx)</span> ===
+
+These are registers that allow communication with internal blocks that are presumably connected with an I2C bus. For each such device a separate register exists for read/write operations. Examples of such devices are e.g. the ADC, an input mux for the ADC input and some kind of PLL which supplies e.g. the clock for the I2S block.
+
+I2C registers have the following form: bits 0..7 = block, bits 8..15 = register address, bits 16..23 = register data, bit 25 = 0 if request finished processing, 1 otherwise.
+
+(Source: <ref name="espressif code on forum">[https://github.com/espressif/esp8266_mp3_decoder/blob/master/mp3/include/i2s_reg.h esp8266_mp3_decoder:mp3/include/i2s_reg.h]</ref>, confirmed by disassembly of rom_i2c_readReg, rom_i2c_readReg_Mask, rom_i2c_writeReg and rom_i2c_writeReg_Mask.)
+
+{| class="wikitable"
+! Address !! Register Name
+|-
+| 0x60000D00 ... || unknown
+|-
+| 0x60000D08 || hostid = 2 (presumably ADC input mux) Source: esp_iot_sdk_v0.9.1/examples/IoT_Demo/driver/adc.c
+|-
+| ... || unknown
+|-
+| 0x60000D10 || hostid = 4 (presumably some PLL supplies I2S clock, called "bbpll" by espressif)
+|-
+| ... || unknown
+|-
+| 0x60000D50 || hostid = 14 (presumably the ADC) Source: esp_iot_sdk_v0.9.1/examples/IoT_Demo/driver/adc.c
+|-
+| ... || unknown
+|-
+| 0x60000D5C || possibly an ADC configuration register (possibly not a normal I2C register as espressif code does not confirm that write was processed like it does for other I2C registers.) Source: esp_iot_sdk_v0.9.1/examples/IoT_Demo/driver/adc.c
+|-
+| ... || unknown
+|-
+| 0x60000D60 || some kind of configuration register (possibly not a normal I2C register as espressif code does not confirm that write was processed like it does for other I2C registers.) Source: esp_iot_sdk_v0.9.1/examples/IoT_Demo/driver/adc.c
 |-
 |}
 
