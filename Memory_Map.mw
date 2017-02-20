@@ -881,7 +881,7 @@ These are registers that allow communication with internal blocks that are presu
 
 I2C registers have the following form: bits 0..7 = block, bits 8..15 = register address, bits 16..23 = register data, bit 25 = 0 if request finished processing, 1 otherwise.
 
-After writing the block and (device) register address to a I2C register and zeroing out bits 15..32, wait until bit 25 == 0, then read the result from bits 16..23.
+After writing the block and (device) register address to an I2C register and zeroing out bits 15..32, wait until bit 25 == 0, then read the result from bits 16..23.
 
 (Source: <ref name="espressif code on forum">[https://github.com/espressif/esp8266_mp3_decoder/blob/master/mp3/include/i2s_reg.h esp8266_mp3_decoder:mp3/include/i2s_reg.h]</ref>, confirmed by disassembly of rom_i2c_readReg, rom_i2c_readReg_Mask, rom_i2c_writeReg and rom_i2c_writeReg_Mask.)
 
