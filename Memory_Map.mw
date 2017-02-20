@@ -890,11 +890,11 @@ After writing the block and (device) register address to an I2C register and zer
 |-
 | 0x60000D00 ... || unknown
 |-
-| 0x60000D08 || hostid = 2 (presumably ADC input mux) Source: esp_iot_sdk_v0.9.1/examples/IoT_Demo/driver/adc.c
+| 0x60000D08 || hostid = 2 (presumably ADC input mux) Source: esp_iot_sdk_v0.9.1/examples/IoT_Demo/driver/adc.c (block 0x6C, reg 0x0: bit 5 = 1 presumably connects ADC input to ADC pin)
 |-
 | ... || unknown
 |-
-| 0x60000D10 || hostid = 4 (presumably some PLL supplies I2S clock, called "bbpll" by espressif) Bit 7 = 1 enables clock output to I2S block.
+| 0x60000D10 || hostid = 4 (presumably some PLL supplies I2S clock, called "bbpll" by espressif) (block 0x67, reg 0x4: Bit 7 = 1 enables clock output to I2S block)
 |-
 | ... || unknown
 |-
