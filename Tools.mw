@@ -1,4 +1,4 @@
-= Toolchain / Development Environment =
+= Toolchains / Development Environments =
 
 === [https://github.com/pfalcon/esp-open-sdk esp-open-sdk] ===
 
@@ -6,7 +6,7 @@ The current de-facto standard for low-level ESP8266 development is esp-open-sdk,
 
 === [https://github.com/SuperHouse/esp-open-rtos esp-open-rtos] ===
 
-FreeRTOS-based development environment and application framework for ESP8266, parts of which are completely open source and produced by reverse engineering efforts. esp-open-rtos also host the most complete known headers for ESP8266 registers, etc. (at https://github.com/SuperHouse/esp-open-rtos/tree/master/core/include/esp). If you reverse-engineered meaning of some new registers or their bits, that's the best place to contribute them.  
+FreeRTOS-based development environment and application framework for ESP8266, parts of which are completely open source and produced by reverse engineering efforts. esp-open-rtos also host the most complete known headers for ESP8266 registers, etc. (at https://github.com/SuperHouse/esp-open-rtos/tree/master/core/include/esp). If you reverse-engineered meaning of some new registers or their bits, that's the best place to contribute them.
 
 = Disassemblers / Inspection Tools =
 
